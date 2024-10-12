@@ -1,0 +1,50 @@
+---
+import { AstroFont } from 'astro-font';
+
+import Header from '../../components/header/index.astro';
+
+type Props = {
+  title: string;
+  description?: string;
+};
+
+const { title, description = 'Site de notícias do dia' } = Astro.props;
+---
+
+<!doctype html>
+<html lang='pt-br'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='description' content='Astro description' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='generator' content={Astro.generator} />
+    <meta name='description' content={description} />
+    <title>{title}</title>
+
+    <AstroFont
+      config={[
+        {
+          src: [],
+          name: 'Nunito',
+          googleFontsURL:
+            'https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;1,400;1,700&display=swap',
+          preload: true,
+          display: 'swap',
+          selector: 'body',
+          fallback: 'sans-serif',
+        },
+      ]}
+    />
+  </head>
+  <body class='font-nunito bg-white min-h-screen w-full pt-12'>
+    <Header />
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  body {
+    font-family: 'Nunito', sans-serif;
+  }
+</style>
