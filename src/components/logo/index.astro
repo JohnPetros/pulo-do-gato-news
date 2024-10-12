@@ -1,5 +1,14 @@
+---
+type Props = {
+  containerClass: string;
+  iconClass: string;
+};
+
+const { containerClass = '', iconClass = '' } = Astro.props;
+---
+
 <div
-  class='grid place-content-center rounded-md overflow-hidden shadow-sm bg-primary size-8'
+  class={`grid place-content-center rounded-md overflow-hidden shadow-sm bg-primary size-8 ${containerClass}`}
 >
   <svg
     xmlns='http://www.w3.org/2000/svg'
@@ -11,7 +20,7 @@
     stroke-width='2'
     stroke-linecap='round'
     stroke-linejoin='round'
-    class='icon icon-tabler icons-tabler-outline icon-tabler-cat text-white'
+    class={`icon icon-tabler icons-tabler-outline icon-tabler-cat text-white ${iconClass}`}
   >
     <path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
     <path
