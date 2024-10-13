@@ -1,0 +1,67 @@
+---
+import { Image } from 'astro:assets';
+import { PortableText } from 'astro-portabletext';
+
+import FormattedDate from '../formatted-date/index.astro';
+
+import type { Post } from '../../@core/types';
+import { twMerge } from 'tailwind-merge';
+
+type Props = Post & { isSmall?: boolean };
+
+const post = Astro.props;
+---
+
+<article
+  class={twMerge(
+    post.isSmall ? 'grid grid-cols-2' : 'flex gap-3 flex-col',
+    'gap-3',
+  )}
+>
+  <Image
+    src={post.image}
+    width={200}
+    height={200}
+    alt={post.name}
+    class={twMerge(
+      'w-full object-cover rounded-md',
+      post.isSmall ? 'h-full' : 'h-[24rem]',
+    )}
+  />
+  <div class='space-y-2'>
+    <div class='flex items-center gap-2 text-gray-600 text-sm'>
+      <span aria-label='Autor do post'>{post.author}</span>
+      <span class='size-1 rounded-full bg-gray-600'></span>
+      <FormattedDate>{post.date}</FormattedDate>
+    </div>
+    <h3
+      class={twMerge(
+        'text-gray-800 font-bold',
+        post.isSmall ? 'text-lg' : 'text-2xl',
+      )}
+    >
+      {post.name}
+    </h3>
+
+    <div
+      class={twMerge(
+        post.isSmall ? 'text-sm h-16 overflow-hidden' : 'text-base',
+      )}
+    >
+      <PortableText value={post.content[0]} />
+    </div>
+
+    <div
+      class={twMerge(
+        'flex items-center justify-between',
+        post.isSmall ? 'text-sm' : 'text-base',
+      )}
+    >
+      <div class='flex items-center gap-2'>
+        <strong class='text-primary font-bold'>{post.category}</strong>
+        <span class='size-1 rounded-full bg-gray-600'></span>
+        <span class='text-gray-600'>7 min de leitura</span>
+      </div>
+    </div>
+  </div>
+</article>
