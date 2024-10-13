@@ -57,9 +57,14 @@ const { title, description = 'Site de notícias do dia' } = Astro.props;
   }
 
   @media (min-width: 768px) {
-    .main-container {
+    .large-container {
       margin: auto;
       max-width: 72rem;
+    }
+
+    .small-container {
+      margin: auto;
+      max-width: 48rem;
     }
   }
 </style>

@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import { PortableText } from 'astro-portabletext';
+
+import { postsService } from '@/cms/index';
+import RootLayout from '@/layouts/root/index.astro';
+import Header from './header/index.astro';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const slugs = await postsService.getPostSlugs();
+  return slugs.map(slug => ({
+    params: { slug },
+  }));
+}
+
+const { slug } = Astro.params;
+
+if (!slug) {
+  Astro.response.status = 404;
+  Astro.response.statusText = 'Not found';
+}
+
+const post = await postsService.getPostBySlug(slug);
+---
+
+<RootLayout title={post.name}>
+  <div class='small-container'>
+    <Header
+      postName={post.name}
+      postAuthor={post.author}
+      postCategory={post.category}
+      postDate={post.date}
+    />
+    <Image
+      src={post.image}
+      width={768}
+      height={400}
+      alt={post.name}
+      class='w-full h-fit mt-10 rounded-md'
+    />
+    <div class='prose space-y-6 mt-6 text-gray-700 text-xl leading-6'>
+      <PortableText value={post.content} />
+    </div>
+  </div>
+</RootLayout>

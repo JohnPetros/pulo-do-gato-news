@@ -1,0 +1,36 @@
+---
+import Divider from '@/components/divider/index.astro';
+import FormattedDate from '@/components/formatted-date/index.astro';
+import Category from '@/components/category/index.astro';
+import Breadcrumb from './breadcrumb/index.astro';
+
+type Props = {
+  postName: string;
+  postAuthor: string;
+  postDate: string;
+  postCategory: string;
+};
+
+const { postName, postAuthor, postCategory, postDate } = Astro.props;
+---
+
+<Breadcrumb postName={postName} />
+
+<h1 class='text-3xl font-bold text-gray-900 leading-10 mt-6'>
+  {postName}
+</h1>
+
+<div class='flex items-center justify-between'>
+  <div class='flex items-center gap-3 font-bold text-gray-500 mt-3'>
+    {postAuthor}
+    <Divider />
+    <FormattedDate>
+      {postDate}
+    </FormattedDate>
+  </div>
+  <div class='flex items-center gap-3 text-gray-500 mt-6'>
+    <Category name={postCategory} />
+    <Divider />
+    <small class='text-base'>7 min de leitura</small>
+  </div>
+</div>
