@@ -3,7 +3,7 @@ import { postsService } from '../../cms';
 
 import PostCard from '../post-card/index.astro';
 
-const posts = await postsService.getLastPosts();
+const posts = await postsService.fetchLastPosts();
 
 console.log(posts[0]);
 ---

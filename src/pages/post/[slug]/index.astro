@@ -8,8 +8,8 @@ import Header from './header/index.astro';
 
 export const prerender = true;
 
-export async function getStaticPaths() {
-  const slugs = await postsService.getPostSlugs();
+export async function fetchStaticPaths() {
+  const slugs = await postsService.fetchPostSlugs();
   return slugs.map(slug => ({
     params: { slug },
   }));
@@ -20,9 +20,10 @@ const { slug } = Astro.params;
 if (!slug) {
   Astro.response.status = 404;
   Astro.response.statusText = 'Not found';
+  return;
 }
 
-const post = await postsService.getPostBySlug(slug);
+const post = await postsService.fetchPostBySlug(slug);
 ---
 
 <RootLayout title={post.name}>

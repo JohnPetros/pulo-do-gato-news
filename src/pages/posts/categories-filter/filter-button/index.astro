@@ -1,0 +1,24 @@
+---
+import { twMerge } from 'tailwind-merge';
+
+type Props = {
+  categoryName: string;
+  isActive?: boolean;
+};
+
+const { categoryName, isActive = false } = Astro.props;
+---
+
+<button
+  type='submit'
+  name='category'
+  value={categoryName}
+  class={twMerge(
+    'bg-transparent font-bold p-2 capitalize border-b',
+    isActive
+      ? 'text-primary border-primary'
+      : 'text-gray-700 border-transparent',
+  )}
+>
+  {categoryName === 'all' ? 'todos' : categoryName}
+</button>

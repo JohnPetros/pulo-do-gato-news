@@ -1,0 +1,22 @@
+---
+import { categoriesService } from '@/cms/index';
+
+import FilterButton from './filter-button/index.astro';
+
+const categories = await categoriesService.fetchAllCategories();
+---
+
+<form>
+  <ul class='flex items-center gap-3 border-b border-gray-700 overflow-x-auto'>
+    <li>
+      <FilterButton categoryName='all' isActive />
+    </li>
+    {
+      categories.map(category => (
+        <li>
+          <FilterButton categoryName={category.name} />
+        </li>
+      ))
+    }
+  </ul>
+</form>

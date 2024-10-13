@@ -1,9 +1,28 @@
 ---
-import Root from '../../layouts/root/index.astro';
+import { postsService } from '@/cms/index';
+
+import Root from '@/layouts/root/index.astro';
+import InputSubmit from '@/components/input-submit/index.astro';
+import PostCard from '@/components/post-card/index.astro';
+import CategoriesFilter from './categories-filter/index.astro';
+
+const posts = await postsService.fetchPosts();
 ---
 
-<Root title='Pulo do Gato News'>
-  <main>
-    <h1 class='text-red-700'>Posts</h1>
-  </main>
+<Root title='Notícias'>
+  <div class='large-container px-6 lg:px-0'>
+    <form class='max-w-2xl'>
+      <InputSubmit
+        title='Pesquisar'
+        name='search'
+        placeholder='Novidades, descobertas etc...'
+      />
+    </form>
+    <div class='mt-6'>
+      <CategoriesFilter />
+    </div>
+    <div class='grid grid-cols-1 lg:grid-cols-2 mt-6 gap-6'>
+      {posts.map(post => <PostCard {...post} />)}
+    </div>
+  </div>
 </Root>
