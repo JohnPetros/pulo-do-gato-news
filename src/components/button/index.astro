@@ -1,0 +1,14 @@
+---
+type Props = {
+  type?: 'button' | 'submit';
+};
+
+const { type = 'submit' } = Astro.props;
+---
+
+<button
+  type={type}
+  class='flex items-center justify-center gap-2 rounded-md px-3 py-2 bg-primary text-white'
+>
+  <slot />
+</button>
