@@ -2,6 +2,7 @@
 import { AstroFont } from 'astro-font';
 
 import Header from '../../components/header/index.astro';
+import Footer from '../../components/footer/index.astro';
 
 type Props = {
   title: string;
@@ -41,9 +42,12 @@ const { title, description = 'Site de notícias do dia' } = Astro.props;
       ]}
     />
   </head>
-  <body class='font-nunito bg-white min-h-screen w-full pt-8'>
+  <body class='font-nunito bg-white min-h-screen w-full pt-10'>
     <Header />
-    <slot />
+    <main class='mt-12 pb-64'>
+      <slot />
+    </main>
+    <Footer />
   </body>
 </html>
 
@@ -52,8 +56,10 @@ const { title, description = 'Site de notícias do dia' } = Astro.props;
     font-family: 'Nunito', sans-serif;
   }
 
-  .container {
-    max-width: 72rem;
-    margin-inline: auto;
+  @media (min-width: 768px) {
+    .main-container {
+      margin: auto;
+      max-width: 72rem;
+    }
   }
 </style>
