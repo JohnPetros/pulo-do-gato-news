@@ -1,0 +1,12 @@
+---
+import { twMerge } from 'tailwind-merge';
+
+type Props = {
+  className?: string;
+};
+
+const { className } = Astro.props;
+---
+
+<span class={twMerge('block size-1 bg-gray-500 rounded-full', className)}
+></span>
