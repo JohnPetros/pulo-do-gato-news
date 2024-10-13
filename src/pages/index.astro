@@ -1,12 +1,14 @@
 ---
 import Root from '../layouts/root/index.astro';
 import Hero from '../components/hero/index.astro';
+import LastPosts from '../components/last-posts/index.astro';
 ---
 
 <Root title='Home'>
-  <main>
-    <div class='md:container mx-auto mt-12'>
-      <Hero />
+  <div class='main-container mx-auto'>
+    <Hero />
+    <div class='mt-24'>
+      <LastPosts />
     </div>
-  </main>
+  </div>
 </Root>
