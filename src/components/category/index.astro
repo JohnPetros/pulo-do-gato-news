@@ -1,0 +1,11 @@
+---
+type Props = {
+  name: string;
+};
+
+const { name } = Astro.props;
+---
+
+<a href={`posts/?category=${name}`} class='text-primary font-bold capitalize'>
+  {name}
+</a>
