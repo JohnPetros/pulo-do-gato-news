@@ -1,25 +1,12 @@
 ---
-const LINKS = [
-  {
-    title: 'Home',
-    route: '/',
-  },
-  {
-    title: 'Notícias',
-    route: '/posts',
-  },
-  {
-    title: 'Sobre',
-    route: '/about',
-  },
-];
+import { NAV_LINKS } from '../../../constants';
 ---
 
 <astro-nav>
   <nav>
     <ul class='flex flex-col md:flex-row items-center gap-6'>
       {
-        LINKS.map(link => (
+        NAV_LINKS.map(link => (
           <li
             data-nav='link'
             class='rounded-md px-3 py-2  hover:opacity-50 transition-opacity duration-200 data-[active]:text-primary data-[active]:font-bold data-[active]:bg-gray-50'
