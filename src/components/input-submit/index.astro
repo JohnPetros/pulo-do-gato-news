@@ -5,9 +5,10 @@ type Props = {
   placeholder: string;
   title: string;
   name: string;
+  value: string;
 };
 
-const { placeholder, title, name } = Astro.props;
+const { placeholder, title, name, value } = Astro.props;
 ---
 
 <div
@@ -16,6 +17,7 @@ const { placeholder, title, name } = Astro.props;
   <input
     type='text'
     name={name}
+    value={value}
     placeholder={placeholder}
     class='w-full h-full bg-transparent border-none focus:ring-1 focus:ring-gray-50'
   />

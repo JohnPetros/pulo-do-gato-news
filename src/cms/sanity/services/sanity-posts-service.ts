@@ -5,13 +5,16 @@ import type { Post } from '@/core/types'
 
 export const SanityPostsService = (): PostsService => {
   return {
-    async fetchPosts(categoryName?: string, search?: string) {
-      const categoryFilter = categoryName ? '&& category == $category[0]' : ''
-      const searchFilter = search ? '&& name == $name[0]' : ''
+    async fetchPosts(categoryName: string, search: string) {
+      const categoryFilter =
+        categoryName && categoryName !== 'all' ? '&& category == $category' : ''
+      const searchFilter = search
+        ? '&& lower(name) match $search || array::join(tags, " ") match $search'
+        : ''
 
       const sanityPosts = await sanityClient.fetch(
         `
-        *[_type == "post" ${categoryFilter} ${searchFilter}] | 
+        *[_type == "post" ${categoryFilter} ${searchFilter}] |
         order(_createdAt desc)
         {
           name,
@@ -26,7 +29,7 @@ export const SanityPostsService = (): PostsService => {
         `,
         {
           ...(categoryName && { category: categoryName }),
-          ...(search && { name: search }),
+          ...(search && { search: search.toLocaleLowerCase() }),
         },
       )
       return sanityPosts as Post[]

@@ -4,8 +4,6 @@ import { postsService } from '../../cms';
 import PostCard from '../post-card/index.astro';
 
 const posts = await postsService.fetchLastPosts();
-
-console.log(posts[0]);
 ---
 
 <section class='px-6 lg:px-0'>

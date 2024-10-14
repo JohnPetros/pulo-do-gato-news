@@ -8,7 +8,7 @@ import Header from './header/index.astro';
 
 export const prerender = true;
 
-export async function fetchStaticPaths() {
+export async function getStaticPaths() {
   const slugs = await postsService.fetchPostSlugs();
   return slugs.map(slug => ({
     params: { slug },

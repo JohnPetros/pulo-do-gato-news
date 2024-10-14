@@ -1,0 +1,59 @@
+---
+import { PAGINATION } from '@/constants/index';
+
+type Props = {
+  pagesCount: number;
+  currentPage: number;
+  baseRoute: number;
+};
+
+const { pagesCount, currentPage, baseRoute } = Astro.props;
+
+const startPage = currentPage - PAGINATION.visiblePagesCount;
+---
+
+<nav aria-label='paginação'>
+  <ol class='inline-flex -space-x-px text-sm'>
+    {
+      currentPage !== 1 && (
+        <li>
+          <a
+            href={`${baseRoute}&page=${currentPage - 1}`}
+            class='flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700'
+          >
+            Anterior
+          </a>
+        </li>
+      )
+    }
+    {
+      Array.from({ length: pagesCount })
+        .slice(
+          startPage < 0 ? 0 : startPage,
+          currentPage + PAGINATION.visiblePagesCount,
+        )
+        .map((_, index) => (
+          <li>
+            <a
+              href={`${baseRoute}&page=${index}`}
+              class='flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700'
+            >
+              {index}
+            </a>
+          </li>
+        ))
+    }
+    {
+      currentPage != pagesCount && (
+        <li>
+          <a
+            href={`${baseRoute}&page=${currentPage + 1}`}
+            class='flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700'
+          >
+            Próximo
+          </a>
+        </li>
+      )
+    }
+  </ol>
+</nav>

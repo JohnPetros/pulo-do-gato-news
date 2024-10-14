@@ -3,20 +3,30 @@ import { categoriesService } from '@/cms/index';
 
 import FilterButton from './filter-button/index.astro';
 
+type Props = {
+  activeCategory: string | null;
+};
+
 const categories = await categoriesService.fetchAllCategories();
+
+const { activeCategory = null } = Astro.props;
 ---
 
-<form>
-  <ul class='flex items-center gap-3 border-b border-gray-700 overflow-x-auto'>
-    <li>
-      <FilterButton categoryName='all' isActive />
-    </li>
-    {
-      categories.map(category => (
-        <li>
-          <FilterButton categoryName={category.name} />
-        </li>
-      ))
-    }
-  </ul>
-</form>
+<ul class='flex items-center gap-3 border-b border-gray-700 overflow-x-auto'>
+  <li>
+    <FilterButton
+      categoryName='all'
+      isActive={activeCategory === 'all' || !activeCategory}
+    />
+  </li>
+  {
+    categories.map(category => (
+      <li>
+        <FilterButton
+          categoryName={category.name}
+          isActive={activeCategory === category.name}
+        />
+      </li>
+    ))
+  }
+</ul>
