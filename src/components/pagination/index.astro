@@ -1,10 +1,11 @@
 ---
 import { PAGINATION } from '@/constants/index';
+import { twMerge } from 'tailwind-merge';
 
 type Props = {
   pagesCount: number;
   currentPage: number;
-  baseRoute: number;
+  baseRoute: string;
 };
 
 const { pagesCount, currentPage, baseRoute } = Astro.props;
@@ -14,46 +15,50 @@ const startPage = currentPage - PAGINATION.visiblePagesCount;
 
 <nav aria-label='paginação'>
   <ol class='inline-flex -space-x-px text-sm'>
-    {
-      currentPage !== 1 && (
-        <li>
-          <a
-            href={`${baseRoute}&page=${currentPage - 1}`}
-            class='flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700'
-          >
-            Anterior
-          </a>
-        </li>
-      )
-    }
+    <li>
+      <a
+        href={`${baseRoute}&page=${currentPage - 1}`}
+        class={twMerge(
+          'flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700',
+          currentPage === 1 && 'pointer-events-none opacity-50',
+        )}
+      >
+        Anterior
+      </a>
+    </li>
     {
       Array.from({ length: pagesCount })
         .slice(
           startPage < 0 ? 0 : startPage,
           currentPage + PAGINATION.visiblePagesCount,
         )
-        .map((_, index) => (
-          <li>
-            <a
-              href={`${baseRoute}&page=${index}`}
-              class='flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700'
-            >
-              {index}
-            </a>
-          </li>
-        ))
+        .map((_, index) => {
+          const page = index + 1;
+          return (
+            <li>
+              <a
+                href={`${baseRoute}&page=${page}`}
+                class={twMerge(
+                  'flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700',
+                  page === currentPage && 'bg-primary text-white',
+                )}
+              >
+                {page}
+              </a>
+            </li>
+          );
+        })
     }
-    {
-      currentPage != pagesCount && (
-        <li>
-          <a
-            href={`${baseRoute}&page=${currentPage + 1}`}
-            class='flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700'
-          >
-            Próximo
-          </a>
-        </li>
-      )
-    }
+    <li>
+      <a
+        href={`${baseRoute}&page=${currentPage + 1}`}
+        class={twMerge(
+          'flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700',
+          currentPage === pagesCount && 'pointer-events-none opacity-50',
+        )}
+      >
+        Próximo
+      </a>
+    </li>
   </ol>
 </nav>
