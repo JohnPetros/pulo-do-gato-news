@@ -1,0 +1,182 @@
+---
+import Root from '@/layouts/root/index.astro';
+
+const subtitleClass = 'text-gray-700 text-xl tracking-wider font-bold mt-6';
+const paragraphClass = 'text-gray-700 leading-6 mt-3';
+const listItemClass = 'ml-6';
+const listClass = 'list-disc space-y-2 mt-3';
+const strongClass = 'text-gray-800 font-bold';
+---
+
+<Root title='Privacy Policy'>
+  <div class='small-container mx-auto'>
+    <h1 class='text-gray-900 text-4xl font-bold tracking-wider'>
+      Políticas de Privacidade
+    </h1>
+    <p class='text-gray-700 font-bold mt-3 mb-10'>
+      Última atualização: <time datetime=''>15/10/2024</time>
+    </p>
+    <p class={paragraphClass}>
+      No Pulo do Gato News, respeitamos a sua privacidade e estamos
+      comprometidos em proteger as informações pessoais que você compartilha
+      conosco. Esta Política de Privacidade descreve como coletamos, usamos e
+      protegemos seus dados ao acessar nosso blog e utilizar nossos serviços.
+    </p>
+
+    <h2 class={subtitleClass}>1. Coleta de Informações</h2>
+    <p class={paragraphClass}>
+      Coletamos informações que você nos fornece voluntariamente, como:
+    </p>
+    <ul class={listClass}>
+      <li class={listItemClass}>
+        <p class={paragraphClass}>
+          <strong class={strongClass}>Dados Pessoais:</strong> Quando você se inscreve
+          no blog, comenta em postagens, ou nos envia uma mensagem, podemos coletar
+          informações como nome, endereço de e-mail e outras informações fornecidas
+          voluntariamente.
+        </p>
+      </li>
+      <li class={listItemClass}>
+        <p class={paragraphClass}>
+          <strong class={strongClass}>Dados de Navegação:</strong> Podemos coletar
+          automaticamente informações sobre como você interage com o blog, incluindo
+          seu endereço IP, navegador utilizado, dispositivo de acesso, páginas visitadas
+          e o tempo de permanência em nosso site.
+        </p>
+      </li>
+    </ul>
+
+    <h2 class={subtitleClass}>2. Coleta de Informações</h2>
+    <p class={paragraphClass}>
+      Utilizamos as informações coletadas para as seguintes finalidades:
+    </p>
+    <ul class={listClass}>
+      <li class={listItemClass}>
+        <p class={paragraphClass}>
+          Fornecer e personalizar o conteúdo do blog de acordo com seus
+          interesses;
+        </p>
+      </li>
+      <li class={listItemClass}>
+        <p class={paragraphClass}>
+          Responder a perguntas, comentários ou solicitações de suporte;
+        </p>
+      </li>
+      <li class={listItemClass}>
+        <p class={paragraphClass}>
+          Enviar atualizações, newsletters ou comunicações relacionadas ao blog,
+          caso você tenha dado consentimento;
+        </p>
+      </li>
+      <li class={listItemClass}>
+        <p class={paragraphClass}>
+          Analisar o comportamento de navegação e melhorar nossos serviços;
+        </p>
+      </li>
+      <li class={listItemClass}>
+        <p class={paragraphClass}>Cumprir com obrigações legais.</p>
+      </li>
+    </ul>
+
+    <h2 class={subtitleClass}>3. Compartilhamento de Informações</h2>
+    <ul class={listClass}>
+      <li class={listItemClass}>
+        <p class={paragraphClass}>
+          <strong class={strongClass}>Provedores de Serviço:</strong> Podemos compartilhar
+          seus dados com empresas parceiras que nos auxiliam na operação do blog
+          (ex.: serviços de hospedagem, plataformas de e-mail). Essas empresas estão
+          obrigadas a proteger suas informações e usá-las apenas conforme nossas
+          instruções.
+        </p>
+      </li>
+      <li class={listItemClass}>
+        <p class={paragraphClass}>
+          <strong class={strongClass}>Cumprimento Legal:</strong> Podemos divulgar
+          suas informações para cumprir com uma obrigação legal, ordem judicial ou
+          solicitação de autoridades competentes.
+        </p>
+      </li>
+    </ul>
+
+    <h2 class={subtitleClass}>4. Cookies e Tecnologias de Rastreamento</h2>
+    <p class={paragraphClass}>
+      Utilizamos cookies e outras tecnologias para melhorar sua experiência no
+      blog. Os cookies podem ser usados para:
+    </p>
+    <ul class={listClass}>
+      <li class={listItemClass}>
+        <p class={paragraphClass}>Reconhecer suas preferências de navegação;</p>
+      </li>
+      <li class={listItemClass}>
+        <p class={paragraphClass}>
+          Realizar análises estatísticas de uso do site;
+        </p>
+      </li>
+      <li class={listItemClass}>
+        <p class={paragraphClass}>
+          Exibir anúncios relevantes de acordo com seu perfil de navegação.
+        </p>
+      </li>
+    </ul>
+    <p class={paragraphClass}>
+      Você pode configurar seu navegador para recusar cookies, mas isso pode
+      limitar a funcionalidade de certas áreas do blog.
+    </p>
+
+    <h2 class={subtitleClass}>5. Segurança das Informações</h2>
+    <p class={paragraphClass}>
+      Adotamos medidas de segurança para proteger suas informações contra
+      acesso, alteração, divulgação ou destruição não autorizados. No entanto,
+      nenhuma transmissão de dados pela internet é 100% segura, e não podemos
+      garantir a segurança absoluta das informações transmitidas.
+    </p>
+
+    <h2 class={subtitleClass}>6. Seus Direitos</h2>
+    <p class={paragraphClass}>De acordo com a LGPD, você tem o direito de:</p>
+    <ul class={listClass}>
+      <li class={listItemClass}>
+        <p class={paragraphClass}>
+          Solicitar acesso aos seus dados pessoais que armazenamos;
+        </p>
+      </li>
+      <li class={listItemClass}>
+        <p class={paragraphClass}>Corrigir ou atualizar seus dados;</p>
+      </li>
+      <li class={listItemClass}>
+        <p class={paragraphClass}>
+          Solicitar a exclusão de seus dados pessoais;
+        </p>
+      </li>
+      <li class={listItemClass}>
+        <p class={paragraphClass}>
+          Revogar o consentimento para o uso de seus dados.
+        </p>
+      </li>
+    </ul>
+
+    <p class={paragraphClass}>
+      Para exercer esses direitos, entre em contato conosco através do e-mail
+      [endereço de e-mail para contato].
+    </p>
+
+    <h2 class={subtitleClass}>7. Retenção de Dados</h2>
+    <p class={paragraphClass}>
+      Armazenamos seus dados pessoais apenas pelo tempo necessário para cumprir
+      as finalidades descritas nesta Política de Privacidade, ou conforme
+      exigido por lei.
+    </p>
+
+    <h2 class={subtitleClass}>8. Alterações na Política de Privacidade</h2>
+    <p class={paragraphClass}>
+      Reservamo-nos o direito de modificar esta Política de Privacidade a
+      qualquer momento. Quaisquer mudanças serão publicadas nesta página, e a
+      data de revisão será atualizada.
+    </p>
+
+    <h2 class={subtitleClass}>9. Contato</h2>
+    <p class={paragraphClass}>
+      Se você tiver dúvidas ou preocupações sobre esta Política de Privacidade,
+      entre em contato conosco pelo e-mail [endereço de e-mail para contato].
+    </p>
+  </div>
+</Root>
