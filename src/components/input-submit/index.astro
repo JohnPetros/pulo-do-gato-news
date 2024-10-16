@@ -1,25 +1,42 @@
 ---
 import Button from '@/components/button/index.astro';
+import { twMerge } from 'tailwind-merge';
 
 type Props = {
   placeholder: string;
   title: string;
   name: string;
-  value: string;
+  type?: 'text' | 'email' | 'password';
+  value?: string;
+  variant?: 'defeault' | 'transparent';
+  isRequired?: boolean;
 };
 
-const { placeholder, title, name, value } = Astro.props;
+const {
+  placeholder,
+  title,
+  name,
+  value,
+  variant = 'defeault',
+  isRequired = false,
+  type = 'text',
+} = Astro.props;
+const isDefault = variant === 'defeault';
 ---
 
 <div
-  class='flex items-center px-3 py-2 rounded-md bg-gray-50 border border-gray-100 focus-within:border-primary'
+  class={twMerge(
+    'flex items-center px-3 py-2 rounded-md border border-gray-100 focus-within:border-primary',
+    isDefault ? 'bg-gray-50' : 'bg-white',
+  )}
 >
   <input
-    type='text'
+    type={type}
     name={name}
     value={value}
     placeholder={placeholder}
-    class='w-full h-full bg-transparent border-none focus:ring-1 focus:ring-gray-50'
+    required={isRequired}
+    class='flex-1 h-full border-none focus:ring-1 focus:ring-gray-50'
   />
   <Button>
     {title}
