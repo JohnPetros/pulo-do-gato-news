@@ -4,7 +4,7 @@ import { CATEGORIES } from '../constants'
 
 export const posts = {
   name: 'post',
-  title: 'Post',
+  title: 'Posts',
   type: 'document',
   fields: [
     {
