@@ -1,4 +1,5 @@
 ---
+import { NAV_LINKS } from '@/constants/index';
 import Brand from '../brand/index.astro';
 import Drawer from '../drawer/index.astro';
 import Navbar from './navbar/index.astro';
@@ -6,7 +7,9 @@ import MenuHamburguer from './menu-hamburguer/index.astro';
 ---
 
 <header class='flex items-center justify-between max-w-6xl mx-auto px-6'>
-  <Brand />
+  <a href={NAV_LINKS[0].route}>
+    <Brand />
+  </a>
   <div class='md:hidden'>
     <MenuHamburguer />
   </div>
