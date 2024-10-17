@@ -1,37 +1,76 @@
 ---
+import { NEWSLETTER_API_MESSAGES } from '@/constants/index';
 import InputSubmit from '@/components/input-submit/index.astro';
 import Toast from '@/components/toast/index.astro';
 
 const pageOrigin = Astro.url.pathname;
-const errorMessage = Astro.url.searchParams.get('subscribe-error');
+const subscribeError = Astro.url.searchParams.get('subscribe-error');
+const subscribeSuccess = Astro.url.searchParams.get('subscribe-success');
 ---
 
-{errorMessage && <Toast message={'E-mail inválido'} />}
-
-<section
-  id='newsletter'
-  class='flex items-center justify-center gap-3 w-full py-12 bg-gray-50'
->
-  <div>
-    <h2 class='uppercase text-gray-400 font-bold tracking-wider'>
-      Fique por dentro primeiro
-    </h2>
-    <p class='text-2xl w-96 mt-3'>
-      Receba notícias de antemão ao
-      <strong class='text-primary'>inscrever-se</strong>
-      na nossa caixa de entrada.
-    </p>
-  </div>
-
-  <form action='/api/subscribe' method='post' class='w-[32rem]'>
-    <InputSubmit
-      variant='transparent'
-      type='email'
-      name='email'
-      title='inscrever-se'
-      placeholder='Seu melhor e-mail'
-      isRequired
+{
+  subscribeError && (
+    <Toast
+      type='error'
+      message={
+        NEWSLETTER_API_MESSAGES.error[
+          subscribeError as keyof typeof NEWSLETTER_API_MESSAGES.error
+        ] ?? NEWSLETTER_API_MESSAGES.error.server
+      }
     />
-    <input type='text' name='page-origin' value={pageOrigin} hidden />
-  </form>
-</section>
+  )
+}
+
+{
+  subscribeSuccess && (
+    <Toast type='success' message='Sua inscrição foi registrada' />
+  )
+}
+
+<astro-newsletter>
+  <section
+    id='newsletter'
+    class='flex items-center justify-center gap-3 w-full py-12 bg-gray-50'
+    data-message={subscribeError ?? subscribeError}
+  >
+    <div>
+      <h2 class='uppercase text-gray-400 font-bold tracking-wider'>
+        Fique por dentro primeiro
+      </h2>
+      <p class='text-2xl w-96 mt-3'>
+        Receba notícias de antemão ao
+        <strong class='text-primary'>inscrever-se</strong>
+        na nossa caixa de entrada.
+      </p>
+    </div>
+
+    <form action='/api/subscribe' method='post' class='w-[32rem]'>
+      <InputSubmit
+        variant='transparent'
+        type='email'
+        name='email'
+        title='inscrever-se'
+        placeholder='Seu melhor e-mail'
+        isRequired
+      />
+      <input type='text' name='page-origin' value={pageOrigin} hidden />
+    </form>
+  </section>
+</astro-newsletter>
+
+<script>
+  class AstroNewsletter extends HTMLElement {
+    connectedCallback() {
+      const section = this.querySelector<HTMLDivElement>('section');
+      if (!section) return;
+
+      if (section.dataset.message) {
+        section.scrollIntoView({ behavior: 'smooth' });
+        const input = section.querySelector<HTMLInputElement>('input');
+        if (input) input.focus();
+      }
+    }
+  }
+
+  customElements.define('astro-newsletter', AstroNewsletter);
+</script>
