@@ -1,0 +1,29 @@
+---
+import { Image } from 'astro:assets';
+
+import Root from '../layouts/root/index.astro';
+import CatFloating from '../assets/images/404.svg';
+---
+
+<Root title='Página não encontrada'>
+  <div class='small-container grid place-content-center'>
+    <Image
+      src={CatFloating}
+      width={320}
+      height={320}
+      alt='Gato flutuando no céu pendurado em um balão vermelho'
+      class='mx-auto'
+    />
+    <strong class='block text-center text-7xl text-gray-300 font-bold'>
+      <span class='text-primary'>4</span>
+      0
+      <span class='text-primary'>4</span>
+    </strong>
+    <h1 class='text-3xl text-center text-gray-700 mt-6'>
+      Esta página não existe
+    </h1>
+    <p class='text-lg text-center text-gray-400 mt-1'>
+      Por favor, verifique o URL na barra de endereços e tente novamente.
+    </p>
+  </div>
+</Root>
