@@ -1,6 +1,6 @@
 ---
 import Divider from '@/components/divider/index.astro';
-import FormattedDate from '@/components/formatted-date/index.astro';
+import { FormattedDate } from '@/components/formatted-date';
 import Category from '@/components/category/index.astro';
 import Breadcrumb from './breadcrumb/index.astro';
 
@@ -24,9 +24,7 @@ const { postName, postAuthor, postCategory, postDate } = Astro.props;
   <div class='flex items-center gap-3 font-bold text-gray-500 mt-3'>
     {postAuthor}
     <Divider />
-    <FormattedDate>
-      {postDate}
-    </FormattedDate>
+    <FormattedDate value={postDate} />
   </div>
   <div class='flex items-center gap-3 text-gray-500 mt-6'>
     <Category name={postCategory} />
