@@ -1,5 +1,8 @@
 export type { ApiClient } from './api-client'
 export type { Http } from './http'
+export type { Controller } from './controller'
 export type { CategoriesService } from './categories-service'
 export type { PostsService } from './posts-service'
 export type { SubscriptionsService } from './subscriptions-service'
+export type { CommentsService } from './comments-service'
+export type { Server } from './server'
