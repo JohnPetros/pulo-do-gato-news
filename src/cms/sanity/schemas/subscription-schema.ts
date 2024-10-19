@@ -1,4 +1,4 @@
-export const subscription = {
+export const subscriptionSchema = {
   name: 'subscription',
   title: 'Inscrições',
   type: 'document',

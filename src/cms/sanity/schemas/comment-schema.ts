@@ -1,6 +1,6 @@
 import type { Rule } from 'sanity'
 
-export const comment = {
+export const commentSchema = {
   name: 'comment',
   title: 'Comentários',
   type: 'document',

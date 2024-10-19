@@ -1,5 +1,5 @@
-import { post } from './post'
-import { subscription } from './subscription'
-import { comment } from './comment'
+import { postSchema } from './post-schema'
+import { subscriptionSchema } from './subscription-schema'
+import { commentSchema } from './comment-schema'
 
-export const schemas = [post, subscription, comment]
+export const schemas = [postSchema, subscriptionSchema, commentSchema]

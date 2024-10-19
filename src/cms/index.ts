@@ -3,6 +3,7 @@ import {
   SanityPostsService,
   SanityCategoriesService,
   SanitySubscriptionsService,
+  SanityCommentsService,
 } from './sanity/services'
 import { ENV } from '../constants'
 
@@ -14,3 +15,4 @@ apiClient.setHeader('Authorization', `Bearer ${ENV.sanityToken}`)
 export const postsService = SanityPostsService()
 export const categoriesService = SanityCategoriesService()
 export const subscriptionsService = SanitySubscriptionsService(apiClient)
+export const commentsService = SanityCommentsService(apiClient)

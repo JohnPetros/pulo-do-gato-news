@@ -2,7 +2,7 @@ import type { Rule } from 'sanity'
 
 import { CATEGORIES } from '../constants'
 
-export const post = {
+export const postSchema = {
   name: 'post',
   title: 'Posts',
   type: 'document',
