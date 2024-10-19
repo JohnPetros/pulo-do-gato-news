@@ -1,11 +1,14 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "moduleResolution": "Bundler",
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["src/components/*"],
       "@/layouts/*": ["src/layouts/*"],
       "@/cms/*": ["src/cms/*"],
+      "@/server/*": ["src/server/*"],
+      "@/api/*": ["src/api/*"],
       "@/constants/*": ["src/constants/*"],
       "@/core/*": ["src/@core/*"]
     }
