@@ -4,6 +4,7 @@ import { PortableText } from 'astro-portabletext';
 
 import { postsService } from '@/cms/index';
 import RootLayout from '@/layouts/root/index.astro';
+import { CommentsSecion } from '@/components/comments-section';
 import Header from './header/index.astro';
 
 export const prerender = true;
@@ -43,6 +44,10 @@ const post = await postsService.fetchPostBySlug(slug);
     />
     <div class='prose space-y-6 mt-6 text-gray-700 text-xl leading-6'>
       <PortableText value={post.content} />
+    </div>
+
+    <div class='mt-24'>
+      <CommentsSecion client:visible postId={post.id} />
     </div>
   </div>
 </RootLayout>

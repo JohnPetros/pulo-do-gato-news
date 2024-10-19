@@ -17,6 +17,7 @@ export const SanityPostsService = (): PostsService => {
         *[_type == "post" ${categoryFilter} ${searchFilter}] |
         order(_createdAt desc)
         {
+          "id": _id,
           name,
           "slug": slug.current,
           date,
@@ -53,6 +54,7 @@ export const SanityPostsService = (): PostsService => {
       const sanityPosts = await sanityClient.fetch(`
         *[_type == "post"] | order(_createdAt desc)
         {
+          "_id": id,
           name,
           "slug": slug.current,
           date,
@@ -78,6 +80,7 @@ export const SanityPostsService = (): PostsService => {
       const sanityPost = await sanityClient.fetch(
         `*[_type == "post" && slug.current == $slug][0]
         {
+          "id": _id,
           name,
           "slug": slug.current,
           date,
