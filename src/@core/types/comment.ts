@@ -3,4 +3,5 @@ export type Comment = {
   email: string
   content: string
   postId: string
+  date: Date
 }

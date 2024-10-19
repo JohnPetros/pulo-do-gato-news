@@ -1,4 +1,5 @@
 export type Post = {
+  id: string
   slug: string
   name: string
   content: any

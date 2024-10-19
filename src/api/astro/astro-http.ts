@@ -16,8 +16,21 @@ export const AstroHttp = ({ request, redirect }: AstroHttpProps): Http => {
       return formData.get(key)?.toString() ?? fallback
     },
 
+    async getBodyData<Data>() {
+      return request.body as Data
+    },
+
     async redirect(route) {
       return redirect(route)
+    },
+
+    async send(data: unknown, statusCode = 200) {
+      return new Response(JSON.stringify(data), {
+        status: statusCode,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
     },
   }
 }
