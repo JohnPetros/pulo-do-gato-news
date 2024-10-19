@@ -1,14 +1,15 @@
 ---
-import Button from '@/components/button/index.astro';
 import { twMerge } from 'tailwind-merge';
+
+import { Button } from '@/components/button';
 
 type Props = {
   placeholder: string;
   title: string;
   name: string;
   type?: 'text' | 'email' | 'password';
-  value?: string;
   variant?: 'defeault' | 'transparent';
+  value?: string;
   isRequired?: boolean;
 };
 
