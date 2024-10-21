@@ -10,15 +10,20 @@ type FormErrors = {
 
 export function useForm(onSubmit: (comment: Comment) => void) {
   const [formErrors, setFormErrors] = useState<FormErrors | null>(null)
+  const [isFormSubmitting, setIsFormSubmitting] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
 
   async function handleFormSubmit(event: FormEvent) {
+    setIsFormSubmitting(true)
     event.preventDefault()
     if (!formRef.current) return
 
     const formData = new FormData(formRef.current)
 
     const response = await server.commentAction(formData)
+
+    setIsFormSubmitting(false)
+
     if (response.hasError) {
       if (response.error.type === 'form')
         setFormErrors({
@@ -35,6 +40,7 @@ export function useForm(onSubmit: (comment: Comment) => void) {
   return {
     formRef,
     formErrors,
+    isFormSubmitting,
     handleFormSubmit,
   }
 }

@@ -3,6 +3,7 @@ import { Input } from '@/components/input'
 import { Textarea } from '@/components/textarea'
 import { useForm } from './use-form'
 import type { Comment } from '@/core/types'
+import { Spinner } from '@/components/spinner'
 
 type Props = {
   postId: string
@@ -10,7 +11,7 @@ type Props = {
 }
 
 export const Form = ({ postId, onSubmit }: Props) => {
-  const { formRef, formErrors, handleFormSubmit } = useForm(onSubmit)
+  const { formRef, formErrors, isFormSubmitting, handleFormSubmit } = useForm(onSubmit)
 
   return (
     <form ref={formRef} className='space-y-6' onSubmit={handleFormSubmit}>
@@ -37,7 +38,7 @@ export const Form = ({ postId, onSubmit }: Props) => {
       />
       <input type='text' id='postId' name='postId' defaultValue={postId} hidden />
       <Button type='submit' className='w-36 mx-auto'>
-        Enviar
+        {isFormSubmitting ? <Spinner /> : 'Enviar'}
       </Button>
     </form>
   )

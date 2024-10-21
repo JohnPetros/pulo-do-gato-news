@@ -1,7 +1,7 @@
 ---
 import { NEWSLETTER_API_MESSAGES } from '@/constants/index';
 import InputSubmit from '@/components/input-submit/index.astro';
-import Toast from '@/components/toast/index.astro';
+import { Toast } from '@/components/toast';
 
 const pageOrigin = Astro.url.pathname;
 const subscribeError = Astro.url.searchParams.get('subscribe-error');
