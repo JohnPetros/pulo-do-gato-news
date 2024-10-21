@@ -12,7 +12,7 @@ type Request = {
 export const CommentAction = (server: Server) => {
   return {
     async handle({ name, email, content, postId }: Request) {
-      const comment: Comment = {
+      const comment = {
         name,
         email,
         content,
