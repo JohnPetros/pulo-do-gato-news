@@ -8,7 +8,7 @@ type Props = {
 
 export const Comment = ({ author, content, date }: Props) => {
   return (
-    <div className='flex justify-start items-start gap-3 p-6 rounded-md border border-primary'>
+    <div className='flex justify-start items-start gap-3 py-6 rounded-md border border-primary'>
       <svg
         xmlns='http://www.w3.org/2000/svg'
         width='120'
@@ -27,7 +27,7 @@ export const Comment = ({ author, content, date }: Props) => {
         <path d='M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0' />
         <path d='M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855' />
       </svg>
-      <div>
+      <div className='-translate-x-4'>
         <div className='space-x-3'>
           <strong className='text-gray-800 font-bold'>{author}</strong>
           <FormattedDate value={date} className='text-sm text-gray-500' />

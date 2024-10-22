@@ -1,4 +1,5 @@
 import { Button } from '../button'
+import { Spinner } from '../spinner'
 import { Toast } from '../toast'
 import { Comment } from './comment'
 import { Form } from './form'
@@ -9,7 +10,15 @@ type Props = {
 }
 
 export const CommentsSecion = ({ postId }: Props) => {
-  const { comments, isToastVisible, handleFormSubmit } = useCommentsSection(postId)
+  const {
+    comments,
+    isToastVisible,
+    page,
+    totalPages,
+    isFetchingComments,
+    handleFormSubmit,
+    handleLoadMoreButtonClick,
+  } = useCommentsSection(postId)
 
   return (
     <section id='comments'>
@@ -17,20 +26,30 @@ export const CommentsSecion = ({ postId }: Props) => {
         <Toast type='success' message='Seu comentário foi levado para análise' />
       )}
 
-      <h3 className='font-bold text-lg'>Comentários ({comments.length})</h3>
-      <ul className='space-y-6 mt-3'>
-        {comments.map((comment) => (
-          <li key={comment.name}>
-            <Comment
-              author={comment.name}
-              content={comment.content}
-              date={comment.date.toISOString()}
-            />
-          </li>
-        ))}
-      </ul>
+      {isFetchingComments ? (
+        <Spinner className='mx-auto size-12 my-12 fill-primary' />
+      ) : (
+        <>
+          <h3 className='font-bold text-lg'>Comentários ({comments.length})</h3>
+          <ul className='space-y-6 mt-3'>
+            {comments.map((comment) => (
+              <li key={comment.id}>
+                <Comment
+                  author={comment.name}
+                  content={comment.content}
+                  date={comment.date.toString()}
+                />
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
 
-      <Button>Carregar mais</Button>
+      {!isFetchingComments && page !== totalPages && (
+        <Button className='mx-auto mt-12' onClick={handleLoadMoreButtonClick}>
+          Carregar mais
+        </Button>
+      )}
 
       <div className='mt-6'>
         <Form postId={postId} onSubmit={handleFormSubmit} />

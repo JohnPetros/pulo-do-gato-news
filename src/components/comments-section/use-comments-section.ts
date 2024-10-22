@@ -6,19 +6,27 @@ import { commentsService } from '@/cms/index'
 export function useCommentsSection(postId: string) {
   const [comments, setComments] = useState<Comment[]>([])
   const [page, setPage] = useState(1)
+  const [commentsCount, setCommentsCount] = useState(0)
   const [isToastVisible, setIsToastVisible] = useState(false)
+  const [isFetchingComments, setisFetchingComments] = useState(true)
 
-  function handleFormSubmit(comment: Comment) {
+  function handleFormSubmit() {
     setIsToastVisible(true)
   }
 
   function handleLoadMoreButtonClick() {
-    setPage(page + 1)
+    setPage((page) => page + 1)
   }
 
   const fetchComments = useCallback(async () => {
     const response = await commentsService.fetchComments(postId, page)
-    if (response.isSuccess) setComments(response.body.comments)
+    if (response.isSuccess) {
+      console.log(response.body.comments)
+
+      setComments((comments) => [...comments, ...response.body.comments])
+      setCommentsCount(response.body.count)
+      setisFetchingComments(false)
+    }
   }, [postId, page])
 
   useEffect(() => {
@@ -36,6 +44,9 @@ export function useCommentsSection(postId: string) {
   return {
     comments,
     isToastVisible,
+    page,
+    totalPages: Math.ceil(commentsCount / 2),
+    isFetchingComments,
     handleFormSubmit,
     handleLoadMoreButtonClick,
   }

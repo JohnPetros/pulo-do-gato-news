@@ -5,11 +5,12 @@ import type { Comment } from '@/core/types'
 import { ApiResponse } from '@/core/responses'
 import { ENV } from '@/constants/env'
 
-const ITEMS_PER_PAGE = 6
+const ITEMS_PER_PAGE = 3
 
 export const SanityCommentsService = (apiClient: ApiClient): CommentsService => {
   return {
     async fetchComments(postId: string, page: number) {
+      console.log(page)
       const comments = await sanityClient.fetch(
         `*[_type == 'comment' && post._ref == $postId && isApproved == true] | order(date desc) 
       {
@@ -18,9 +19,9 @@ export const SanityCommentsService = (apiClient: ApiClient): CommentsService => 
         content,
         date
       }
-      [${page - 1}..${page + ITEMS_PER_PAGE - 2}]
+      [($page * ${ITEMS_PER_PAGE})...($page + 1) * ${ITEMS_PER_PAGE}]
       `,
-        { postId },
+        { postId, page: page - 1 },
       )
 
       const count = await sanityClient.fetch(
