@@ -30,21 +30,21 @@ const subscribeSuccess = Astro.url.searchParams.get('subscribe-success');
 <astro-newsletter>
   <section
     id='newsletter'
-    class='flex items-center justify-center gap-3 w-full py-12 bg-gray-50'
+    class='flex flex-col lg:flex-row items-center justify-center gap-3 w-full px-6 lg:px-0 py-12 bg-gray-50'
     data-message={subscribeError ?? subscribeError}
   >
     <div>
       <h2 class='uppercase text-gray-400 font-bold tracking-wider'>
         Fique por dentro primeiro
       </h2>
-      <p class='text-2xl w-96 mt-3'>
+      <p class='text-2xl w-80 lg:w-96 mt-3'>
         Receba notícias de antemão ao
         <strong class='text-primary'>inscrever-se</strong>
         na nossa caixa de entrada.
       </p>
     </div>
 
-    <form action='/api/subscribe' method='post' class='w-[32rem]'>
+    <form action='/api/subscribe' method='post' class='lg:w-[32rem]'>
       <InputSubmit
         variant='transparent'
         type='email'
