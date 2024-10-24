@@ -1,6 +1,5 @@
 import { commentsService } from '@/cms/index'
 import type { Server } from '@/core/interfaces'
-import type { Comment } from '@/core/types'
 
 type Request = {
   name: string

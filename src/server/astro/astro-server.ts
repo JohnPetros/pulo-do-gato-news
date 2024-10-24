@@ -25,8 +25,6 @@ export const AstroServer = (): Server => {
         return AstroActionError<Comment>(error)
       }
 
-      console.log(data)
-
       return new ActionResponse({
         data,
       })
