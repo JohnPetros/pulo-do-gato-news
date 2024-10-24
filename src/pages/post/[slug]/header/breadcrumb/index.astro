@@ -10,7 +10,7 @@ const { postName } = Astro.props;
 ---
 
 <nav class='flex' aria-label='Breadcrumb'>
-  <ol class='flex items-center gap-3'>
+  <ol class='flex items-center gap-1'>
     <li class='text-gray-500'>
       <a href={NAV_LINKS[0].route} class='flex items-center gap-3'>
         <svg
@@ -40,7 +40,7 @@ const { postName } = Astro.props;
     </li>
     <li class='flex items-center gap-3 text-gray-500'>
       <Arrow />
-      <span class='truncate w-96'>
+      <span class='truncate w-28 md:w-96'>
         {postName}
       </span>
     </li>

@@ -24,6 +24,7 @@ const post = Astro.props;
     width={400}
     height={400}
     alt={post.name}
+    loading='eager'
     class={twMerge(
       'w-full object-cover rounded-md',
       post.isSmall ? 'h-full' : 'h-[24rem]',
