@@ -24,7 +24,7 @@ const { posts, count } = await postsService.fetchPosts({
 const pagesCount = Math.ceil(count / PAGINATION.itemsPerPage);
 ---
 
-<Root title='Notícias'>
+<Root title='Notícias' route='/posts'>
   <div class='large-container px-6 lg:px-0'>
     <form>
       <div class='max-w-2xl'>

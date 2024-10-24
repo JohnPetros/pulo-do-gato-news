@@ -9,9 +9,14 @@ import Newsletter from '../../components/newsletter/index.astro';
 type Props = {
   title: string;
   description?: string;
+  route?: string;
 };
 
-const { title, description = 'Site de notícias do dia' } = Astro.props;
+const {
+  title,
+  description = 'Site de notícias do dia',
+  route = '',
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -47,7 +52,7 @@ const { title, description = 'Site de notícias do dia' } = Astro.props;
     <ViewTransitions />
   </head>
   <body class='font-nunito bg-white min-h-screen w-full pt-10'>
-    <Header />
+    <Header activeRoute={route} />
     <main class='mt-12 pb-40'>
       <slot />
     </main>
