@@ -2,7 +2,10 @@
 import { twMerge } from 'tailwind-merge';
 import { NAV_LINKS } from '../../../constants';
 
-// const currentRoute = Astro.url.toString().split('4321')[1].split('?')[0];
+let currentRoute = '/';
+
+if (Astro.url)
+  currentRoute = Astro.url.toString().split('4321')[1].split('?')[0];
 ---
 
 <astro-nav>
@@ -14,7 +17,8 @@ import { NAV_LINKS } from '../../../constants';
             data-nav='link'
             class={twMerge(
               'rounded-md px-3 py-2 hover:opacity-50 transition-opacity duration-200 ',
-              '' === link.route && 'text-primary font-bold bg-gray-50',
+              currentRoute === link.route &&
+                'text-primary font-bold bg-gray-50',
             )}
           >
             <a href={link.route}>{link.title}</a>
