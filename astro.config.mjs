@@ -16,7 +16,9 @@ export default defineConfig({
       studioBasePath: '/admin'
     }
   )],
-
   output: 'server',
   adapter: netlify(),
+  image: {
+    remotePatterns: [{ protocol: 'http' }, { protocol: 'https' }]
+  }
 });
