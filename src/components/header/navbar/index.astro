@@ -1,5 +1,8 @@
 ---
+import { twMerge } from 'tailwind-merge';
 import { NAV_LINKS } from '../../../constants';
+
+const currentRoute = Astro.url.toString().split('4321')[1].split('?')[0];
 ---
 
 <astro-nav>
@@ -9,7 +12,11 @@ import { NAV_LINKS } from '../../../constants';
         NAV_LINKS.map(link => (
           <li
             data-nav='link'
-            class='rounded-md px-3 py-2  hover:opacity-50 transition-opacity duration-200 data-[active]:text-primary data-[active]:font-bold data-[active]:bg-gray-50'
+            class={twMerge(
+              'rounded-md px-3 py-2 hover:opacity-50 transition-opacity duration-200 ',
+              currentRoute === link.route &&
+                'text-primary font-bold bg-gray-50',
+            )}
           >
             <a href={link.route}>{link.title}</a>
           </li>
@@ -29,14 +36,10 @@ import { NAV_LINKS } from '../../../constants';
 
       const links = this.querySelectorAll<HTMLLIElement>('[data-nav="link"]');
 
-      const currentRoute = window.location.pathname;
-
       for (const link of links) {
-        link.addEventListener('click', () => hideDrawerButton.click());
-        const anchor = link.firstElementChild as HTMLAnchorElement;
-        if (currentRoute === anchor.href.split('4321').at(-1)) {
-          link.dataset.active = 'true';
-        }
+        link.addEventListener('click', () => {
+          hideDrawerButton.click();
+        });
       }
     }
   }

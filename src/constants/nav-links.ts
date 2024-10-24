@@ -9,6 +9,6 @@ export const NAV_LINKS = [
   },
   {
     title: 'Sobre',
-    route: '/about',
+    route: '/aboutt',
   },
 ]
