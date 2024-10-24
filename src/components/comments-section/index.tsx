@@ -45,7 +45,7 @@ export const CommentsSecion = ({ postId }: Props) => {
         </>
       )}
 
-      {!isFetchingComments && page !== totalPages && (
+      {!isFetchingComments && page !== totalPages && comments.length > 0 && (
         <Button className='mx-auto mt-12' onClick={handleLoadMoreButtonClick}>
           Carregar mais
         </Button>
