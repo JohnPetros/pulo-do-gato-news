@@ -19,9 +19,11 @@ const { activeRoute } = Astro.props;
   <div class='md:hidden'>
     <MenuHamburguer />
   </div>
-  <Drawer id='nav-drawer'>
-    <Navbar activeRoute={activeRoute} />
-  </Drawer>
+  <div class='md:hidden'>
+    <Drawer id='nav-drawer'>
+      <Navbar activeRoute={activeRoute} />
+    </Drawer>
+  </div>
 
   <div class='hidden md:block'>
     <Navbar activeRoute={activeRoute} />
