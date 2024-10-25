@@ -7,8 +7,8 @@ export const NAV_LINKS = [
     title: 'Notícias',
     route: '/posts',
   },
-  {
-    title: 'Sobre',
-    route: '/aboutt',
-  },
+  // {
+  //   title: 'Sobre',
+  //   route: '/aboutt',
+  // },
 ]
