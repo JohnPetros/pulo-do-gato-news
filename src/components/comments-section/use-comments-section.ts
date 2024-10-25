@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import type { Comment } from '@/core/types'
 import { commentsService } from '@/cms/index'
+import { PAGINATION } from '@/constants/pagination'
 
 export function useCommentsSection(postId: string) {
   const [comments, setComments] = useState<Comment[]>([])
@@ -45,7 +46,7 @@ export function useCommentsSection(postId: string) {
     comments,
     isToastVisible,
     page,
-    totalPages: Math.ceil(commentsCount / 2),
+    totalPages: Math.floor(commentsCount / PAGINATION.itemsPerPage),
     isFetchingComments,
     handleFormSubmit,
     handleLoadMoreButtonClick,
