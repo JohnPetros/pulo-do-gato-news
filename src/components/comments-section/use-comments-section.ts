@@ -22,8 +22,6 @@ export function useCommentsSection(postId: string) {
   const fetchComments = useCallback(async () => {
     const response = await commentsService.fetchComments(postId, page)
     if (response.isSuccess) {
-      console.log(response.body.comments)
-
       setComments((comments) => [...comments, ...response.body.comments])
       setCommentsCount(response.body.count)
       setisFetchingComments(false)

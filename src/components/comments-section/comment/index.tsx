@@ -8,7 +8,7 @@ type Props = {
 
 export const Comment = ({ author, content, date }: Props) => {
   return (
-    <div className='flex justify-start items-start gap-3 py-6 rounded-md border border-primary'>
+    <div className='flex justify-start items-start py-6 rounded-md border border-primary'>
       <svg
         xmlns='http://www.w3.org/2000/svg'
         width='120'

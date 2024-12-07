@@ -20,9 +20,6 @@ export const CommentsSecion = ({ postId }: Props) => {
     handleLoadMoreButtonClick,
   } = useCommentsSection(postId)
 
-  console.log({page})
-  console.log({totalPages})
-
   return (
     <section id='comments'>
       {isToastVisible && (
