@@ -15,21 +15,24 @@ const post = Astro.props;
 
 <article
   class={twMerge(
-    post.isSmall ? 'grid grid-cols-2' : 'flex gap-3 flex-col',
-    'gap-3',
+    post.isSmall ? 'grid grid-cols-1 md:grid-cols-2' : 'flex gap-3 flex-col',
+    'gap-3 overflow-hidden rounded-md',
   )}
 >
-  <Image
-    src={post.image}
-    width={400}
-    height={400}
-    alt={post.name}
-    class={twMerge(
-      'w-full object-cover rounded-md',
-      post.isSmall ? 'h-full' : 'h-[24rem]',
-    )}
-  />
-  <div class='flex flex-col gap-2 h-56'>
+  <a href={`/post/${post.slug}`} class='cursor-pointer'>
+    <Image
+      src={post.image}
+      width={400}
+      height={400}
+      alt={post.name}
+      class={twMerge(
+        'w-full object-cover hover:scale-105 duration-600 transition-transform',
+        post.isSmall ? 'h-full' : 'h-full md:h-[26rem]',
+      )}
+    />
+  </a>
+
+  <div class={twMerge('flex flex-col gap-2', post.isSmall ? 'h-52' : 'h-64')}>
     <div class='flex items-center gap-2 text-gray-600 text-sm'>
       <span aria-label='Autor do post'>{post.author}</span>
       <span class='size-1 rounded-full bg-gray-600'></span>
@@ -49,11 +52,10 @@ const post = Astro.props;
     <div
       class={twMerge(
         'overflow-hidden',
-        post.isSmall ? 'text-sm h-16 ' : 'h-24',
+        post.isSmall ? 'text-sm h-16 ' : 'h-32',
       )}
     >
       <PortableText value={post.content[0]} />
-      ...
     </div>
 
     <div
