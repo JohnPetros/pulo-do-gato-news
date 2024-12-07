@@ -1,8 +1,9 @@
 ---
-import Logo from '../logo/index.astro';
+import { Image } from 'astro:assets';
+import Brand from '../../assets/images/pulo-do-gato-news-brand.jpg';
 ---
 
 <div class='flex items-canter gap-2'>
-  <Logo />
+  <Image src={Brand} width='48' height='48' alt='Pulo do Gato News' />
   <strong class='block text-gray-700 font-bold mt-1'>Pulo do Gato News</strong>
 </div>
