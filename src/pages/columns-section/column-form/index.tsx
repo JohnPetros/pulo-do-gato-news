@@ -1,0 +1,38 @@
+import { Input } from '@/components/input'
+import { Button } from '@/components/button'
+import { useColumnForm } from './use-column-form'
+import { Spinner } from '@/components/spinner'
+import { RichTextEditor } from '@/components/rich-text-editor'
+
+export const ColumnForm = () => {
+  const { formRef, formErrors, isFormSubmitting, handleFormSubmit } = useColumnForm()
+
+  return (
+    <form
+      ref={formRef}
+      onSubmit={handleFormSubmit}
+      className='rounded-md max-w-4xl mx-auto space-y-8 p-6 shadow'
+    >
+      <Input
+        id='name'
+        name='name'
+        label='Nome'
+        placeholder='Vitor Spinneli'
+        errorMessage={formErrors?.name}
+      />
+      <Input
+        id='email'
+        name='email'
+        label='E-mail'
+        placeholder='vitor@gmail.com'
+        errorMessage={formErrors?.email}
+      />
+
+      <RichTextEditor />
+
+      <Button type='submit' className='w-36 mx-auto'>
+        {isFormSubmitting ? <Spinner /> : 'Enviar'}
+      </Button>
+    </form>
+  )
+}
