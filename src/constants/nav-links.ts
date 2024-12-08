@@ -7,8 +7,12 @@ export const NAV_LINKS = [
     title: 'Notícias',
     route: '/posts',
   },
-  // {
-  //   title: 'Sobre',
-  //   route: '/aboutt',
-  // },
+  {
+    title: 'Sobre',
+    route: '/about',
+  },
+  {
+    title: 'Seção de colunistas',
+    route: '/columns-section',
+  },
 ]
