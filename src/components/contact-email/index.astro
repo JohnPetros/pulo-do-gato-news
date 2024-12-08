@@ -1,0 +1,29 @@
+---
+import { CONTACT_EMAIL } from '@/constants/contact-email';
+---
+
+<div class='flex items-center gap-3 bg-gray-50 p-3 rounded-md shadow'>
+  <div
+    class='rounded-md grid place-content-center p-3 text-gray-600 bg-gray-100'
+  >
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      stroke-width='2'
+      stroke-linecap='round'
+      stroke-linejoin='round'
+      class='icon icon-tabler icons-tabler-outline icon-tabler-mail'
+      ><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><path
+        d='M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z'
+      ></path><path d='M3 7l9 6l9 -6'></path></svg
+    >
+  </div>
+  <div>
+    <h3 class='text-gray-900'>E-mail de contato</h3>
+    <strong class='text-primary font-extrabold'>{CONTACT_EMAIL}</strong>
+  </div>
+</div>

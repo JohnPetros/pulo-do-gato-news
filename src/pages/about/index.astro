@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import Root from '@/layouts/root/index.astro';
 import CatsFamily from '@/assets/images/cats-family.svg';
 import { Button } from '@/components/button';
+import ContactEmail from '@/components/contact-email/index.astro';
 import { NAV_LINKS } from '@/constants/nav-links';
 ---
 
@@ -12,22 +13,22 @@ import { NAV_LINKS } from '@/constants/nav-links';
     <div class='grid grid-cols-1 xl:grid-cols-2 gap-6'>
       <div>
         <h1 class='uppercase text-3xl text-primary font-bold'>Sobre nós</h1>
-        <p class='mt-3 text-lg'>
+        <p class='mt-6 text-lg'>
           Nosso jornal é o espaço onde notícias interessantes, curiosidades
           instigantes e conteúdos relevantes se encontram para te deixar sempre
           um passo à frente.
         </p>
-        <p class='mt-3 text-lg'>
+        <p class='mt-6 text-lg'>
           Com leveza e criatividade, entregamos o melhor das novidades. Seja
           bem-vindo ao ponto de encontro de quem não perde tempo e sabe onde
           encontrar o pulo do gato!
         </p>
-        <p class='mt-3 text-lg'>
-          Se você possui alguma opnião, relato, denúncia ou notícia sobre a
-          região e deseja contribuir com nosso jornal, você pode escrever e nos
-          enviar seu texto na sessão de colunistas
+        <p class='mt-6 text-lg'>
+          Se você possui alguma opnião, relato, denúncia ou notícia sobre algo
+          na região e deseja contribuir com nosso jornal, você pode escrever e
+          nos enviar seu texto na sessão de colunistas.
         </p>
-        <Button href={NAV_LINKS[3].route} isLink className='mt-6 w-48 mx-auto'>
+        <Button href={NAV_LINKS[3].route} isLink className='mt-10 w-48 mx-auto'>
           Contribuir com o jornal
         </Button>
       </div>
@@ -38,6 +39,7 @@ import { NAV_LINKS } from '@/constants/nav-links';
           height='800'
           alt='Uma família de gatos vermelhos felizes'
         />
+        <ContactEmail />
       </div>
     </div>
   </div>
