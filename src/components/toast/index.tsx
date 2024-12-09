@@ -1,21 +1,32 @@
-import { useRef } from 'react'
+import { forwardRef, useImperativeHandle, useRef, type ForwardedRef } from 'react'
+
 import { useToast } from './use-toast'
+import type { ToastRef, ToastType } from './types'
 
 type Props = {
-  type: 'success' | 'error'
+  type: ToastType
   message: string
   isSticky?: boolean
+  onClose?: VoidFunction
 }
 
-export const Toast = ({ type, message, isSticky = false }: Props) => {
-  const closeButtonRef = useRef(null)
-  useToast(closeButtonRef, isSticky)
+const ToastComponent = (
+  { type, message, isSticky = false, onClose }: Props,
+  ref: ForwardedRef<ToastRef>,
+) => {
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const { handleClose } = useToast(closeButtonRef, isSticky, onClose)
+  useImperativeHandle(ref, () => {
+    return {
+      hide: () => closeButtonRef.current?.click(),
+    }
+  })
 
   if (type === 'success')
     return (
       <div
         id='toast-success'
-        className='toast fixed top-12 left-1/2 -translate-x-1/2 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800'
+        className='z-50 toast fixed top-12 left-1/2 -translate-x-1/2 flex items-center p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800'
         role='alert'
       >
         <div className='inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200'>
@@ -36,7 +47,8 @@ export const Toast = ({ type, message, isSticky = false }: Props) => {
           type='button'
           className='ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700'
           data-dismiss-target='#toast-success'
-          aria-label='Close'
+          aria-label='Fechar mensagem'
+          onClick={handleClose}
         >
           <span className='sr-only'>Close</span>
           <svg
@@ -62,7 +74,7 @@ export const Toast = ({ type, message, isSticky = false }: Props) => {
     return (
       <div
         id='toast-error'
-        className='toast fixed top-12 left-1/2 -translate-x-1/2 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800'
+        className='z-50 toast fixed top-12 left-1/2 -translate-x-1/2 flex items-center p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800'
         role='alert'
       >
         <div className='inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200'>
@@ -82,8 +94,9 @@ export const Toast = ({ type, message, isSticky = false }: Props) => {
           ref={closeButtonRef}
           data-dismiss-target='#toast-error'
           type='button'
-          aria-label='Fechar mensagem'
           className='ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700'
+          aria-label='Fechar mensagem'
+          onClick={handleClose}
         >
           <span className='sr-only'>Fechar mensagem</span>
           <svg
@@ -105,3 +118,5 @@ export const Toast = ({ type, message, isSticky = false }: Props) => {
       </div>
     )
 }
+
+export const Toast = forwardRef(ToastComponent)
