@@ -30,6 +30,25 @@ export const AstroServer = (): Server => {
       })
     },
 
+    async sendColumnAction(formData) {
+      const { data, error } = await actions.sendColumn(formData)
+
+      if (isInputError(error)) {
+        return new ActionResponse({
+          error: {
+            type: 'form',
+            name: error.fields.name?.join(', ') ?? '',
+            email: error.fields.email?.join(', ') ?? '',
+            content: error.fields.content?.join(', ') ?? '',
+          },
+        })
+      }
+
+      return new ActionResponse({
+        data,
+      })
+    },
+
     redirect(route: string) {
       navigate(route)
     },

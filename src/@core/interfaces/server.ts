@@ -5,4 +5,5 @@ export interface Server {
   redirect(route: string): void
   throwInternalError(message: string): void
   commentAction(formData: FormData): Promise<ActionResponse<Comment>>
+  sendColumnAction(formData: FormData): Promise<ActionResponse>
 }

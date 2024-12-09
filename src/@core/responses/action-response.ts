@@ -7,7 +7,7 @@ type ActionResponseProps<Data> = {
   error?: ActionError
 }
 
-export class ActionResponse<Data> {
+export class ActionResponse<Data = unknown> {
   private readonly _data: Data | null
   private readonly _error: ActionError | null
 
