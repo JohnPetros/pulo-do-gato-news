@@ -35,5 +35,3 @@ export const SubscribeController = (subscriptionsService: SubscriptionsService) 
     },
   }
 }
-
-// joaopcarvalho.cds@gmail.com

@@ -16,8 +16,6 @@ export const SendColumnAction = (server: Server) => {
         content,
       }
 
-      console.log({ column })
-
       const response = await columnsService.registerColumn(column)
 
       if (response.isFailure) {

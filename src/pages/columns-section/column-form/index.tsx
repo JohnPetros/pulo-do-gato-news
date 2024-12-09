@@ -24,6 +24,7 @@ export const ColumnForm = () => {
         name='name'
         label='Nome'
         placeholder='Vitor Spinneli'
+        value='vitor'
         errorMessage={formErrors?.name}
       />
       <Input
@@ -31,6 +32,7 @@ export const ColumnForm = () => {
         name='email'
         label='E-mail'
         placeholder='vitor@gmail.com'
+        value='vitor@gmail.com'
         errorMessage={formErrors?.email}
       />
 

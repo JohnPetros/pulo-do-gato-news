@@ -7,6 +7,7 @@ export const subscriptionSchema = {
       name: 'email',
       title: 'E-mail',
       type: 'string',
+      readonly: true,
     },
   ],
 }

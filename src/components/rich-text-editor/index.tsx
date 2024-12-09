@@ -17,7 +17,7 @@ const EXTENSIONS = [
       keepAttributes: false,
     },
   }),
-  Underline
+  Underline,
 ]
 
 type Props = {
@@ -40,9 +40,8 @@ export const RichTextEditor = ({ errorMessage, onChange }: Props) => {
         autofocus={false}
         immediatelyRender={false}
         extensions={EXTENSIONS}
-        onUpdate={({editor}) => onChange(editor.getText())}
-      >
-      </EditorProvider>
+        onUpdate={({ editor }) => onChange(editor.getHTML())}
+      />
     </div>
   )
 }

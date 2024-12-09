@@ -20,7 +20,7 @@ export function useColumnForm() {
 
     const formData = new FormData(formRef.current)
     formData.append('content', contentRef.current)
-    
+
     const response = await server.sendColumnAction(formData)
 
     setIsFormSubmitting(false)
