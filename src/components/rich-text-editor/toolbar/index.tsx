@@ -22,7 +22,7 @@ export const Toolbar = () => {
 
   if (editor)
     return (
-      <ul className='flex items-center gap-3 p-3 rounded-md border border-gray-100'>
+      <ul className='flex items-center flex-wrap gap-3 p-3 rounded-md border border-gray-100'>
         <li>
           <button
             type='button'
@@ -122,7 +122,9 @@ export const Toolbar = () => {
         <li>
           <button
             type='button'
-            onClick={() => editor.chain().focus().toggleList('bulletList', 'listItem').run()}
+            onClick={() =>
+              editor.chain().focus().toggleList('bulletList', 'listItem').run()
+            }
             className={twMerge(
               BUTTON_CLASS,
               editor.isActive('bulletList') && ACTIVE_BUTTON_CLASS,
@@ -134,7 +136,9 @@ export const Toolbar = () => {
         <li>
           <button
             type='button'
-            onClick={() => editor.chain().focus().toggleList('orderedList', 'listItem').run()}
+            onClick={() =>
+              editor.chain().focus().toggleList('orderedList', 'listItem').run()
+            }
             className={twMerge(
               BUTTON_CLASS,
               editor.isActive('orderedList') && ACTIVE_BUTTON_CLASS,

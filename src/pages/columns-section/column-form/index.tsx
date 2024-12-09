@@ -5,13 +5,19 @@ import { Spinner } from '@/components/spinner'
 import { RichTextEditor } from '@/components/rich-text-editor'
 
 export const ColumnForm = () => {
-  const { formRef, formErrors, isFormSubmitting, handleRichTextEditorChange, handleFormSubmit } = useColumnForm()
+  const {
+    formRef,
+    formErrors,
+    isFormSubmitting,
+    handleRichTextEditorChange,
+    handleFormSubmit,
+  } = useColumnForm()
 
   return (
     <form
       ref={formRef}
       onSubmit={handleFormSubmit}
-      className='rounded-md max-w-2xl mx-auto space-y-8 p-6 shadow'
+      className='rounded-md max-w-2xl mx-auto space-y-8 p-6 md:p-8 shadow'
     >
       <Input
         id='name'
