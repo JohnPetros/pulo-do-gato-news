@@ -1,4 +1,3 @@
-import type { Comment } from '@/core/types'
 import { server } from '@/server/index'
 import { useRef, useState, type FormEvent } from 'react'
 
@@ -12,6 +11,7 @@ export function useColumnForm() {
   const [formErrors, setFormErrors] = useState<FormErrors | null>(null)
   const [isFormSubmitting, setIsFormSubmitting] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
+  const contentRef = useRef('')
 
   async function handleFormSubmit(event: FormEvent) {
     setIsFormSubmitting(true)
@@ -19,7 +19,9 @@ export function useColumnForm() {
     if (!formRef.current) return
 
     const formData = new FormData(formRef.current)
-    const response = await server.commentAction(formData)
+    formData.append('content', contentRef.current)
+    
+    const response = await server.sendColumnAction(formData)
 
     setIsFormSubmitting(false)
 
@@ -34,10 +36,15 @@ export function useColumnForm() {
     }
   }
 
+  function handleRichTextEditorChange(value: string) {
+    contentRef.current = value
+  }
+
   return {
     formRef,
     formErrors,
     isFormSubmitting,
     handleFormSubmit,
+    handleRichTextEditorChange,
   }
 }

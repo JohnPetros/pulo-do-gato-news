@@ -19,7 +19,6 @@ export function useForm(onSubmit: (comment: Comment) => void) {
     if (!formRef.current) return
 
     const formData = new FormData(formRef.current)
-
     const response = await server.commentAction(formData)
 
     setIsFormSubmitting(false)

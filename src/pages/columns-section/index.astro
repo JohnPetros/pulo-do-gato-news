@@ -1,0 +1,30 @@
+---
+import Root from '@/layouts/root/index.astro';
+import ContactEmail from '@/components/contact-email/index.astro';
+import { ColumnForm } from './column-form';
+---
+
+<Root title='Pulo do Gato News' route='/about'>
+  <div class='large-container space-y-12 px-6 lg:px-0'>
+    <div class='grid grid-cols-2 gap-6'>
+      <h1 class='max-w-md text-5xl text-primary font-semibold leading-snug'>
+        Que tal você mesmo escrever uma notícia <br /> para o nosso jornal?
+      </h1>
+      <div>
+        <p class='text-gray-700'>
+          Escreva ou divulgue sua opnião, notícia ou qualquer acontecimento da
+          região, que ache que mereça a atenção de todos. Nossa equipe analisará
+          e fará um post no nosso blog sobre contendo sua autoria 🤘.
+        </p>
+        <p class='text-gray-700 my-3'>
+          Se achar melhor pode nos enviar por e-mail.
+        </p>
+        <ContactEmail />
+      </div>
+    </div>
+
+    <div class='mt-6'>
+      <ColumnForm client:load />
+    </div>
+  </div>
+</Root>

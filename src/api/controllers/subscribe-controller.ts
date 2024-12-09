@@ -1,4 +1,3 @@
-import { NEWSLETTER_API_MESSAGES } from '@/constants/index'
 import type { SubscriptionsService } from '@/core/interfaces'
 import type { Http } from '@/core/interfaces/http'
 import { EMAIL_REGEX } from '@/constants/email-regex'
