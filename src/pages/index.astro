@@ -2,9 +2,22 @@
 import Root from '../layouts/root/index.astro';
 import Hero from '../components/hero/index.astro';
 import LastPosts from '../components/last-posts/index.astro';
+import { Toast } from '@/components/toast';
+
+const sentColumnSuccess = Astro.url.searchParams.get('sent-column-success');
 ---
 
 <Root title='Home' route='/'>
+  {
+    sentColumnSuccess && (
+      <Toast
+        type='success'
+        message='Sua história foi enviada para nossa revisão 🤘'
+        client:load
+      />
+    )
+  }
+
   <div class='large-container mx-auto'>
     <Hero />
     <div class='mt-24'>

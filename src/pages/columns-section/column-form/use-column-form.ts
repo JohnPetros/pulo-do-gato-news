@@ -1,3 +1,4 @@
+import { NAV_LINKS } from '@/constants/nav-links'
 import { server } from '@/server/index'
 import { useRef, useState, type FormEvent } from 'react'
 
@@ -23,8 +24,6 @@ export function useColumnForm() {
 
     const response = await server.sendColumnAction(formData)
 
-    setIsFormSubmitting(false)
-
     if (response.hasError) {
       if (response.error.type === 'form')
         setFormErrors({
@@ -32,8 +31,11 @@ export function useColumnForm() {
           email: response.error.email,
           content: response.error.content,
         })
+      setIsFormSubmitting(false)
       return
     }
+
+    server.redirect(`${NAV_LINKS[0].route}?sent-column-success=true`)
   }
 
   function handleRichTextEditorChange(value: string) {

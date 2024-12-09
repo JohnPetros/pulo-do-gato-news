@@ -9,41 +9,41 @@ export const ColumnForm = () => {
     formRef,
     formErrors,
     isFormSubmitting,
-    handleRichTextEditorChange,
     handleFormSubmit,
+    handleRichTextEditorChange,
   } = useColumnForm()
 
   return (
-    <form
-      ref={formRef}
-      onSubmit={handleFormSubmit}
-      className='rounded-md max-w-2xl mx-auto space-y-8 p-6 md:p-8 shadow'
-    >
-      <Input
-        id='name'
-        name='name'
-        label='Nome'
-        placeholder='Vitor Spinneli'
-        value='vitor'
-        errorMessage={formErrors?.name}
-      />
-      <Input
-        id='email'
-        name='email'
-        label='E-mail'
-        placeholder='vitor@gmail.com'
-        value='vitor@gmail.com'
-        errorMessage={formErrors?.email}
-      />
+    <>
+      <form
+        ref={formRef}
+        onSubmit={handleFormSubmit}
+        className='rounded-md max-w-2xl mx-auto space-y-8 p-6 md:p-8 shadow'
+      >
+        <Input
+          id='name'
+          name='name'
+          label='Nome'
+          placeholder='Vitor Spinneli'
+          errorMessage={formErrors?.name}
+        />
+        <Input
+          id='email'
+          name='email'
+          label='E-mail'
+          placeholder='vitor@gmail.com'
+          errorMessage={formErrors?.email}
+        />
 
-      <RichTextEditor
-        errorMessage={formErrors?.content}
-        onChange={handleRichTextEditorChange}
-      />
+        <RichTextEditor
+          errorMessage={formErrors?.content}
+          onChange={handleRichTextEditorChange}
+        />
 
-      <Button type='submit' className='w-36 mx-auto'>
-        {isFormSubmitting ? <Spinner /> : 'Enviar'}
-      </Button>
-    </form>
+        <Button type='submit' disabled={isFormSubmitting} className='w-36 mx-auto'>
+          {isFormSubmitting ? <Spinner /> : 'Enviar'}
+        </Button>
+      </form>
+    </>
   )
 }

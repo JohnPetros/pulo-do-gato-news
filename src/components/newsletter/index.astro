@@ -17,13 +17,14 @@ const subscribeSuccess = Astro.url.searchParams.get('subscribe-success');
           subscribeError as keyof typeof NEWSLETTER_API_MESSAGES.error
         ] ?? NEWSLETTER_API_MESSAGES.error.server
       }
+      client:load
     />
   )
 }
 
 {
   subscribeSuccess && (
-    <Toast type='success' message='Sua inscrição foi registrada' />
+    <Toast type='success' message='Sua inscrição foi registrada' client:load />
   )
 }
 
