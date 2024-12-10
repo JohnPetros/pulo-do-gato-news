@@ -4,7 +4,7 @@ export type Post = {
   name: string
   content: any
   author: string
-  category: string
+  category: { name: string }
   image: string
   date: string
 }

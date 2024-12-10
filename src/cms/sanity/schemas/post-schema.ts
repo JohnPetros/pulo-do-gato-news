@@ -1,7 +1,5 @@
 import type { Rule } from 'sanity'
 
-import { CATEGORIES } from '../constants'
-
 export const postSchema = {
   name: 'post',
   title: 'Posts',
@@ -28,11 +26,14 @@ export const postSchema = {
     {
       name: 'category',
       title: 'Categoria',
-      type: 'string',
-      options: {
-        list: CATEGORIES,
-      },
-      initialValue: 'technology',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: { type: 'category' },
+        },
+      ],
+      validation: (rule: Rule) => rule.isRequired() && rule.length(1),
     },
     {
       name: 'tags',

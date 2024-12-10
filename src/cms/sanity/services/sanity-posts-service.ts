@@ -7,12 +7,12 @@ export const SanityPostsService = (): PostsService => {
   return {
     async fetchPosts({ category, search, page, itemsPerPage }) {
       const categoryFilter =
-        category && category !== 'all' ? '&& category == $category' : ''
+        category && category !== 'all' ? '&& category[0]->name == $category' : ''
       const searchFilter = search
         ? '&& lower(name) match $search || array::join(tags, " ") match $search'
         : ''
 
-      const sanityPosts = await sanityClient.fetch(
+      const sanityPosts = await sanityClient.fetch<Post[]>(
         `
         *[_type == "post" ${categoryFilter} ${searchFilter}] |
         order(_createdAt desc)
@@ -25,7 +25,10 @@ export const SanityPostsService = (): PostsService => {
           tags,
           author,
           content,
-          "image": image.asset->url
+          "image": image.asset -> url,
+          category[0] -> {
+            name
+          }
         }
         [${page - 1}..${page + itemsPerPage - 2}]
         `,
@@ -45,7 +48,7 @@ export const SanityPostsService = (): PostsService => {
       )
 
       return {
-        posts: sanityPosts as Post[],
+        posts: sanityPosts,
         count: Number(count),
       }
     },
