@@ -1,0 +1,27 @@
+---
+import type { Props as $, TypedObject } from 'astro-portabletext/types';
+import type { ImageSource } from '@/cms/sanity/types';
+import { buildImageUrl } from '@/cms/sanity/utils';
+
+export type ImageProps = {
+  asset: { _ref: ImageSource };
+  alt?: string | null | undefined;
+  class?: astroHTML.JSX.HTMLAttributes['class'];
+};
+
+type Props = $<ImageProps & TypedObject>;
+
+const { node, isInline } = Astro.props;
+
+const url = buildImageUrl(node.asset._ref);
+---
+
+{
+  isInline ? (
+    <img src={url} {...node} width='800' height='800' class='text-center' />
+  ) : (
+    <div class='grid place-content-center'>
+      <img src={url} {...node} width='512' height='512' class='size-[32rem]' />
+    </div>
+  )
+}

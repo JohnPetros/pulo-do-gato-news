@@ -5,6 +5,7 @@ import { PortableText } from 'astro-portabletext';
 import { postsService } from '@/cms/index';
 import RootLayout from '@/layouts/root/index.astro';
 import { CommentsSecion } from '@/components/comments-section';
+import PostContent from '@/components/post-content/index.astro';
 import Header from './header/index.astro';
 import ActionBar from './action-bar/index.astro';
 import PageProgress from './page-progress/index.astro';
@@ -48,7 +49,7 @@ const post = await postsService.fetchPostBySlug(slug);
         class='w-full h-fit mt-10 rounded-md'
       />
       <div class='prose space-y-6 mt-6 text-gray-700 text-xl leading-8'>
-        <PortableText value={post.content} />
+        <PostContent value={post.content} />
       </div>
 
       <div class='mt-24'>

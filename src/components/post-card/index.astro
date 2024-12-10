@@ -1,9 +1,9 @@
 ---
 import { Image } from 'astro:assets';
-import { PortableText } from 'astro-portabletext';
 
 import { FormattedDate } from '../formatted-date';
 import Category from '../category/index.astro';
+import PostContent from '@/components/post-content/index.astro';
 
 import type { Post } from '../../@core/types';
 import { twMerge } from 'tailwind-merge';
@@ -27,7 +27,7 @@ const post = Astro.props;
       alt={post.name}
       class={twMerge(
         'w-full object-cover hover:scale-105 duration-600 transition-transform',
-        post.isSmall ? 'h-full' : 'h-full md:h-[26rem]',
+        post.isSmall ? 'h-full' : 'h-full md:h-[20rem]',
       )}
     />
   </a>
@@ -55,7 +55,7 @@ const post = Astro.props;
         post.isSmall ? 'text-sm h-16 ' : 'h-32',
       )}
     >
-      <PortableText value={post.content[0]} />
+      <PostContent value={post.content[0]} />
     </div>
 
     <div
