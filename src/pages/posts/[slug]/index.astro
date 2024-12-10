@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import { PortableText } from 'astro-portabletext';
 
 import { postsService } from '@/cms/index';
 import RootLayout from '@/layouts/root/index.astro';
@@ -38,7 +37,7 @@ const post = await postsService.fetchPostBySlug(slug);
       <Header
         postName={post.name}
         postAuthor={post.author}
-        postCategory={post.category}
+        postCategory={post.category.name}
         postDate={post.date}
       />
       <Image

@@ -1,12 +1,12 @@
 ---
 import { Image } from 'astro:assets';
-
-import { FormattedDate } from '../formatted-date';
-import Category from '../category/index.astro';
-import PostContent from '@/components/post-content/index.astro';
+import { twMerge } from 'tailwind-merge';
 
 import type { Post } from '../../@core/types';
-import { twMerge } from 'tailwind-merge';
+import { NAV_LINKS } from '@/constants/nav-links';
+import PostContent from '@/components/post-content/index.astro';
+import { FormattedDate } from '../formatted-date';
+import Category from '../category/index.astro';
 
 type Props = Post & { isSmall?: boolean };
 
@@ -19,7 +19,7 @@ const post = Astro.props;
     'gap-3 overflow-hidden rounded-md',
   )}
 >
-  <a href={`/post/${post.slug}`} class='cursor-pointer'>
+  <a href={`${NAV_LINKS[1].route}/${post.slug}`} class='cursor-pointer'>
     <Image
       src={post.image}
       width={400}
@@ -44,7 +44,7 @@ const post = Astro.props;
         post.isSmall ? 'text-lg' : 'text-2xl',
       )}
     >
-      <a href={`/post/${post.slug}`}>
+      <a href={`/${NAV_LINKS[1].route}/${post.slug}`}>
         {post.name}
       </a>
     </h3>
@@ -65,7 +65,7 @@ const post = Astro.props;
       )}
     >
       <div class='flex items-center gap-2'>
-        <Category name={post.category} />
+        <Category name={post.category.name} />
         <span class='size-1 rounded-full bg-gray-600'></span>
         <span class='text-gray-600'>7 min de leitura</span>
       </div>
