@@ -1,5 +1,6 @@
 ---
 import Root from '@/layouts/root/index.astro';
+import { CONTACT_EMAIL } from '@/constants/index';
 
 const subtitleClass = 'text-gray-700 text-xl tracking-wider font-bold mt-6';
 const paragraphClass = 'text-gray-700 leading-6 mt-3';
@@ -14,7 +15,7 @@ const strongClass = 'text-gray-800 font-bold';
       Políticas de Privacidade
     </h1>
     <p class='text-gray-700 font-bold mt-3 mb-10'>
-      Última atualização: <time datetime=''>15/10/2024</time>
+      Última atualização: <time datetime='2024-12-10'>10/12/2024</time>
     </p>
     <p class={paragraphClass}>
       No Pulo do Gato News, respeitamos a sua privacidade e estamos
@@ -32,8 +33,8 @@ const strongClass = 'text-gray-800 font-bold';
         <p class={paragraphClass}>
           <strong class={strongClass}>Dados Pessoais:</strong> Quando você se inscreve
           no blog, comenta em postagens, ou nos envia uma mensagem, podemos coletar
-          informações como nome, endereço de e-mail e outras informações fornecidas
-          voluntariamente.
+          informações como nome, endereço de e-mail {CONTACT_EMAIL} e outras informações
+          fornecidas voluntariamente.
         </p>
       </li>
       <li class={listItemClass}>
@@ -155,7 +156,9 @@ const strongClass = 'text-gray-800 font-bold';
     </ul>
 
     <p class={paragraphClass}>
-      Para exercer esses direitos, entre em contato conosco através do e-mail.
+      Para exercer esses direitos, entre em contato conosco através do e-mail {
+        CONTACT_EMAIL
+      }.
     </p>
 
     <h2 class={subtitleClass}>7. Retenção de Dados</h2>
@@ -175,7 +178,7 @@ const strongClass = 'text-gray-800 font-bold';
     <h2 class={subtitleClass}>9. Contato</h2>
     <p class={paragraphClass}>
       Se você tiver dúvidas ou preocupações sobre esta Política de Privacidade,
-      entre em contato conosco pelo e-mail.
+      entre em contato conosco pelo e-mail {CONTACT_EMAIL}.
     </p>
   </div>
 </Root>

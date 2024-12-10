@@ -1,5 +1,6 @@
 ---
 import Root from '@/layouts/root/index.astro';
+import { CONTACT_EMAIL } from '@/constants/index';
 
 const subtitleClass = 'text-gray-700 text-xl tracking-wider font-bold mt-6';
 const paragraphClass = 'text-gray-700 leading-6 mt-3';
@@ -14,7 +15,7 @@ const strongClass = 'text-gray-800 font-bold';
       Termos de uso
     </h1>
     <p class='text-gray-700 font-bold mt-3 mb-10'>
-      Última atualização: <time datetime=''>15/10/2024</time>
+      Última atualização: <time datetime='2024-12-10'>10/12/2024</time>
     </p>
     <p class={paragraphClass}>
       Bem-vindo ao Pulo do Gato News! Ao acessar ou utilizar nosso site, você
@@ -160,15 +161,15 @@ const strongClass = 'text-gray-800 font-bold';
 
     <h2 class={subtitleClass}>12. Lei Aplicável</h2>
     <p class={paragraphClass}>
-      Estes Termos de Uso são regidos pelas leis do [país ou estado aplicável],
-      sem consideração aos princípios de conflitos de leis. Qualquer disputa
-      relacionada ao uso do blog deverá ser resolvida nos tribunais competentes
-      dessa jurisdição.
+      Estes Termos de Uso são regidos pelas leis do Brasil, sem consideração aos
+      princípios de conflitos de leis. Qualquer disputa relacionada ao uso do
+      blog deverá ser resolvida nos tribunais competentes dessa jurisdição.
     </p>
 
     <h2 class={subtitleClass}>13. Contato</h2>
     <p class={paragraphClass}>
-      Se você tiver dúvidas ou preocupações sobre estes Termos de Uso, entre em contato conosco pelo e-mail.
+      Se você tiver dúvidas ou preocupações sobre estes Termos de Uso, entre em
+      contato conosco pelo e-mail {CONTACT_EMAIL}.
     </p>
   </div>
 </Root>
