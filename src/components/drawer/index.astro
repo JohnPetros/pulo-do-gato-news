@@ -8,7 +8,7 @@ const { id } = Astro.props;
 
 <div
   id={id}
-  class='fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-80'
+  class='md:hidden fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-80'
   tabindex='-1'
   aria-labelledby='drawer-right-label'
 >
@@ -17,7 +17,7 @@ const { id } = Astro.props;
     data-drawer={`${id}-hide`}
     data-drawer-hide={id}
     aria-controls={id}
-    class='text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center'
+    class='md:hidden text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center'
   >
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -29,14 +29,14 @@ const { id } = Astro.props;
       stroke-width='2'
       stroke-linecap='round'
       stroke-linejoin='round'
-      class='icon icon-tabler icons-tabler-outline icon-tabler-x text-gray-700'
+      class='md:hidden icon icon-tabler icons-tabler-outline icon-tabler-x text-gray-700'
       ><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><path
         d='M18 6l-12 12'></path><path d='M6 6l12 12'></path></svg
     >
     <span class='sr-only'>Fechar menu</span>
   </button>
 
-  <div class='mt-12'>
+  <div class='md:hidden mt-12'>
     <slot />
   </div>
 </div>
