@@ -1,0 +1,36 @@
+<astro-page-progress>
+  <div data-progress='container' class='fixed top-0 w-full bg-gray-50 h-2'>
+    <div data-progress='bar' class='bg-primary h-2' style='width: 0%'></div>
+  </div>
+
+  <section data-progress='section'>
+    <slot />
+  </section>
+</astro-page-progress>
+
+<script>
+  class AstroPageProgress extends HTMLElement {
+    connectedCallback() {
+      const bar = document.querySelector<HTMLDivElement>(
+        '[data-progress="bar"]',
+      );
+      const section = document.querySelector<HTMLDivElement>('body');
+      if (!bar || !section) return;
+
+      window.addEventListener('scroll', () => this.handleSroll(bar, section));
+    }
+
+    handleSroll(bar: HTMLDivElement, section: HTMLDivElement) {
+      const sectionBounding = section.getBoundingClientRect();
+      const pageHeight = document.documentElement.clientHeight;
+      const progressPercentage =
+        (-sectionBounding.top /
+          Math.floor(sectionBounding.height - pageHeight)) *
+        100;
+
+      bar.style.width = `${progressPercentage}%`;
+    }
+  }
+
+  customElements.define('astro-page-progress', AstroPageProgress);
+</script>
