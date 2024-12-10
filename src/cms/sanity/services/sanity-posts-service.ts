@@ -65,7 +65,10 @@ export const SanityPostsService = (): PostsService => {
           tags,
           author,
           content,
-          "image": image.asset->url
+          "image": image.asset->url,
+          category[0] -> {
+            name
+          }
         }
         [0..3]
         `)

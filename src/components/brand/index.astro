@@ -1,10 +1,22 @@
 ---
 import { Image } from 'astro:assets';
 import Brand from '../../assets/images/pulo-do-gato-news-brand.jpg';
+
+type Props = {
+  loading?: 'eager' | 'lazy';
+};
+
+const { loading = 'lazy' } = Astro.props;
 ---
 
 <div class='flex items-canter gap-2'>
-  <Image src={Brand} width='48' height='48' alt='Pulo do Gato News' />
+  <Image
+    src={Brand}
+    width='48'
+    height='48'
+    alt='Pulo do Gato News'
+    loading={loading}
+  />
   <strong class='block text-gray-700 font-bold mt-1 -translate-x-4'
     >Pulo do Gato News</strong
   >
