@@ -1,0 +1,79 @@
+---
+import { SocialShare } from 'astro-social-share';
+---
+
+<astro-trigger>
+  <button
+    id='share-action-menu-trigger'
+    data-dropdown-toggle='share-action-menu'
+    data-dropdown-trigger='click'
+    type='button'
+    class='p-2 rounded-md hover:opacity-70 transition-opacity duration-200'
+  >
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      stroke-width='2'
+      stroke-linecap='round'
+      stroke-linejoin='round'
+      class='icon icon-tabler icons-tabler-outline icon-tabler-share text-gray-500'
+      ><path stroke='none' d='M0 0h24v24H0z' fill='none'></path><path
+        d='M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0'></path><path
+        d='M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0'></path><path
+        d='M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0'></path><path
+        d='M8.7 10.7l6.6 -3.4'></path><path d='M8.7 13.3l6.6 3.4'></path></svg
+    >
+  </button>
+
+  <div
+    id='share-action-menu'
+    class='z-10 shadow-md rounded-md p-3 h-48 gap-6 hidden'
+    aria-labelledby='share-action-menu-trigger'
+  >
+    <SocialShare
+      title='https://thenewscc.beehiiv.com/p/07-12-2024'
+      description='Veja essa notícia do Pulo do Gato News:'
+    />
+  </div>
+</astro-trigger>
+
+<style is:global>
+  .astro-social-share {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+  .astro-social-share a {
+    text-decoration: none;
+    margin-right: 10px;
+  }
+  .astro-social-share svg {
+    height: 24px;
+    fill: #737373;
+  }
+</style>
+
+<script>
+  class AstroTrigger extends HTMLElement {
+    connectedCallback() {
+      const trigger = document.querySelector<HTMLButtonElement>(
+        'button#share-action-menu-trigger',
+      );
+      const menu = document.querySelector<HTMLDivElement>(
+        'div#share-action-menu',
+      );
+      if (!trigger || !menu) return;
+
+      setTimeout(() => {
+        trigger.click();
+        trigger.click();
+      }, 1000);
+    }
+  }
+
+  customElements.define('astro-trigger', AstroTrigger);
+</script>

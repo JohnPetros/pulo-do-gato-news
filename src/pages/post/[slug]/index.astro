@@ -6,6 +6,7 @@ import { postsService } from '@/cms/index';
 import RootLayout from '@/layouts/root/index.astro';
 import { CommentsSecion } from '@/components/comments-section';
 import Header from './header/index.astro';
+import ActionBar from './action-bar/index.astro';
 
 export const prerender = true;
 
@@ -28,6 +29,8 @@ const post = await postsService.fetchPostBySlug(slug);
 ---
 
 <RootLayout title={post.name}>
+  <ActionBar />
+
   <div class='small-container px-6'>
     <Header
       postName={post.name}
@@ -47,7 +50,7 @@ const post = await postsService.fetchPostBySlug(slug);
     </div>
 
     <div class='mt-24'>
-      <CommentsSecion client:visible postId={post.id} />
+      <CommentsSecion client:load postId={post.id} />
     </div>
   </div>
 </RootLayout>
