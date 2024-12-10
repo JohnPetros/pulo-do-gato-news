@@ -1,15 +1,23 @@
 ---
 import GoBackAction from './go-back-action/index.astro';
 import ShareAction from './share-action/index.astro';
+
+type Props = {
+  postName: string;
+};
+
+const { postName } = Astro.props;
 ---
 
-<aside class='fixed top-48 left-10'>
-  <ul class='text-gray-500'>
+<aside class='fixed bottom-0 left-0 right-0 lg:top-40 lg:left-10 lg:right-auto'>
+  <ul
+    class='flex items-center lg:flex-col px-6 lg:px-0 bg-gray-50 lg:bg-transparent text-gray-500'
+  >
     <li>
       <GoBackAction />
     </li>
     <li>
-      <ShareAction />
+      <ShareAction pageTitle={postName} />
     </li>
   </ul>
 </aside>

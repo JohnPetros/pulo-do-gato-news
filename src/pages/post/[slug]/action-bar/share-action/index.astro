@@ -1,5 +1,11 @@
 ---
 import { SocialShare } from 'astro-social-share';
+
+type Props = {
+  pageTitle: string;
+};
+
+const { pageTitle } = Astro.props;
 ---
 
 <astro-trigger>
@@ -31,12 +37,12 @@ import { SocialShare } from 'astro-social-share';
 
   <div
     id='share-action-menu'
-    class='z-10 shadow-md rounded-md p-3 h-48 gap-6 hidden'
+    class='z-10 shadow-md rounded-md p-3 h-48 gap-6 hidden bg-gray-50 lg:bg-transparent'
     aria-labelledby='share-action-menu-trigger'
   >
     <SocialShare
-      title='https://thenewscc.beehiiv.com/p/07-12-2024'
-      description='Veja essa notícia do Pulo do Gato News:'
+      title={pageTitle}
+      description='Veja essa notícia que eu vi no Pulo do Gato News:'
     />
   </div>
 </astro-trigger>
@@ -49,7 +55,6 @@ import { SocialShare } from 'astro-social-share';
   }
   .astro-social-share a {
     text-decoration: none;
-    margin-right: 10px;
   }
   .astro-social-share svg {
     height: 24px;
