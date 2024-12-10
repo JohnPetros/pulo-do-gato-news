@@ -45,11 +45,14 @@ export const CommentsSecion = ({ postId }: Props) => {
         </>
       )}
 
-      {!isFetchingComments && page !== totalPages && comments.length > 0 && (
-        <Button className='mx-auto mt-12' onClick={handleLoadMoreButtonClick}>
-          Carregar mais
-        </Button>
-      )}
+      {!isFetchingComments &&
+        totalPages > 0 &&
+        page !== totalPages &&
+        comments.length > 0 && (
+          <Button className='mx-auto mt-12' onClick={handleLoadMoreButtonClick}>
+            Carregar mais
+          </Button>
+        )}
 
       <div className='mt-6'>
         <Form postId={postId} onSubmit={handleFormSubmit} />

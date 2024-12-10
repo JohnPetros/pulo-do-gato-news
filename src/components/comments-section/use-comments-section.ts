@@ -24,8 +24,8 @@ export function useCommentsSection(postId: string) {
     if (response.isSuccess) {
       setComments((comments) => [...comments, ...response.body.comments])
       setCommentsCount(response.body.count)
-      setisFetchingComments(false)
     }
+    setisFetchingComments(false)
   }, [postId, page])
 
   useEffect(() => {

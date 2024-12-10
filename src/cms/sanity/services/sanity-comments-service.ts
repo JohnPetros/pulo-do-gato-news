@@ -10,7 +10,6 @@ const ITEMS_PER_PAGE = 3
 export const SanityCommentsService = (apiClient: ApiClient): CommentsService => {
   return {
     async fetchComments(postId: string, page: number) {
-      console.log(page)
       const comments = await sanityClient.fetch(
         `*[_type == 'comment' && post._ref == $postId && isApproved == true] | order(date desc) 
       {

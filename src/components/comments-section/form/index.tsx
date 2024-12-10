@@ -32,8 +32,8 @@ export const Form = ({ postId, onSubmit }: Props) => {
       <Textarea
         id='content'
         name='content'
-        label='Mensagem'
-        placeholder='Insira sua menssagem aqui'
+        label='Comentário'
+        placeholder='Insira sua comentário aqui'
         errorMessage={formErrors?.content}
       />
       <input type='text' id='postId' name='postId' defaultValue={postId} hidden />
