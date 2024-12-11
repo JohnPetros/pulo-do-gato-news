@@ -1,8 +1,8 @@
 import { Button } from '../button'
 import { Spinner } from '../spinner'
 import { Toast } from '../toast'
-import { Comment } from './comment'
-import { Form } from './form'
+import { Comment } from './comment-card'
+import { Form } from './comment-form'
 import { useCommentsSection } from './use-comments-section'
 
 type Props = {

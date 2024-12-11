@@ -24,7 +24,7 @@ export const columnSchema = {
       title: 'Conteúdo',
       type: 'array',
       of: [{ type: 'block' }],
-      // readonly: true,
+      readonly: true,
       validation: (rule: Rule) => rule.required(),
     },
     {

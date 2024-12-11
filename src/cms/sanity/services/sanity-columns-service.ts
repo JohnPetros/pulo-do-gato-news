@@ -6,6 +6,7 @@ import type { Column } from '@/core/types'
 import { ENV } from '@/constants/env'
 import { schema } from '../schemas'
 import { JSDOM } from 'jsdom'
+import { ApiResponse } from '@/core/responses'
 
 const compiledSchema = Schema.compile(schema)
 const blockContentType = compiledSchema
@@ -15,24 +16,26 @@ const blockContentType = compiledSchema
 export const SanityColumnsService = (apiClient: ApiClient): ColumnsService => {
   return {
     async registerColumn(column: Column) {
-      const apiResponse = await apiClient.post(`/mutate/${ENV.sanityDataset}`, {
-        mutations: [
-          {
-            create: {
-              _type: 'column',
-              name: column.name,
-              email: column.email,
-              content: htmlToBlocks(column.content, blockContentType, {
-                parseHtml: (html: string) => new JSDOM(html).window.document,
-              }),
+      try {
+        const apiResponse = await apiClient.post(`/mutate/${ENV.sanityDataset}`, {
+          mutations: [
+            {
+              create: {
+                _type: 'column',
+                name: column.name,
+                email: column.email,
+                content: htmlToBlocks(column.content, blockContentType, {
+                  parseHtml: (html: string) => new JSDOM(html).window.document,
+                }),
+              },
             },
-          },
-        ],
-      })
+          ],
+        })
 
-      console.log(apiResponse.body)
-
-      return apiResponse
+        return apiResponse
+      } catch (error: any) {
+        return new ApiResponse({ errorMessage: error.messsge, statusCode: 500 })
+      }
     },
   }
 }

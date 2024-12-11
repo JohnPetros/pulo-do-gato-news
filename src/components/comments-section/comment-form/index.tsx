@@ -1,28 +1,29 @@
-import { Input } from '@/components/input'
+import type { Comment } from '@/core/types'
 import { Button } from '@/components/button'
-import { useColumnForm } from './use-column-form'
+import { Input } from '@/components/input'
+import { Textarea } from '@/components/textarea'
 import { Spinner } from '@/components/spinner'
-import { RichTextEditor } from '@/components/rich-text-editor'
 import { Toast } from '@/components/toast'
+import { useForm } from './use-comment-form'
 
-export const ColumnForm = () => {
+type Props = {
+  postId: string
+  onSubmit: (comment: Comment) => void
+}
+
+export const Form = ({ postId, onSubmit }: Props) => {
   const {
     formRef,
     formErrors,
-    isSendingColumn,
     internalErrorMessage,
+    isSendingComment,
     handleFormSubmit,
-    handleRichTextEditorChange,
-  } = useColumnForm()
+  } = useForm(onSubmit)
 
   return (
     <>
       {internalErrorMessage && <Toast type='error' message={internalErrorMessage} />}
-      <form
-        ref={formRef}
-        onSubmit={handleFormSubmit}
-        className='rounded-md max-w-2xl mx-auto space-y-8 p-6 md:p-8 shadow'
-      >
+      <form ref={formRef} className='space-y-6' onSubmit={handleFormSubmit}>
         <Input
           id='name'
           name='name'
@@ -37,14 +38,16 @@ export const ColumnForm = () => {
           placeholder='vitor@gmail.com'
           errorMessage={formErrors?.email}
         />
-
-        <RichTextEditor
+        <Textarea
+          id='content'
+          name='content'
+          label='Comentário'
+          placeholder='Insira sua comentário aqui'
           errorMessage={formErrors?.content}
-          onChange={handleRichTextEditorChange}
         />
-
-        <Button type='submit' disabled={isSendingColumn} className='w-36 mx-auto'>
-          {isSendingColumn ? <Spinner /> : 'Enviar'}
+        <input type='text' id='postId' name='postId' defaultValue={postId} hidden />
+        <Button type='submit' className='w-36 mx-auto'>
+          {isSendingComment ? <Spinner /> : 'Enviar'}
         </Button>
       </form>
     </>

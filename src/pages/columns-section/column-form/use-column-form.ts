@@ -1,41 +1,26 @@
-import { NAV_LINKS } from '@/constants/nav-links'
-import { server } from '@/server/index'
-import { useRef, useState, type FormEvent } from 'react'
+import { useRef, type FormEvent } from 'react'
 
-type FormErrors = {
-  name: string
-  email: string
-  content: string
-}
+import { NAV_LINKS } from '@/constants/nav-links'
+import { useSendColumnAction } from './use-send-column-action'
+import { useNavigation } from '@/hooks/index'
 
 export function useColumnForm() {
-  const [formErrors, setFormErrors] = useState<FormErrors | null>(null)
-  const [isFormSubmitting, setIsFormSubmitting] = useState(false)
+  const navigation = useNavigation()
   const formRef = useRef<HTMLFormElement>(null)
   const contentRef = useRef('')
+  const { sendColumn, internalErrorMessage, formErrors, isSendingColumn } =
+    useSendColumnAction(() =>
+      navigation.redirect(`${NAV_LINKS[0].route}?sent-column-success=true`),
+    )
 
   async function handleFormSubmit(event: FormEvent) {
-    setIsFormSubmitting(true)
     event.preventDefault()
     if (!formRef.current) return
 
     const formData = new FormData(formRef.current)
     formData.append('content', contentRef.current)
 
-    const response = await server.sendColumnAction(formData)
-
-    if (response.hasError) {
-      if (response.error.type === 'form')
-        setFormErrors({
-          name: response.error.name,
-          email: response.error.email,
-          content: response.error.content,
-        })
-      setIsFormSubmitting(false)
-      return
-    }
-
-    server.redirect(`${NAV_LINKS[0].route}?sent-column-success=true`)
+    await sendColumn(formData)
   }
 
   function handleRichTextEditorChange(value: string) {
@@ -45,7 +30,8 @@ export function useColumnForm() {
   return {
     formRef,
     formErrors,
-    isFormSubmitting,
+    isSendingColumn,
+    internalErrorMessage,
     handleFormSubmit,
     handleRichTextEditorChange,
   }
