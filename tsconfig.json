@@ -4,10 +4,12 @@
     "moduleResolution": "Bundler",
     "baseUrl": ".",
     "paths": {
+      "@/actions/*": ["src/actions/*"],
       "@/components/*": ["src/components/*"],
       "@/layouts/*": ["src/layouts/*"],
       "@/assets/*": ["src/assets/*"],
       "@/cms/*": ["src/cms/*"],
+      "@/hooks/*": ["src/hooks/*"],
       "@/server/*": ["src/server/*"],
       "@/api/*": ["src/api/*"],
       "@/constants/*": ["src/constants/*"],
