@@ -5,6 +5,7 @@ import type { ApiClient, ColumnsService } from '@/core/interfaces'
 import type { Column } from '@/core/types'
 import { ENV } from '@/constants/env'
 import { schema } from '../schemas'
+import { JSDOM } from 'jsdom'
 
 const compiledSchema = Schema.compile(schema)
 const blockContentType = compiledSchema
@@ -14,8 +15,6 @@ const blockContentType = compiledSchema
 export const SanityColumnsService = (apiClient: ApiClient): ColumnsService => {
   return {
     async registerColumn(column: Column) {
-      const { JSDOM } = await import('jsdom')
-
       const apiResponse = await apiClient.post(`/mutate/${ENV.sanityDataset}`, {
         mutations: [
           {
@@ -30,6 +29,8 @@ export const SanityColumnsService = (apiClient: ApiClient): ColumnsService => {
           },
         ],
       })
+
+      console.log(apiResponse.body)
 
       return apiResponse
     },
