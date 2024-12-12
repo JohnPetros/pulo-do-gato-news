@@ -17,9 +17,7 @@ export default defineConfig({
     }
   )],
   output: 'server',
-  adapter: netlify({
-    edgeMiddleware: true,
-  }),
+  adapter: netlify(),
   image: {
     remotePatterns: [{ protocol: 'http' }, { protocol: 'https' }]
   }
