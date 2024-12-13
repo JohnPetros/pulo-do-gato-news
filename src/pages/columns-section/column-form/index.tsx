@@ -27,14 +27,14 @@ export const ColumnForm = () => {
           id='name'
           name='name'
           label='Nome'
-          placeholder='Vitor Spinneli'
+          placeholder='Seu nome'
           errorMessage={formErrors?.name}
         />
         <Input
           id='email'
           name='email'
           label='E-mail'
-          placeholder='vitor@gmail.com'
+          placeholder='seuemail@exemplo.com'
           errorMessage={formErrors?.email}
         />
 
