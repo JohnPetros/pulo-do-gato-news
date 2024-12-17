@@ -1,5 +1,5 @@
 export type { ApiClient } from './api-client'
-export type { Http } from './http'
+export type { Http, HttpSchema } from './http'
 export type { Controller } from './controller'
 export type { CategoriesService } from './categories-service'
 export type { PostsService } from './posts-service'
