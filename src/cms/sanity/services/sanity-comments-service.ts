@@ -11,7 +11,7 @@ export const SanityCommentsService = (apiClient: ApiClient): CommentsService => 
   return {
     async fetchComments(postId: string, page: number) {
       const comments = await sanityClient.fetch(
-        `*[_type == 'comment' && post._ref == $postId && isApproved == true] | order(date desc) 
+        `*[_type == 'comment' && post._ref == $postId] | order(date desc) 
       {
         "id": _id,
         name,

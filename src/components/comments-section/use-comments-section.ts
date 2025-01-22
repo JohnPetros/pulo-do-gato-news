@@ -11,10 +11,6 @@ export function useCommentsSection(postId: string) {
   const [isToastVisible, setIsToastVisible] = useState(false)
   const [isFetchingComments, setisFetchingComments] = useState(true)
 
-  function handleFormSubmit() {
-    setIsToastVisible(true)
-  }
-
   function handleLoadMoreButtonClick() {
     setPage((page) => page + 1)
   }
@@ -27,6 +23,11 @@ export function useCommentsSection(postId: string) {
     }
     setisFetchingComments(false)
   }, [postId, page])
+
+  async function handleFormSubmit(newComment: Comment) {
+    setIsToastVisible(true)
+    setComments((comments) => [newComment, ...comments])
+  }
 
   useEffect(() => {
     fetchComments()

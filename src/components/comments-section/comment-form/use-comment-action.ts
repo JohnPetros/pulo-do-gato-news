@@ -35,6 +35,7 @@ export function useSendCommentAction(onSendComment: (comment: Comment) => void) 
     }
 
     onSendComment(data)
+    setIsSendingComment(false)
   }
 
   return {

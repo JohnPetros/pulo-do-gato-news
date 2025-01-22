@@ -33,12 +33,6 @@ export const commentSchema = {
       validation: (rule: Rule) => rule.required(),
     },
     {
-      name: 'isApproved',
-      title: 'Aprovado?',
-      type: 'boolean',
-      initialValue: false,
-    },
-    {
       name: 'date',
       title: 'Data',
       type: 'datetime',

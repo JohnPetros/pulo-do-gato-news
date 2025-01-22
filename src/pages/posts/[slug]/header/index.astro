@@ -19,13 +19,13 @@ const { postName, postAuthor, postCategory, postDate } = Astro.props;
   {postName}
 </h1>
 
-<div class='flex flex-col md:flex-row md:items-center justify-between'>
-  <div class='flex items-center gap-3 font-bold text-gray-500 mt-3'>
+<div class='flex flex-col md:flex-row md:items-center justify-between mt-3'>
+  <div class='flex items-center gap-1 font-bold text-gray-300 text-sm'>
     {postAuthor}
     <Divider />
     <FormattedDate value={postDate} />
   </div>
-  <div class='flex items-center gap-3 text-gray-500 mt-2 md:mt-0'>
+  <div class='flex items-center gap-3 text-gray-500 md:mt-0'>
     <Category name={postCategory} />
     <Divider />
     <small class='text-sm'>7 min de leitura</small>

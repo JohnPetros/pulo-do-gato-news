@@ -32,6 +32,7 @@ export function useSendColumnAction(onSendColumn: VoidFunction) {
       return
     }
 
+    setIsSendingColumn(false)
     onSendColumn()
   }
 
