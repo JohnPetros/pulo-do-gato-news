@@ -1,6 +1,8 @@
 <div align="center">
-  <img width="500" height="320" src="src/assets/images/pulo-do-gato-news-logo.jpg" alt="pulo-do-gato-news" />
+  <img width="700" height="420" src="src/assets/images/pulo-do-gato-news-logo.jpg" alt="pulo-do-gato-news" />
 </div>
+
+<br />
 
 <div align="center">
    <a href="https://github.com/JohnPetros">
@@ -94,6 +96,12 @@ em SEO utilizando uma
 - Uso correto das tags HTML semânticas (H1, H2, etc.).
 - Utilização de ferramentas, como Google Analytics e o Google Search Console
   para acompanhar o desempenho do blog e fazer ajustes na estratégia de SEO.
+
+### Métricas de desemprenho do site medidas em ambiente de produção
+
+<div align="center">
+  <img width="700" height="200" src="documentation/media/seo-metrics.jpeg" alt="Métricas de desempenho do site" />
+</div>
 
 ---
 
