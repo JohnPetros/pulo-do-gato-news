@@ -34,6 +34,18 @@ em SEO utilizando uma
 
 ---
 
+## 👀 Demonstração
+
+<img src="documentation/media/home-page.png" height='500' alt="Tela home" />
+
+<img src="documentation/media/post-page.png" height='500' alt="Tela de lista de produtos" />
+
+<img src="documentation/media/about-page.png" height='500' alt="Tela de detalhes de produto" />
+
+<img src="documentation/media/columns-section.png" height='500' alt="Tela de lista de pedidos" />
+
+---
+
 ## ✨ Principais funcionalidades
 
 ### Listagem e filtragem de notícias
