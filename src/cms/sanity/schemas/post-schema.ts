@@ -2,7 +2,7 @@ import type { Rule } from 'sanity'
 
 export const postSchema = {
   name: 'post',
-  title: 'Posts',
+  title: 'Notícias',
   type: 'document',
   fields: [
     {
@@ -69,6 +69,11 @@ export const postSchema = {
       title: 'Conteúdo',
       type: 'array',
       of: [{ type: 'block' }, { type: 'image' }],
+    },
+    {
+      title: 'Tempo de leitura (min)',
+      name: 'readingTime',
+      type: 'number',
     },
   ],
 }

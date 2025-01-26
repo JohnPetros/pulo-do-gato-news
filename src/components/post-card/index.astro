@@ -45,7 +45,7 @@ const post = Astro.props;
     <h3
       class={twMerge(
         'text-gray-800 font-bold hover:text-primary transition-colors duration-200',
-        post.isSmall ? 'text-lg' : 'text-2xl',
+        post.isSmall ? 'text-md' : 'text-2xl',
       )}
     >
       <a href={`/${NAV_LINKS[1].route}/${post.slug}`}>
@@ -53,9 +53,15 @@ const post = Astro.props;
       </a>
     </h3>
 
+    <div class='flex items-center gap-2 text-sm'>
+      <Category name={post.category.name} />
+      <span class='size-1 rounded-full bg-gray-600'></span>
+      <span class='text-gray-600'>7 min de leitura</span>
+    </div>
+
     <div
       class={twMerge(
-        'overflow-hidden',
+        'bg-[linear-gradient(0deg,var(--tw-gradient-from)_0%,var(--tw-gradient-to)_100%)] from-transparent to-gray-900 bg-clip-text text-transparent',
         post.isSmall ? 'text-sm max-h-16 ' : 'max-h-32',
       )}
     >
@@ -68,11 +74,6 @@ const post = Astro.props;
         post.isSmall ? 'text-sm' : 'text-base',
       )}
     >
-      <div class='flex items-center gap-2'>
-        <Category name={post.category.name} />
-        <span class='size-1 rounded-full bg-gray-600'></span>
-        <span class='text-gray-600'>7 min de leitura</span>
-      </div>
     </div>
   </div>
 </article>
