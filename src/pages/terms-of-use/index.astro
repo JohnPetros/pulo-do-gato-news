@@ -7,6 +7,7 @@ const paragraphClass = 'text-gray-700 leading-6 mt-3';
 const listItemClass = 'ml-6';
 const listClass = 'list-disc space-y-2 mt-3';
 const strongClass = 'text-gray-800 font-bold';
+const emailLinkClass = 'text-primary font-semibold';
 ---
 
 <Root title='Termos de uso'>
@@ -169,7 +170,10 @@ const strongClass = 'text-gray-800 font-bold';
     <h2 class={subtitleClass}>13. Contato</h2>
     <p class={paragraphClass}>
       Se você tiver dúvidas ou preocupações sobre estes Termos de Uso, entre em
-      contato conosco pelo e-mail {CONTACT_EMAIL}.
+      contato conosco pelo e-mail <a
+        href={`mailto:${CONTACT_EMAIL}`}
+        class={emailLinkClass}>{CONTACT_EMAIL}</a
+      >.
     </p>
   </div>
 </Root>

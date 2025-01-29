@@ -7,6 +7,7 @@ const paragraphClass = 'text-gray-700 leading-6 mt-3';
 const listItemClass = 'ml-6';
 const listClass = 'list-disc space-y-2 mt-3';
 const strongClass = 'text-gray-800 font-bold';
+const emailLinkClass = 'text-primary font-semibold';
 ---
 
 <Root title='Políticas de privacidade'>
@@ -33,8 +34,10 @@ const strongClass = 'text-gray-800 font-bold';
         <p class={paragraphClass}>
           <strong class={strongClass}>Dados Pessoais:</strong> Quando você se inscreve
           no blog, comenta em postagens, ou nos envia uma mensagem, podemos coletar
-          informações como nome, endereço de e-mail {CONTACT_EMAIL} e outras informações
-          fornecidas voluntariamente.
+          informações como nome, endereço de e-mail <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            class={emailLinkClass}>{CONTACT_EMAIL}</a
+          > e outras informações fornecidas voluntariamente.
         </p>
       </li>
       <li class={listItemClass}>
@@ -178,7 +181,10 @@ const strongClass = 'text-gray-800 font-bold';
     <h2 class={subtitleClass}>9. Contato</h2>
     <p class={paragraphClass}>
       Se você tiver dúvidas ou preocupações sobre esta Política de Privacidade,
-      entre em contato conosco pelo e-mail {CONTACT_EMAIL}.
+      entre em contato conosco pelo e-mail <a
+        href={`mailto:${CONTACT_EMAIL}`}
+        class={emailLinkClass}>{CONTACT_EMAIL}</a
+      >.
     </p>
   </div>
 </Root>
