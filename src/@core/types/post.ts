@@ -7,4 +7,5 @@ export type Post = {
   category: { name: string }
   image: string
   date: string
+  readingTime: number
 }
