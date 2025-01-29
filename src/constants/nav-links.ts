@@ -1,18 +1,20 @@
+import { ROUTES } from './routes'
+
 export const NAV_LINKS = [
   {
     title: 'Home',
-    route: '/',
+    route: ROUTES.home,
   },
   {
     title: 'Notícias',
-    route: '/posts',
+    route: ROUTES.posts,
   },
   {
     title: 'Sobre',
-    route: '/about',
+    route: ROUTES.about,
   },
   {
     title: 'Seção de colunistas',
-    route: '/columns-section',
+    route: ROUTES.columnsSection,
   },
 ] as const

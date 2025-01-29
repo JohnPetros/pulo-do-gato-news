@@ -9,9 +9,11 @@ type Props = {
   postAuthor: string;
   postDate: string;
   postCategory: string;
+  postReadingTime: number;
 };
 
-const { postName, postAuthor, postCategory, postDate } = Astro.props;
+const { postName, postAuthor, postCategory, postDate, postReadingTime } =
+  Astro.props;
 ---
 
 <Breadcrumb postName={postName} />
@@ -28,6 +30,6 @@ const { postName, postAuthor, postCategory, postDate } = Astro.props;
   <div class='flex items-center gap-3 text-gray-500 md:mt-0'>
     <Category name={postCategory} />
     <Divider />
-    <small class='text-sm'>7 min de leitura</small>
+    <small class='text-sm'>{postReadingTime} min de leitura</small>
   </div>
 </div>

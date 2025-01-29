@@ -39,6 +39,7 @@ const post = await postsService.fetchPostBySlug(slug);
         postAuthor={post.author}
         postCategory={post.category.name}
         postDate={post.date}
+        postReadingTime={post.readingTime}
       />
       <Image
         src={post.image}

@@ -12,6 +12,8 @@ export const SanityPostsService = (): PostsService => {
         ? '&& lower(name) match $search || array::join(tags, " ") match $search'
         : ''
 
+      const sliceStart = (page - 1) * itemsPerPage
+
       const sanityPosts = await sanityClient.fetch<Post[]>(
         `
         *[_type == "post" ${categoryFilter} ${searchFilter}] |
@@ -21,6 +23,7 @@ export const SanityPostsService = (): PostsService => {
           name,
           "slug": slug.current,
           date,
+          readingTime,
           category,
           tags,
           author,
@@ -30,7 +33,7 @@ export const SanityPostsService = (): PostsService => {
             name
           }
         }
-        [${page - 1}..${page + itemsPerPage - 2}]
+        [${(page - 1) * itemsPerPage}..${sliceStart + itemsPerPage - 1}]
         `,
         {
           ...(category && { category }),
@@ -62,6 +65,7 @@ export const SanityPostsService = (): PostsService => {
           "slug": slug.current,
           date,
           category,
+          readingTime,
           tags,
           author,
           content,
@@ -91,6 +95,7 @@ export const SanityPostsService = (): PostsService => {
           "slug": slug.current,
           date,
           category,
+          readingTime,
           tags,
           author,
           content,
