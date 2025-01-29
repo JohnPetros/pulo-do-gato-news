@@ -15,4 +15,4 @@ export const NAV_LINKS = [
     title: 'Seção de colunistas',
     route: '/columns-section',
   },
-]
+] as const

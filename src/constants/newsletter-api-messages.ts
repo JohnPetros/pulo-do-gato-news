@@ -5,4 +5,4 @@ export const NEWSLETTER_API_MESSAGES = {
     server: 'Erro inesperado ao registrar e-mail',
   },
   success: 'Sua inscrição foi registrada',
-}
+} as const
