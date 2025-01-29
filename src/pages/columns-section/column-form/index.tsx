@@ -1,9 +1,10 @@
 import { Input } from '@/components/input'
 import { Button } from '@/components/button'
-import { useColumnForm } from './use-column-form'
 import { Spinner } from '@/components/spinner'
 import { RichTextEditor } from '@/components/rich-text-editor'
 import { Toast } from '@/components/toast'
+import { PrivacyPolicyWarning } from '@/components/PrivacyPolicyWarning'
+import { useColumnForm } from './use-column-form'
 
 export const ColumnForm = () => {
   const {
@@ -46,6 +47,8 @@ export const ColumnForm = () => {
         <Button type='submit' disabled={isSendingColumn} className='w-36 mx-auto'>
           {isSendingColumn ? <Spinner /> : 'Enviar'}
         </Button>
+
+        <PrivacyPolicyWarning />
       </form>
     </>
   )

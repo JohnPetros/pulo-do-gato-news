@@ -5,6 +5,7 @@ import { Textarea } from '@/components/textarea'
 import { Spinner } from '@/components/spinner'
 import { Toast } from '@/components/toast'
 import { useForm } from './use-comment-form'
+import { PrivacyPolicyWarning } from '@/components/PrivacyPolicyWarning'
 
 type Props = {
   postId: string
@@ -49,6 +50,7 @@ export const Form = ({ postId, onSubmit }: Props) => {
         <Button type='submit' className='w-36 mx-auto'>
           {isSendingComment ? <Spinner /> : 'Enviar'}
         </Button>
+        <PrivacyPolicyWarning />
       </form>
     </>
   )
