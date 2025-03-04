@@ -112,7 +112,7 @@ em SEO utilizando uma
 ### Métricas de desemprenho do site medidas em ambiente de produção
 
 <div align="center">
-  <img width="700" height="200" src="documentation/media/seo-metrics.jpeg" alt="Métricas de desempenho do site" />
+  <img width="680" height="180" src="documentation/media/seo-metrics.jpeg" alt="Métricas de desempenho do site" />
 </div>
 
 ---
