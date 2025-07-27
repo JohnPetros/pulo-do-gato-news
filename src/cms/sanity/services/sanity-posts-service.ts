@@ -1,7 +1,17 @@
-import { sanityClient } from 'sanity:client'
+import { Schema } from '@sanity/schema'
+import { htmlToBlocks } from '@sanity/block-tools'
+import { JSDOM } from 'jsdom'
+
+import { sanityClient } from '../client'
 
 import type { PostsService } from '@/core/interfaces'
-import type { Post } from '@/core/types'
+import type { Post, PostImage } from '@/core/types'
+import { schema } from '../schemas'
+
+const compiledSchema = Schema.compile(schema)
+const blockContentType = compiledSchema
+  .get('post')
+  .fields.find((field: any) => field.name === 'content').type
 
 export const SanityPostsService = (): PostsService => {
   return {
@@ -106,6 +116,43 @@ export const SanityPostsService = (): PostsService => {
       )
 
       return sanityPost as Post
+    },
+
+    async createPost(post: Post, image: PostImage) {
+      const asset = await sanityClient.assets.upload(
+        'image',
+        Buffer.from(await image.file.arrayBuffer()),
+        {
+          filename: image.file.name,
+          contentType: image.file.type,
+        },
+      )
+
+      const postContent = htmlToBlocks(post.content, blockContentType, {
+        parseHtml: (html: string) => new JSDOM(html).window.document,
+      })
+
+      await sanityClient.create({
+        _type: 'post',
+        name: post.name,
+        content: postContent,
+        tags: post.tags,
+        author: post.author,
+        category: [
+          {
+            _type: 'reference',
+            _ref: '9ab62ffb-d29b-44aa-99ae-0685a430e6bf',
+          },
+        ],
+        image: {
+          _type: 'image',
+          asset: {
+            _type: 'reference',
+            _ref: asset._id,
+          },
+          alt: image.alt,
+        },
+      })
     },
   }
 }

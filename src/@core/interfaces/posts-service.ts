@@ -1,4 +1,4 @@
-import type { Post } from '../types'
+import type { Post, PostImage } from '../types'
 
 type PostListParams = {
   category: string | null
@@ -12,4 +12,5 @@ export interface PostsService {
   fetchPostSlugs(): Promise<string[]>
   fetchPostBySlug(slug: string): Promise<Post>
   fetchPosts(params: PostListParams): Promise<{ posts: Post[]; count: number }>
+  createPost(post: Omit<Post, 'id' | 'slug'>, image: PostImage): Promise<void>
 }
