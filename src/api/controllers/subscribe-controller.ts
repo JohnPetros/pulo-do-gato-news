@@ -2,18 +2,18 @@ import type { SubscriptionsService } from '@/core/interfaces'
 import type { Http } from '@/core/interfaces/http'
 import { EMAIL_REGEX } from '@/constants/email-regex'
 
-export const SubscribeController = (subscriptionsService: SubscriptionsService) => {
+export const SubscribeController = (service: SubscriptionsService) => {
   return {
     async handle(http: Http) {
-      const email = await http.getFormData('email')
-      const pageOrigin = await http.getFormData('page-origin', '/')
+      const email = await http.getFormValue('email')
+      const pageOrigin = await http.getFormValue('page-origin', '/')
 
       const isValidEmail = EMAIL_REGEX.test(email)
       if (!isValidEmail) {
         return http.redirect(`${pageOrigin}?subscribe-error=invalidEmail`)
       }
 
-      const emailReponse = await subscriptionsService.fetchSubsctiptionByEmail(email)
+      const emailReponse = await service.fetchSubsctiptionByEmail(email)
 
       if (emailReponse.isFailure) {
         return http.redirect(`${pageOrigin}?subscribe-error=server`)
@@ -25,7 +25,7 @@ export const SubscribeController = (subscriptionsService: SubscriptionsService) 
         return http.redirect(`${pageOrigin}?subscribe-error=emailAlreasyExists`)
       }
 
-      const subscriptionResponse = await subscriptionsService.registerSubscription(email)
+      const subscriptionResponse = await service.registerSubscription(email)
 
       if (subscriptionResponse.isFailure) {
         return http.redirect(`${pageOrigin}?subscribe-error=server`)
