@@ -1,46 +1,76 @@
-import type { ValidRedirectStatus } from 'astro'
+import type { APIContext } from 'astro'
 
 import type { Http, HttpSchema } from '@/core/interfaces/http'
+import type { ZodSchema } from 'astro:schema'
 
-type AstroHttpProps = {
-  request: Request
-  schema?: HttpSchema
-  redirect: (path: string, status?: ValidRedirectStatus) => Response
-}
-
-export const AstroHttp = <AstroSchema extends HttpSchema>({
-  request,
-  schema,
-  redirect,
-}: AstroHttpProps): Http<AstroSchema> => {
+export const AstroHttp = async <AstroSchema extends HttpSchema>(
+  context: APIContext,
+  schema?: ZodSchema,
+): Promise<Http<AstroSchema>> => {
   let formData: FormData
+  let astroSchema: AstroSchema
+
+  if (context.request && schema) {
+    let body: HttpSchema['body']
+    let queryParams: HttpSchema['queryParams']
+    let routeParams: HttpSchema['routeParams']
+
+    // @ts-ignore
+    const keys = schema.keyof().options
+
+    if (keys.includes('queryParams')) {
+      queryParams = Object.fromEntries(
+        context.request.url
+          .split('?')[1]
+          .split('&')
+          .map((param) => param.split('=')),
+      )
+    }
+
+    if (keys.includes('body')) {
+      body = await context.request?.json()
+    }
+
+    astroSchema = schema.parse({ body, queryParams, routeParams })
+  }
 
   return {
-    async getFormData(key, fallback = '') {
-      if (!formData) formData = await request.formData()
+    async getFormValue(key, fallback = '') {
+      if (!formData) formData = await context.request.formData()
       return formData.get(key)?.toString() ?? fallback
     },
 
-    async getBody() {
-      if (!schema?.body) throw Error()
+    async getFormArray(key) {
+      if (!formData) formData = await context.request.formData()
+      const array = formData.getAll(`${key}[]`)
+      return array.map((item) => item.toString())
+    },
 
-      return schema.body
+    async getFormFile(key) {
+      if (!formData) formData = await context.request.formData()
+      return formData.get(key) as File
+    },
+
+    async getBody() {
+      if (!astroSchema?.body) throw Error()
+
+      return astroSchema.body
     },
 
     async getRouteParams() {
-      if (!schema?.routeParams) throw Error()
+      if (!astroSchema?.routeParams) throw Error()
 
-      return schema.routeParams
+      return astroSchema.routeParams
     },
 
     async getQueryParams() {
-      if (!schema?.queryParams) throw Error()
+      if (!astroSchema?.queryParams) throw Error()
 
-      return schema.queryParams
+      return astroSchema.queryParams
     },
 
     async redirect(route) {
-      return redirect(route)
+      return context.redirect(route)
     },
 
     async send(data: unknown, statusCode = 200) {

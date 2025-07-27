@@ -5,7 +5,9 @@ export type HttpSchema = {
 }
 
 export interface Http<Schema extends HttpSchema = HttpSchema> {
-  getFormData(key: string, fallback?: string): Promise<string>
+  getFormValue(key: string, fallback?: string): Promise<string>
+  getFormArray(key: string, fallback?: string): Promise<string[]>
+  getFormFile(key: string): Promise<File>
   getBody(): Promise<Schema['body']>
   getRouteParams(): Promise<Schema['routeParams']>
   getQueryParams(): Promise<Schema['queryParams']>
