@@ -1,6 +1,7 @@
 import { Schema } from '@sanity/schema'
 import { htmlToBlocks } from '@sanity/block-tools'
 import { JSDOM } from 'jsdom'
+import { v4 as generateUuid } from 'uuid'
 
 import { sanityClient } from '../client'
 
@@ -89,6 +90,29 @@ export const SanityPostsService = (): PostsService => {
       return sanityPosts as Post[]
     },
 
+    async fetchLastPost() {
+      const sanityPost = await sanityClient.fetch(
+        `*[_type == "post"] | order(_createdAt desc)
+        {
+          "_id": id,
+          name,
+          "slug": slug.current,
+          date,
+          category,
+          readingTime,
+          tags,
+          author,
+          content,
+          "image": image.asset->url,
+          category[0] -> {
+            name
+          }
+        }
+        [0]`,
+      )
+      return sanityPost as Post
+    },
+
     async fetchPostSlugs() {
       const sanitySlugs = await sanityClient.fetch(
         '*[_type == "post"]{"slug": slug.current}',
@@ -109,7 +133,10 @@ export const SanityPostsService = (): PostsService => {
           tags,
           author,
           content,
-          "image": image.asset->url
+          "image": image.asset->url,
+          category[0] -> {
+            name
+          }
         }
         `,
         { slug },
@@ -118,7 +145,8 @@ export const SanityPostsService = (): PostsService => {
       return sanityPost as Post
     },
 
-    async createPost(post: Post, image: PostImage) {
+    async createPost(post: Omit<Post, 'id' | 'slug'>, image: PostImage) {
+      const id = generateUuid()
       const asset = await sanityClient.assets.upload(
         'image',
         Buffer.from(await image.file.arrayBuffer()),
@@ -133,15 +161,18 @@ export const SanityPostsService = (): PostsService => {
       })
 
       await sanityClient.create({
+        _id: 'drafts.'.concat(id),
         _type: 'post',
         name: post.name,
         content: postContent,
         tags: post.tags,
         author: post.author,
+        date: post.date,
+        readingTime: post.readingTime,
         category: [
           {
             _type: 'reference',
-            _ref: '9ab62ffb-d29b-44aa-99ae-0685a430e6bf',
+            _ref: post.category.id,
           },
         ],
         image: {

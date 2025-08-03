@@ -8,6 +8,7 @@ type PostListParams = {
 }
 
 export interface PostsService {
+  fetchLastPost(): Promise<Post>
   fetchLastPosts(): Promise<Post[]>
   fetchPostSlugs(): Promise<string[]>
   fetchPostBySlug(slug: string): Promise<Post>
