@@ -2,6 +2,8 @@ import type { CategoriesService, PostsService } from '@/core/interfaces'
 import type { Http } from '@/core/interfaces/http'
 import type { Post, PostImage } from '@/core/types'
 
+const AUTHOR = 'Milena Oliveira'
+
 export const CreatePostController = (
   postsService: PostsService,
   categoriesService: CategoriesService,
@@ -16,6 +18,8 @@ export const CreatePostController = (
       const imageAlt = await http.getFormValue('imageAlt')
       const image = await http.getFormFile('image')
 
+      console.log({ title, content, categoryName, tags, readingTime, imageAlt, image })
+
       const category = await categoriesService.fetchCategoryByName(categoryName)
 
       const post: Omit<Post, 'id' | 'slug'> = {
@@ -23,7 +27,7 @@ export const CreatePostController = (
         content,
         tags,
         image: image.name,
-        author: 'John Doe',
+        author: AUTHOR,
         category: category,
         readingTime: Number(readingTime),
         date: new Date().toISOString(),
