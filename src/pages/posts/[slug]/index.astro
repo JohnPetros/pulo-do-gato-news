@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 
-import { postsService } from '@/cms/index';
+import { postsService, commentsService } from '@/cms/index';
 import RootLayout from '@/layouts/root/index.astro';
 import { CommentsSecion } from '@/components/comments-section';
 import PostContent from '@/components/post-content/index.astro';
@@ -42,10 +42,10 @@ const post = await postsService.fetchPostBySlug(slug);
         postReadingTime={post.readingTime}
       />
       <Image
-        src={post.image}
+        src={post.image.url}
         width={768}
         height={400}
-        alt={post.name}
+        alt={post.image.alt}
         class='w-full h-fit mt-10 rounded-md'
       />
       <div class='prose space-y-6 mt-6 text-gray-700 text-xl leading-8'>
@@ -53,7 +53,7 @@ const post = await postsService.fetchPostBySlug(slug);
       </div>
 
       <div class='mt-24'>
-        <CommentsSecion client:visible postId={post.id} />
+        <CommentsSecion client:load postId={post.id} />
       </div>
     </div>
   </PageProgress>

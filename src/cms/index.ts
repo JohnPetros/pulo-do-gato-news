@@ -11,7 +11,7 @@ import { ENV } from '../constants'
 const apiClient = AxiosApiClient(
   `https://${ENV.sanityProjectId}.api.sanity.io/v2021-06-07/data`,
 )
-apiClient.setHeader('Authorization', `Bearer ${ENV.sanityToken}`)
+apiClient.setHeader('Authorization', `Bearer ${ENV.sanityApiToken}`)
 
 export const postsService = SanityPostsService()
 export const categoriesService = SanityCategoriesService()

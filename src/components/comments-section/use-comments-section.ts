@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
 
+import { useCms } from '@/hooks/use-cms'
 import type { Comment } from '@/core/types'
-import { commentsService } from '@/cms/index'
 import { PAGINATION } from '@/constants/pagination'
 
 export function useCommentsSection(postId: string) {
+  const { commentsService } = useCms()
   const [comments, setComments] = useState<Comment[]>([])
   const [page, setPage] = useState(1)
   const [commentsCount, setCommentsCount] = useState(0)
@@ -22,7 +23,7 @@ export function useCommentsSection(postId: string) {
       setCommentsCount(response.body.count)
     }
     setisFetchingComments(false)
-  }, [postId, page])
+  }, [postId, commentsService, page])
 
   async function handleFormSubmit(newComment: Comment) {
     setIsToastVisible(true)
