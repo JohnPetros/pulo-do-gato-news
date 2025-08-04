@@ -6,5 +6,5 @@ export interface CommentsService {
     postId: string,
     page: number,
   ): Promise<ApiResponse<{ comments: Comment[]; count: number }>>
-  registerComment(comment: Omit<Comment, 'id'>): Promise<ApiResponse<void>>
+  registerComment(comment: Omit<Comment, 'id'>): Promise<ApiResponse>
 }

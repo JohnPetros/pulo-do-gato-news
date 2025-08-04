@@ -39,7 +39,10 @@ export const SanityPostsService = (): PostsService => {
           tags,
           author,
           content,
-          "image": image.asset -> url,
+          "image": {
+            "url": image.asset->url,
+            "alt": image.alt
+          },
           category[0] -> {
             name
           }
@@ -80,7 +83,10 @@ export const SanityPostsService = (): PostsService => {
           tags,
           author,
           content,
-          "image": image.asset->url,
+          "image": {
+            "url": image.asset->url,
+            "alt": image.alt
+          },
           category[0] -> {
             name
           }
@@ -103,7 +109,10 @@ export const SanityPostsService = (): PostsService => {
           tags,
           author,
           content,
-          "image": image.asset->url,
+          "image": {
+            "url": image.asset->url,
+            "alt": image.alt
+          },
           category[0] -> {
             name
           }
@@ -133,7 +142,10 @@ export const SanityPostsService = (): PostsService => {
           tags,
           author,
           content,
-          "image": image.asset->url,
+          "image": {
+            "url": image.asset->url,
+            "alt": image.alt
+          },
           category[0] -> {
             name
           }

@@ -38,5 +38,3 @@ export const SanitySubscriptionsService = (
     },
   }
 }
-
-// joaopcarvalho.cds@gmail.com

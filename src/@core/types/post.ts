@@ -1,4 +1,5 @@
 import type { Category } from './category'
+import type { Image } from './image'
 
 export type Post = {
   id: string
@@ -7,7 +8,7 @@ export type Post = {
   content: any
   author: string
   category: Category
-  image: string
+  image: Image
   date: string
   tags: string[]
   readingTime: number

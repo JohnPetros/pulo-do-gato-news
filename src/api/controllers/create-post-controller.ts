@@ -26,7 +26,10 @@ export const CreatePostController = (
         name: title,
         content,
         tags,
-        image: image.name,
+        image: {
+          url: image.name,
+          alt: imageAlt,
+        },
         author: AUTHOR,
         category: category,
         readingTime: Number(readingTime),
