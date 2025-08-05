@@ -21,6 +21,7 @@ export const CreatePostController = (
       console.log({ title, content, categoryName, tags, readingTime, imageAlt, image })
 
       const category = await categoriesService.fetchCategoryByName(categoryName)
+      console.log({ category })
 
       const post: Omit<Post, 'id' | 'slug'> = {
         name: title,
