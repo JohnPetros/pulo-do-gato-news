@@ -126,7 +126,7 @@ export const SanityPostsService = (): PostsService => {
       const sanitySlugs = await sanityClient.fetch(
         '*[_type == "post"]{"slug": slug.current}',
       )
-      return (sanitySlugs as { slug: string }[]).map(({ slug }) => slug)
+      return (sanitySlugs as { slug: string }[]).map(({ slug }) => slug).filter(Boolean)
     },
 
     async fetchPostBySlug(slug: string) {
