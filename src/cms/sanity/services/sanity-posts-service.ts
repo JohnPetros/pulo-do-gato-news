@@ -27,7 +27,7 @@ export const SanityPostsService = (): PostsService => {
 
       const sanityPosts = await sanityClient.fetch<Post[]>(
         `
-        *[_type == "post" ${categoryFilter} ${searchFilter}] |
+        *[_type == "post" && !(_id match "drafts.*") ${categoryFilter} ${searchFilter}] |
         order(_createdAt desc)
         {
           "id": _id,
@@ -57,7 +57,7 @@ export const SanityPostsService = (): PostsService => {
 
       const count = await sanityClient.fetch(
         `
-          count(*[_type == "post" ${categoryFilter} ${searchFilter}] | order(_createdAt desc))`,
+          count(*[_type == "post" && !(_id match "drafts.*") ${categoryFilter} ${searchFilter}] | order(_createdAt desc))`,
         {
           ...(category && { category: category }),
           ...(search && { search: search.toLocaleLowerCase() }),
@@ -72,7 +72,7 @@ export const SanityPostsService = (): PostsService => {
 
     async fetchLastPosts() {
       const sanityPosts = await sanityClient.fetch(`
-        *[_type == "post"] | order(_createdAt desc)
+        *[_type == "post" && !(_id match "drafts.*")] | order(_createdAt desc)
         {
           "_id": id,
           name,
@@ -98,7 +98,7 @@ export const SanityPostsService = (): PostsService => {
 
     async fetchLastPost() {
       const sanityPost = await sanityClient.fetch(
-        `*[_type == "post"] | order(_createdAt desc)
+        `*[_type == "post" && !(_id match "drafts.*")] | order(_createdAt desc)
         {
           "_id": id,
           name,
@@ -131,7 +131,7 @@ export const SanityPostsService = (): PostsService => {
 
     async fetchPostBySlug(slug: string) {
       const sanityPost = await sanityClient.fetch(
-        `*[_type == "post" && slug.current == $slug][0]
+        `*[_type == "post" && !(_id match "drafts.*") && slug.current == $slug][0]
         {
           "id": _id,
           name,
