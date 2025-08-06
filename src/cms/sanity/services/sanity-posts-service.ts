@@ -124,7 +124,7 @@ export const SanityPostsService = (): PostsService => {
 
     async fetchPostSlugs() {
       const sanitySlugs = await sanityClient.fetch(
-        '*[_type == "post"]{"slug": slug.current}',
+        '*[_type == "post" && !(_id match "drafts.*")]{"slug": slug.current}',
       )
       return (sanitySlugs as { slug: string }[]).map(({ slug }) => slug).filter(Boolean)
     },

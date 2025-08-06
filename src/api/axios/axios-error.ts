@@ -2,8 +2,8 @@ import { ApiResponse } from '@/core/responses'
 import { isAxiosError } from 'axios'
 
 export const AxiosError = <Response>(error: unknown) => {
+  console.error('Axios error', error)
   if (isAxiosError(error)) {
-    console.error('Axios error', error.response?.data)
     return new ApiResponse<Response>({
       errorMessage: error.message,
       statusCode: error.status,
