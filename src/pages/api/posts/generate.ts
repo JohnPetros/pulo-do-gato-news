@@ -1,8 +1,9 @@
+import type { APIRoute } from 'astro'
+
 import { AxiosApiClient } from '@/api/axios'
 import { NewsAiService } from '@/api/newsai/services/newsai-service'
 import { SanityPostsService } from '@/cms/sanity/services'
 import { ENV } from '@/constants/env'
-import type { APIRoute } from 'astro'
 import { AstroApiRoute, AstroHttp } from 'src/api/astro'
 import { GeneratePostController } from 'src/api/controllers/generate-post-controller'
 
