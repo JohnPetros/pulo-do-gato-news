@@ -19,9 +19,7 @@ export const SanityPostsService = (): PostsService => {
     async fetchPosts({ category, search, page, itemsPerPage }) {
       const categoryFilter =
         category && category !== 'all' ? '&& category[0]->name == $category' : ''
-      const searchFilter = search
-        ? '&& lower(name) match $search || array::join(tags, " ") match $search'
-        : ''
+      const searchFilter = search ? '&& (name match $search || $search in tags)' : ''
 
       const sliceStart = (page - 1) * itemsPerPage
 
