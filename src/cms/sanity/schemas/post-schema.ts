@@ -9,19 +9,20 @@ export const postSchema = {
       name: 'name',
       title: 'Nome',
       type: 'string',
-      validation: (rule: Rule) => rule.isRequired(),
+      validation: (rule: Rule) => rule.required().error('O nome é obrigatório'),
     },
     {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
       options: { source: 'name' },
+      validation: (rule: Rule) => rule.required().error('O slug é obrigatório'),
     },
     {
       name: 'author',
       title: 'Autor',
       type: 'string',
-      validation: (rule: Rule) => rule.isRequired(),
+      validation: (rule: Rule) => rule.required().error('O autor é obrigatório'),
     },
     {
       name: 'category',
@@ -33,7 +34,8 @@ export const postSchema = {
           to: { type: 'category' },
         },
       ],
-      validation: (rule: Rule) => rule.isRequired() && rule.length(1),
+      validation: (rule: Rule) =>
+        rule.required().min(1).error('Selecione pelo menos uma categoria'),
     },
     {
       name: 'tags',
@@ -43,11 +45,14 @@ export const postSchema = {
       options: {
         layout: 'tags',
       },
+      validation: (rule: Rule) =>
+        rule.required().min(1).error('Adicione pelo menos uma tag'),
     },
     {
       name: 'date',
       title: 'Data',
       type: 'datetime',
+      validation: (rule: Rule) => rule.required().error('A data é obrigatória'),
     },
     {
       name: 'image',
@@ -61,19 +66,26 @@ export const postSchema = {
           name: 'alt',
           title: 'Alt',
           type: 'string',
+          validation: (rule: Rule) =>
+            rule.required().error('O texto alternativo da imagem é obrigatório'),
         },
       ],
+      validation: (rule: Rule) => rule.required().error('A imagem é obrigatória'),
     },
     {
       name: 'content',
       title: 'Conteúdo',
       type: 'array',
       of: [{ type: 'block' }, { type: 'image' }],
+      validation: (rule: Rule) =>
+        rule.required().min(1).error('O conteúdo é obrigatório'),
     },
     {
       title: 'Tempo de leitura (min)',
       name: 'readingTime',
       type: 'number',
+      validation: (rule: Rule) =>
+        rule.required().positive().error('O tempo de leitura é obrigatório'),
     },
   ],
 }
