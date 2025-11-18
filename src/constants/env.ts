@@ -1,4 +1,5 @@
 export const ENV = {
+  appUrl: import.meta.env.APP_URL,
   sanityApiToken: import.meta.env.SANITY_API_TOKEN,
   sanityDataset: import.meta.env.SANITY_DATASET,
   sanityProjectId: import.meta.env.SANITY_PROJECT_ID,
