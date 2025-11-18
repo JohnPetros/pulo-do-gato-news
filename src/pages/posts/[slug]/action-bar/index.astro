@@ -4,9 +4,10 @@ import ShareAction from './share-action/index.astro';
 
 type Props = {
   postName: string;
+  postSlug: string;
 };
 
-const { postName } = Astro.props;
+const { postName, postSlug } = Astro.props;
 ---
 
 <aside class='fixed bottom-0 left-0 right-0 lg:top-40 lg:left-10 lg:right-auto'>
@@ -17,7 +18,7 @@ const { postName } = Astro.props;
       <GoBackAction />
     </li>
     <li>
-      <ShareAction pageTitle={postName} />
+      <ShareAction postName={postName} postSlug={postSlug} />
     </li>
   </ul>
 </aside>

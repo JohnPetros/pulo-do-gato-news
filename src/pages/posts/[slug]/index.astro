@@ -30,7 +30,7 @@ const post = await postsService.fetchPostBySlug(slug);
 ---
 
 <RootLayout title={post.name}>
-  <ActionBar postName={post.name} />
+  <ActionBar postName={post.name} postSlug={post.slug} />
 
   <PageProgress>
     <div class='small-container px-6'>

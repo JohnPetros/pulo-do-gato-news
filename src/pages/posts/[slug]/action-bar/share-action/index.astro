@@ -1,11 +1,13 @@
 ---
+import { ENV } from '@/constants/env';
 import { SocialShare } from 'astro-social-share';
 
 type Props = {
-  pageTitle: string;
+  postName: string;
+  postSlug: string;
 };
 
-const { pageTitle } = Astro.props;
+const { postName, postSlug } = Astro.props;
 ---
 
 <astro-trigger>
@@ -41,7 +43,8 @@ const { pageTitle } = Astro.props;
     aria-labelledby='share-action-menu-trigger'
   >
     <SocialShare
-      title={pageTitle}
+      title={postName}
+      url={`${ENV.appUrl}/posts/${postSlug}`}
       description='Veja essa notícia que eu vi no Pulo do Gato News:'
     />
   </div>

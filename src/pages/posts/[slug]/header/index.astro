@@ -22,7 +22,7 @@ const { postName, postAuthor, postCategory, postDate, postReadingTime } =
 </h1>
 
 <div class='flex flex-col md:flex-row md:items-center justify-between mt-3'>
-  <div class='flex items-center gap-1 text-gray-300 text-sm'>
+  <div class='flex items-center gap-1 text-gray-300'>
     {postAuthor}
     <Divider />
     <FormattedDate value={postDate} />
@@ -30,6 +30,6 @@ const { postName, postAuthor, postCategory, postDate, postReadingTime } =
   <div class='flex items-center gap-3 text-gray-500 md:mt-0'>
     <Category name={postCategory} />
     <Divider />
-    <small class='text-sm'>{postReadingTime} min de leitura</small>
+    <small class='text-base'>{postReadingTime} min de leitura</small>
   </div>
 </div>
