@@ -25,7 +25,7 @@ export const SanityPostsService = (): PostsService => {
 
       const sanityPosts = await sanityClient.fetch<Post[]>(
         `
-        *[_type == "post" && !(_id match "drafts.*") ${categoryFilter} ${searchFilter}] |
+        *[_type == "post" && !(_id in path("drafts.**")) ${categoryFilter} ${searchFilter}] |
         order(_createdAt desc)
         {
           "id": _id,
@@ -55,7 +55,7 @@ export const SanityPostsService = (): PostsService => {
 
       const count = await sanityClient.fetch(
         `
-          count(*[_type == "post" && !(_id match "drafts.*") ${categoryFilter} ${searchFilter}] | order(_createdAt desc))`,
+          count(*[_type == "post" && !(_id in path("drafts.**")) ${categoryFilter} ${searchFilter}] | order(_createdAt desc))`,
         {
           ...(category && { category: category }),
           ...(search && { search: search.toLocaleLowerCase() }),
@@ -70,7 +70,7 @@ export const SanityPostsService = (): PostsService => {
 
     async fetchLastPosts() {
       const sanityPosts = await sanityClient.fetch(`
-        *[_type == "post" && !(_id match "drafts.*")] | order(_createdAt desc)
+        *[_type == "post" && !(_id in path("drafts.**"))] | order(_createdAt desc)
         {
           "_id": id,
           name,
@@ -96,7 +96,7 @@ export const SanityPostsService = (): PostsService => {
 
     async fetchLastPost() {
       const sanityPost = await sanityClient.fetch(
-        `*[_type == "post" && !(_id match "drafts.*")] | order(_createdAt desc)
+        `*[_type == "post" && !(_id in path("drafts.**"))] | order(_createdAt desc)
         {
           "_id": id,
           name,
@@ -122,14 +122,14 @@ export const SanityPostsService = (): PostsService => {
 
     async fetchPostSlugs() {
       const sanitySlugs = await sanityClient.fetch(
-        '*[_type == "post" && !(_id match "drafts.*")]{"slug": slug.current}',
+        '*[_type == "post" && !(_id in path("drafts.**"))]{"slug": slug.current}',
       )
       return (sanitySlugs as { slug: string }[]).map(({ slug }) => slug).filter(Boolean)
     },
 
     async fetchPostBySlug(slug: string) {
       const sanityPost = await sanityClient.fetch(
-        `*[_type == "post" && !(_id match "drafts.*") && slug.current == $slug][0]
+        `*[_type == "post" && !(_id in path("drafts.**")) && slug.current == $slug][0]
         {
           "id": _id,
           name,
