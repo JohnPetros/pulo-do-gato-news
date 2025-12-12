@@ -19,16 +19,16 @@ export const AstroHttp = async <AstroSchema extends HttpSchema>(
     const keys = schema.keyof().options
 
     if (keys.includes('queryParams')) {
-      queryParams = Object.fromEntries(
-        context.request.url
-          .split('?')[1]
-          .split('&')
-          .map((param) => param.split('=')),
-      )
+      const url = new URL(context.request.url)
+      queryParams = Object.fromEntries(url.searchParams.entries())
     }
 
     if (keys.includes('body')) {
       body = await context.request?.json()
+    }
+
+    if (keys.includes('routeParams')) {
+      routeParams = context.params
     }
 
     astroSchema = schema.parse({ body, queryParams, routeParams })
