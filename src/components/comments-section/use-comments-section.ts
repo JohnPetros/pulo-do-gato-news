@@ -1,11 +1,21 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { useCms } from '@/hooks/use-cms'
 import type { Comment } from '@/core/types'
 import { PAGINATION } from '@/constants/pagination'
+import type { ApiClient } from '@/core/interfaces'
+import { ROUTES } from '@/constants/routes'
 
-export function useCommentsSection(postId: string) {
-  const { commentsService } = useCms()
+type CommentsApiResponse = {
+  comments: Comment[]
+  count: number
+}
+
+type Schema = {
+  postId: string
+  apiClient: ApiClient
+}
+
+export function useCommentsSection({ postId, apiClient }: Schema) {
   const [comments, setComments] = useState<Comment[]>([])
   const [page, setPage] = useState(1)
   const [commentsCount, setCommentsCount] = useState(0)
@@ -17,13 +27,15 @@ export function useCommentsSection(postId: string) {
   }
 
   const fetchComments = useCallback(async () => {
-    const response = await commentsService.fetchComments(postId, page)
+    const response = await apiClient.get<CommentsApiResponse>(
+      ROUTES.api.comments(postId, page),
+    )
     if (response.isSuccess) {
       setComments((comments) => [...comments, ...response.body.comments])
       setCommentsCount(response.body.count)
     }
     setisFetchingComments(false)
-  }, [postId, commentsService, page])
+  }, [postId, apiClient, page])
 
   async function handleFormSubmit(newComment: Comment) {
     setIsToastVisible(true)

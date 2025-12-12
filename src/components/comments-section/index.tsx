@@ -1,3 +1,4 @@
+import { useApi } from '@/hooks/use-api'
 import { Button } from '../button'
 import { Spinner } from '../spinner'
 import { Toast } from '../toast'
@@ -10,6 +11,7 @@ type Props = {
 }
 
 export const CommentsSecion = ({ postId }: Props) => {
+  const apiClient = useApi()
   const {
     comments,
     isToastVisible,
@@ -18,7 +20,7 @@ export const CommentsSecion = ({ postId }: Props) => {
     isFetchingComments,
     handleFormSubmit,
     handleLoadMoreButtonClick,
-  } = useCommentsSection(postId)
+  } = useCommentsSection({ postId, apiClient })
 
   return (
     <section id='comments'>
