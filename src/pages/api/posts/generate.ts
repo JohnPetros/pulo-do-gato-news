@@ -7,14 +7,11 @@ import { ENV } from '@/constants/env'
 import { AstroApiRoute, AstroHttp } from 'src/api/astro'
 import { GeneratePostController } from 'src/api/controllers/generate-post-controller'
 
-export const POST: APIRoute = async (context) => {
-  const apiRoute = AstroApiRoute(async () => {
-    const http = await AstroHttp(context)
-    const restClient = AxiosApiClient(ENV.newsAiApiUrl)
-    const newsAiService = NewsAiService(restClient)
-    const postsService = SanityPostsService()
-    const controller = GeneratePostController(postsService, newsAiService)
-    return controller.handle(http)
-  })
-  return apiRoute.run()
-}
+export const POST: APIRoute = AstroApiRoute(async (context) => {
+  const http = await AstroHttp(context)
+  const restClient = AxiosApiClient(ENV.newsAiApiUrl)
+  const newsAiService = NewsAiService(restClient)
+  const postsService = SanityPostsService()
+  const controller = GeneratePostController(postsService, newsAiService)
+  return controller.handle(http)
+})
