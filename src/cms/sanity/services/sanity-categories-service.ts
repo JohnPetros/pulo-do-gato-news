@@ -1,4 +1,4 @@
-import { sanityClient } from 'sanity:client'
+import { sanity } from '../sanity'
 
 import type { CategoriesService } from '@/core/interfaces'
 import type { Category } from '@/core/types'
@@ -6,7 +6,7 @@ import type { Category } from '@/core/types'
 export const SanityCategoriesService = (): CategoriesService => {
   return {
     async fetchAllCategories() {
-      return await sanityClient.fetch<Category[]>(
+      return await sanity.fetch<Category[]>(
         `*[_type == "category"] |
         order(_createdAt desc)
         {
@@ -17,7 +17,7 @@ export const SanityCategoriesService = (): CategoriesService => {
     },
 
     async fetchCategoryByName(name: string) {
-      return await sanityClient.fetch<Category>(
+      return await sanity.fetch<Category>(
         `*[_type == "category" && name == $name] |
         order(_createdAt desc) [0]
         {

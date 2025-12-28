@@ -1,4 +1,4 @@
-import { sanityClient } from 'sanity:client'
+import { sanity } from '../sanity'
 
 import type { ApiClient, CommentsService } from '@/core/interfaces'
 import type { Comment } from '@/core/types'
@@ -10,7 +10,7 @@ const ITEMS_PER_PAGE = 3
 export const SanityCommentsService = (apiClient: ApiClient): CommentsService => {
   return {
     async fetchComments(postId: string, page: number) {
-      const comments = await sanityClient.fetch(
+      const comments = await sanity.fetch(
         `*[_type == 'comment' && post._ref == $postId] | order(date desc) 
       {
         "id": _id,
@@ -23,7 +23,7 @@ export const SanityCommentsService = (apiClient: ApiClient): CommentsService => 
         { postId, page: page - 1 },
       )
 
-      const count = await sanityClient.fetch(
+      const count = await sanity.fetch(
         "count(*[_type == 'comment' && post._ref == $postId && isApproved == true] | order(date desc))",
         { postId },
       )

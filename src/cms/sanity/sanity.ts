@@ -1,6 +1,6 @@
 import { createClient } from '@sanity/client'
 
-export const sanityClient = createClient({
+export const sanity = createClient({
   apiVersion: '1',
   useCdn: true,
   projectId: import.meta.env.SANITY_PROJECT_ID,
