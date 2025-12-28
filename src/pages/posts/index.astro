@@ -21,6 +21,8 @@ const { posts, count } = await postsService.fetchPosts({
   itemsPerPage: PAGINATION.itemsPerPage,
 });
 
+console.log(posts);
+
 const pagesCount = Math.ceil(count / PAGINATION.itemsPerPage);
 ---
 
