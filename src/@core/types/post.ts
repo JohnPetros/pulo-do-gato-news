@@ -12,4 +12,5 @@ export type Post = {
   date: string
   tags: string[]
   readingTime: number
+  isAvailable: boolean
 }
