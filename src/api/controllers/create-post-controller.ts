@@ -18,10 +18,7 @@ export const CreatePostController = (
       const imageAlt = await http.getFormValue('imageAlt')
       const image = await http.getFormFile('image')
 
-      console.log({ title, content, categoryName, tags, readingTime, imageAlt, image })
-
       const category = await categoriesService.fetchCategoryByName(categoryName)
-      console.log({ category })
 
       const post: Omit<Post, 'id' | 'slug'> = {
         name: title,
@@ -33,6 +30,7 @@ export const CreatePostController = (
         },
         author: AUTHOR,
         category: category,
+        isAvailable: false,
         readingTime: Number(readingTime),
         date: new Date().toISOString(),
       }
