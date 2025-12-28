@@ -1,5 +1,0 @@
-@BASE_URL = http://localhost:4321/api
-
-### Get next post category
-GET {{BASE_URL}}/posts/next
-Content-Type: application/json

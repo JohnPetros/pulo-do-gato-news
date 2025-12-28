@@ -1,0 +1,10 @@
+@BASE_URL = http://localhost:4321/api/posts
+
+### Get next post category
+GET {{BASE_URL}}/next
+Content-Type: application/json
+
+### Make posts available
+POST {{BASE_URL}}/availability
+Content-Type: application/json
+
