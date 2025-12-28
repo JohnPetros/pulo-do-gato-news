@@ -87,5 +87,13 @@ export const postSchema = {
       validation: (rule: Rule) =>
         rule.required().positive().error('O tempo de leitura é obrigatório'),
     },
+    {
+      title: 'Está disponível no site?',
+      name: 'isAvailable',
+      type: 'boolean',
+      initialValue: true,
+      validation: (rule: Rule) =>
+        rule.required().error('O status de disponibilidade é obrigatório'),
+    },
   ],
 }

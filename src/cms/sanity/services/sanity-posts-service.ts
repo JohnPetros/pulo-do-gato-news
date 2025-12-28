@@ -3,7 +3,7 @@ import { htmlToBlocks } from '@sanity/block-tools'
 import { JSDOM } from 'jsdom'
 import { v4 as generateUuid } from 'uuid'
 
-import { sanityClient } from '../client'
+import { sanity } from '../sanity'
 
 import type { PostsService } from '@/core/interfaces'
 import type { Post, PostImage } from '@/core/types'
@@ -23,9 +23,9 @@ export const SanityPostsService = (): PostsService => {
 
       const sliceStart = (page - 1) * itemsPerPage
 
-      const sanityPosts = await sanityClient.fetch<Post[]>(
+      const sanityPosts = await sanity.fetch<Post[]>(
         `
-        *[_type == "post" && !(_id in path("drafts.**")) ${categoryFilter} ${searchFilter}] |
+        *[_type == "post" && !(_id in path("drafts.**")) && coalesce(isAvailable, true) == true ${categoryFilter} ${searchFilter}] |
         order(_createdAt desc)
         {
           "id": _id,
@@ -37,6 +37,7 @@ export const SanityPostsService = (): PostsService => {
           tags,
           author,
           content,
+          "isAvailable": coalesce(isAvailable, true),
           "image": {
             "url": image.asset->url,
             "alt": image.alt
@@ -53,9 +54,9 @@ export const SanityPostsService = (): PostsService => {
         },
       )
 
-      const count = await sanityClient.fetch(
+      const count = await sanity.fetch(
         `
-          count(*[_type == "post" && !(_id in path("drafts.**")) ${categoryFilter} ${searchFilter}] | order(_createdAt desc))`,
+          count(*[_type == "post" && !(_id in path("drafts.**")) && coalesce(isAvailable, true) == true ${categoryFilter} ${searchFilter}] | order(_createdAt desc))`,
         {
           ...(category && { category: category }),
           ...(search && { search: search.toLocaleLowerCase() }),
@@ -69,10 +70,10 @@ export const SanityPostsService = (): PostsService => {
     },
 
     async fetchLastPosts() {
-      const sanityPosts = await sanityClient.fetch(`
-        *[_type == "post" && !(_id in path("drafts.**"))] | order(_createdAt desc)
+      const sanityPosts = await sanity.fetch(`
+        *[_type == "post" && !(_id in path("drafts.**")) && coalesce(isAvailable, true) == true] | order(_createdAt desc)
         {
-          "_id": id,
+          "id": _id,
           name,
           "slug": slug.current,
           date,
@@ -81,6 +82,7 @@ export const SanityPostsService = (): PostsService => {
           tags,
           author,
           content,
+          "isAvailable": coalesce(isAvailable, true),
           "image": {
             "url": image.asset->url,
             "alt": image.alt
@@ -90,15 +92,15 @@ export const SanityPostsService = (): PostsService => {
           }
         }
         [0..3]
-        `)
+      `)
       return sanityPosts as Post[]
     },
 
     async fetchLastPost() {
-      const sanityPost = await sanityClient.fetch(
-        `*[_type == "post" && !(_id in path("drafts.**"))] | order(_createdAt desc)
+      const sanityPost = await sanity.fetch(
+        `*[_type == "post" && !(_id in path("drafts.**")) && coalesce(isAvailable, true) == true] | order(_createdAt desc)
         {
-          "_id": id,
+          "id": _id,
           name,
           "slug": slug.current,
           date,
@@ -107,6 +109,7 @@ export const SanityPostsService = (): PostsService => {
           tags,
           author,
           content,
+          "isAvailable": coalesce(isAvailable, true),
           "image": {
             "url": image.asset->url,
             "alt": image.alt
@@ -121,14 +124,14 @@ export const SanityPostsService = (): PostsService => {
     },
 
     async fetchPostSlugs() {
-      const sanitySlugs = await sanityClient.fetch(
+      const sanitySlugs = await sanity.fetch(
         '*[_type == "post" && !(_id in path("drafts.**"))]{"slug": slug.current}',
       )
       return (sanitySlugs as { slug: string }[]).map(({ slug }) => slug).filter(Boolean)
     },
 
     async fetchPostBySlug(slug: string) {
-      const sanityPost = await sanityClient.fetch(
+      const sanityPost = await sanity.fetch(
         `*[_type == "post" && !(_id in path("drafts.**")) && slug.current == $slug][0]
         {
           "id": _id,
@@ -140,6 +143,7 @@ export const SanityPostsService = (): PostsService => {
           tags,
           author,
           content,
+          "isAvailable": coalesce(isAvailable, true),
           "image": {
             "url": image.asset->url,
             "alt": image.alt
@@ -157,7 +161,7 @@ export const SanityPostsService = (): PostsService => {
 
     async createPost(post: Omit<Post, 'id' | 'slug'>, image: PostImage) {
       const id = generateUuid()
-      const asset = await sanityClient.assets.upload(
+      const asset = await sanity.assets.upload(
         'image',
         Buffer.from(await image.file.arrayBuffer()),
         {
@@ -170,7 +174,7 @@ export const SanityPostsService = (): PostsService => {
         parseHtml: (html: string) => new JSDOM(html).window.document,
       })
 
-      await sanityClient.create({
+      await sanity.create({
         _id: 'drafts.'.concat(id),
         _type: 'post',
         name: post.name,
@@ -179,6 +183,7 @@ export const SanityPostsService = (): PostsService => {
         author: post.author,
         date: post.date,
         readingTime: post.readingTime,
+        isAvailable: post.isAvailable,
         category: [
           {
             _type: 'reference',
@@ -194,6 +199,24 @@ export const SanityPostsService = (): PostsService => {
           alt: image.alt,
         },
       })
+    },
+
+    async editPostsAvailability(availability: boolean) {
+      const posts = await sanity.fetch<Post[]>(`
+        *[_type == "post" && !(_id in path("drafts.**"))] | order(_createdAt desc)
+        {
+          "id": _id
+        }
+      `)
+      const transaction = sanity.transaction()
+
+      console.log(posts)
+
+      posts.forEach((post) => {
+        transaction.patch(post.id, (post) => post.set({ isAvailable: availability }))
+      })
+
+      await transaction.commit()
     },
   }
 }
