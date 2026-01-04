@@ -26,3 +26,5 @@ pnpm-debug.log*
 # cursor files
 .cursor/
 
+# vscode
+.vscode/
