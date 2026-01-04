@@ -19,7 +19,7 @@ const schema = z.object({
 type Schema = z.infer<typeof schema>
 
 export const GET: APIRoute = AstroApiRoute(async (context) => {
-  const http = await AstroHttp<Schema>(context, schema)
+  const http = await AstroHttp<Schema>({ context, schema })
   const restClient = AxiosApiClient(ENV.newsAiApiUrl)
   const commentsService = SanityCommentsService(restClient)
   const controller = FetchCommentsController(commentsService)
