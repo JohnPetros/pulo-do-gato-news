@@ -1,10 +1,10 @@
-@BASE_URL = http://localhost:4321/api/posts
+@URL = {{BASE_URL}}/api/posts
 
 ### Get next post category
-GET {{BASE_URL}}/next
+GET {{URL}}/next
 Content-Type: application/json
 
 ### Make posts available
-POST {{BASE_URL}}/availability
+POST {{URL}}/availability
 Content-Type: application/json
 
