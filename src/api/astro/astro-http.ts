@@ -1,12 +1,20 @@
-import type { APIContext } from 'astro'
+import type { APIContext, RewritePayload } from 'astro'
 
 import type { Http, HttpSchema } from '@/core/interfaces/http'
 import type { ZodSchema } from 'astro:schema'
 
-export const AstroHttp = async <AstroSchema extends HttpSchema>(
-  context: APIContext,
-  schema?: ZodSchema,
-): Promise<Http<AstroSchema>> => {
+type Params = {
+  context: APIContext
+  schema?: ZodSchema
+  next?: (rewritePayload?: RewritePayload) => Promise<Response>
+}
+
+export const AstroHttp = async <AstroSchema extends HttpSchema>({
+  context,
+  schema,
+  next,
+}: Params): Promise<Http<AstroSchema>> => {
+  const headers: Record<string, string> = {}
   let formData: FormData
   let astroSchema: AstroSchema
 
@@ -69,17 +77,32 @@ export const AstroHttp = async <AstroSchema extends HttpSchema>(
       return astroSchema.queryParams
     },
 
+    setHeader(key, value) {
+      headers[key] = value
+    },
+
     async redirect(route) {
       return context.redirect(route)
     },
 
+    async next() {
+      if (!next) throw Error('Astro next funcion is undefined')
+      const response = await next()
+      for (const [key, value] of Object.entries(headers)) response.headers.set(key, value)
+
+      return response
+    },
+
     async send(data: unknown, statusCode = 200) {
-      return new Response(JSON.stringify(data), {
+      const response = new Response(JSON.stringify(data), {
         status: statusCode,
         headers: {
           'Content-Type': 'application/json',
         },
       })
+      for (const [key, value] of Object.entries(headers)) response.headers.set(key, value)
+
+      return response
     },
   }
 }
