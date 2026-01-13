@@ -200,23 +200,5 @@ export const SanityPostsService = (): PostsService => {
         },
       })
     },
-
-    async editPostsAvailability(availability: boolean) {
-      const posts = await sanity.fetch<Post[]>(`
-        *[_type == "post" && !(_id in path("drafts.**"))] | order(_createdAt desc)
-        {
-          "id": _id
-        }
-      `)
-      const transaction = sanity.transaction()
-
-      console.log(posts)
-
-      posts.forEach((post) => {
-        transaction.patch(post.id, (post) => post.set({ isAvailable: availability }))
-      })
-
-      await transaction.commit()
-    },
   }
 }

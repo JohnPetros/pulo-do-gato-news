@@ -12,7 +12,6 @@ export interface PostsService {
   fetchLastPosts(): Promise<Post[]>
   fetchPostSlugs(): Promise<string[]>
   fetchPostBySlug(slug: string): Promise<Post>
-  editPostsAvailability(availability: boolean): Promise<void>
   fetchPosts(params: PostListParams): Promise<{ posts: Post[]; count: number }>
   createPost(post: Omit<Post, 'id' | 'slug'>, image: PostImage): Promise<void>
 }
