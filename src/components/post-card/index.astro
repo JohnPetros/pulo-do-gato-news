@@ -7,70 +7,81 @@ import { ROUTES } from '@/constants/routes';
 import PostContent from '@/components/post-content/index.astro';
 import { FormattedDate } from '../formatted-date';
 import Category from '../category/index.astro';
+import { AxiosApiClient } from '@/api/axios';
+import { ENV } from '@/constants/env';
 
 type Props = Post & { isSmall?: boolean };
 
 const post = Astro.props;
+const apiClient = AxiosApiClient(ENV.appUrl);
+let canShowPost = true;
+const response = await apiClient.get<Post>(`/posts/${post.slug}`);
+if (response.isFailure) canShowPost = false;
 const postRoute = ROUTES.post(post.slug);
 ---
 
-<article
-  class={twMerge(
-    post.isSmall ? 'grid grid-cols-1 md:grid-cols-2' : 'flex gap-3 flex-col',
-    'gap-3 overflow-hidden rounded-md',
-  )}
->
-  <a href={postRoute} aria-label='Continuar lendo' class='cursor-pointer'>
-    <Image
-      src={post.image.url}
-      width={400}
-      height={400}
-      alt={post.name}
+{
+  canShowPost && (
+    <article
       class={twMerge(
-        'w-full object-cover hover:scale-105 duration-600 transition-transform',
-        post.isSmall ? 'h-full' : 'h-full md:h-[20rem]',
-      )}
-    />
-  </a>
-
-  <div class={twMerge('flex flex-col gap-2', post.isSmall ? 'h-52' : 'h-64')}>
-    <div class='flex items-center gap-2 text-gray-600 text-sm'>
-      <span aria-label='Autor do post'>{post.author}</span>
-      <span class='size-1 rounded-full bg-gray-600'></span>
-      <FormattedDate value={post.date} />
-    </div>
-    <h3
-      class={twMerge(
-        'text-gray-800 font-bold hover:text-primary transition-colors duration-200',
-        post.isSmall ? 'text-md' : 'text-2xl',
+        post.isSmall
+          ? 'grid grid-cols-1 md:grid-cols-2'
+          : 'flex gap-3 flex-col',
+        'gap-3 overflow-hidden rounded-md',
       )}
     >
-      <a href={postRoute}>
-        {post.name}
+      <a href={postRoute} aria-label='Continuar lendo' class='cursor-pointer'>
+        <Image
+          src={post.image.url}
+          width={400}
+          height={400}
+          alt={post.name}
+          class={twMerge(
+            'w-full object-cover hover:scale-105 duration-600 transition-transform',
+            post.isSmall ? 'h-full' : 'h-full md:h-[20rem]',
+          )}
+        />
       </a>
-    </h3>
 
-    <div class='flex items-center gap-2 text-sm'>
-      <Category name={post.category.name} />
-      <span class='size-1 rounded-full bg-gray-600'></span>
-      <span class='text-gray-600'>{post.readingTime} min de leitura</span>
-    </div>
+      <div
+        class={twMerge('flex flex-col gap-2', post.isSmall ? 'h-52' : 'h-64')}
+      >
+        <div class='flex items-center gap-2 text-gray-600 text-sm'>
+          <span aria-label='Autor do post'>{post.author}</span>
+          <span class='size-1 rounded-full bg-gray-600' />
+          <FormattedDate value={post.date} />
+        </div>
+        <h3
+          class={twMerge(
+            'text-gray-800 font-bold hover:text-primary transition-colors duration-200',
+            post.isSmall ? 'text-md' : 'text-2xl',
+          )}
+        >
+          <a href={postRoute}>{post.name}</a>
+        </h3>
 
-    <div
-      class={twMerge(
-        'bg-[linear-gradient(0deg,var(--tw-gradient-from)_0%,var(--tw-gradient-to)_100%)] from-transparent to-gray-900 bg-clip-text text-transparent',
-        post.isSmall ? 'text-sm max-h-16 ' : 'max-h-32',
-      )}
-    >
-      <PostContent value={post.content[0]} />
-    </div>
+        <div class='flex items-center gap-2 text-sm'>
+          <Category name={post.category.name} />
+          <span class='size-1 rounded-full bg-gray-600' />
+          <span class='text-gray-600'>{post.readingTime} min de leitura</span>
+        </div>
 
-    <div
-      class={twMerge(
-        'flex items-center justify-between',
-        post.isSmall ? 'text-sm' : 'text-base',
-      )}
-    >
-    </div>
-  </div>
-</article>
+        <div
+          class={twMerge(
+            'bg-[linear-gradient(0deg,var(--tw-gradient-from)_0%,var(--tw-gradient-to)_100%)] from-transparent to-gray-900 bg-clip-text text-transparent',
+            post.isSmall ? 'text-sm max-h-16 ' : 'max-h-32',
+          )}
+        >
+          <PostContent value={post.content[0]} />
+        </div>
+
+        <div
+          class={twMerge(
+            'flex items-center justify-between',
+            post.isSmall ? 'text-sm' : 'text-base',
+          )}
+        />
+      </div>
+    </article>
+  )
+}
