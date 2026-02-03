@@ -98,7 +98,7 @@ export const SanityPostsService = (): PostsService => {
 
     async fetchLastPost() {
       const sanityPost = await sanity.fetch(
-        `*[_type == "post" && !(_id in path("drafts.**"))] | order(_createdAt desc)
+        `*[_type == "post"] | order(_createdAt desc)
         {
           "id": _id,
           name,

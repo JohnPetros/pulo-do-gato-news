@@ -15,7 +15,6 @@ export const GetNextPostCategoryController = (service: PostsService) => {
   return {
     async handle(http: Http) {
       const lastPost = await service.fetchLastPost()
-      console.log(lastPost.name)
       let postCategoryIndex = POST_CATEGORIES.findIndex(
         (category) => category === lastPost.category.name.toLowerCase(),
       )
