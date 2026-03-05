@@ -1,2 +1,6 @@
 [build]
 command = "npm install && NODE_OPTIONS=--max-old-space-size=4096 npm run build"
+
+[build.environment]
+NODE_VERSION = "18"
+NODE_OPTIONS = "--max-old-space-size=4096"
