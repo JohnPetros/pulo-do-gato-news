@@ -1,5 +1,4 @@
-import { HTTP_STATUS_CODE } from '@/constants/http-status-code'
-import type { CommentsService, PostsService } from '@/core/interfaces'
+import type { CommentsService } from '@/core/interfaces'
 import type { Http } from '@/core/interfaces/http'
 
 type Schema = {
