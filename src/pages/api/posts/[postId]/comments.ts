@@ -4,7 +4,7 @@ import { z } from 'astro:schema'
 import { AxiosApiClient } from '@/api/axios'
 import { FetchCommentsController } from '@/api/controllers'
 import { ENV } from '@/constants/env'
-import { SanityCommentsService } from '@/cms/sanity/services'
+import { SanityCommentsCollection } from '@/cms/sanity/collections'
 import { AstroApiRoute, AstroHttp } from 'src/api/astro'
 
 const schema = z.object({
@@ -21,7 +21,7 @@ type Schema = z.infer<typeof schema>
 export const GET: APIRoute = AstroApiRoute(async (context) => {
   const http = await AstroHttp<Schema>({ context, schema })
   const restClient = AxiosApiClient(ENV.newsAiApiUrl)
-  const commentsService = SanityCommentsService(restClient)
+  const commentsService = SanityCommentsCollection(restClient)
   const controller = FetchCommentsController(commentsService)
   return controller.handle(http)
 })
