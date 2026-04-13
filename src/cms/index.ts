@@ -13,7 +13,7 @@ const apiClient = AxiosApiClient(
 )
 apiClient.setHeader('Authorization', `Bearer ${ENV.sanityApiToken}`)
 
-export const PostsCollection = SanityPostsCollection()
+export const postsCollection = SanityPostsCollection()
 export const categoriesService = SanityCategoriesCollection()
 export const commentsService = SanityCommentsCollection(apiClient)
 export const columnsService = SanityColumnsCollection(apiClient)
