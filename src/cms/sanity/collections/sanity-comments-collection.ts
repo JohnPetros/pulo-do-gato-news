@@ -7,7 +7,7 @@ import { ENV } from '@/constants/env'
 
 const ITEMS_PER_PAGE = 3
 
-export const SanityCommentsService = (apiClient: ApiClient): CommentsService => {
+export const SanityCommentsCollection = (apiClient: ApiClient): CommentsService => {
   return {
     async fetchComments(postId: string, page: number) {
       const comments = await sanity.fetch(

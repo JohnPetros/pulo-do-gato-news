@@ -1,11 +1,11 @@
 import { AxiosApiClient } from 'src/api/axios'
 import {
-  SanityPostsService,
-  SanityCategoriesService,
-  SanitySubscriptionsService,
-  SanityCommentsService,
-  SanityColumnsService,
-} from './sanity/services'
+  SanityPostsCollection,
+  SanityCategoriesCollection,
+  SanitySubscriptionsCollection,
+  SanityCommentsCollection,
+  SanityColumnsCollection,
+} from './sanity/collections'
 import { ENV } from '../constants'
 
 const apiClient = AxiosApiClient(
@@ -13,8 +13,8 @@ const apiClient = AxiosApiClient(
 )
 apiClient.setHeader('Authorization', `Bearer ${ENV.sanityApiToken}`)
 
-export const postsService = SanityPostsService()
-export const categoriesService = SanityCategoriesService()
-export const commentsService = SanityCommentsService(apiClient)
-export const columnsService = SanityColumnsService(apiClient)
-export const subscriptionsService = SanitySubscriptionsService(apiClient)
+export const PostsCollection = SanityPostsCollection()
+export const categoriesService = SanityCategoriesCollection()
+export const commentsService = SanityCommentsCollection(apiClient)
+export const columnsService = SanityColumnsCollection(apiClient)
+export const subscriptionsService = SanitySubscriptionsCollection(apiClient)

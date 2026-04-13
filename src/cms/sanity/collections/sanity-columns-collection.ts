@@ -12,7 +12,7 @@ const blockContentType = compiledSchema
   .get('column')
   .fields.find((field: any) => field.name === 'content').type
 
-export const SanityColumnsService = (apiClient: ApiClient): ColumnsService => {
+export const SanityColumnsCollection = (apiClient: ApiClient): ColumnsService => {
   return {
     async registerColumn(column: Column) {
       try {
