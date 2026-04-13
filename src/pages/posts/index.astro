@@ -1,5 +1,5 @@
 ---
-import { postsService } from '@/cms/index';
+import { PostsCollection } from '@/cms/index';
 import { NAV_LINKS, PAGINATION } from '@/constants/index';
 
 import Root from '@/layouts/root/index.astro';
@@ -14,7 +14,7 @@ const page = Astro.url.searchParams.get('page');
 const currentPage = page ? Number(page) : 1;
 const baseRoute = `${NAV_LINKS[1].route}?${search ? `search=${search}` : ''}${category ? `&category=${category}` : ''}`;
 
-const { posts, count } = await postsService.fetchPosts({
+const { posts, count } = await PostsCollection.fetchPosts({
   category,
   search,
   page: currentPage,

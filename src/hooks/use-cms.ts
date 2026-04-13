@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { AxiosApiClient } from '@/api/axios'
-import { SanityCommentsService } from '@/cms/sanity/services/sanity-comments-service'
+import { SanityCommentsCollection } from '@/cms/sanity/collections/sanity-comments-collection'
 import { ENV } from '../constants'
 
 const apiClient = AxiosApiClient(
@@ -12,7 +12,7 @@ apiClient.setHeader('Authorization', `Bearer ${ENV.sanityApiToken}`)
 export function useCms() {
   return useMemo(
     () => ({
-      commentsService: SanityCommentsService(apiClient),
+      commentsService: SanityCommentsCollection(apiClient),
     }),
     [],
   )
