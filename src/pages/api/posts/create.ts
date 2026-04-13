@@ -8,8 +8,8 @@ import { CreatePostController } from 'src/api/controllers'
 
 export const POST: APIRoute = AstroApiRoute(async (context) => {
   const http = await AstroHttp({ context })
-  const PostsCollection = SanityPostsCollection()
+  const postsCollection = SanityPostsCollection()
   const categoriesService = SanityCategoriesCollection()
-  const controller = CreatePostController(PostsCollection, categoriesService)
+  const controller = CreatePostController(postsCollection, categoriesService)
   return controller.handle(http)
 })

@@ -5,7 +5,7 @@ import type { PostDraft } from '@/core/types/post-draft'
 const AUTHOR = 'Milena Oliveira'
 
 export const CreatePostController = (
-  PostsCollection: PostsCollection,
+  postsCollection: PostsCollection,
   categoriesService: CategoriesService,
 ) => {
   return {
@@ -29,7 +29,7 @@ export const CreatePostController = (
         date: new Date().toISOString(),
       }
 
-      await PostsCollection.createPost(post)
+      await postsCollection.createPost(post)
 
       return http.send({
         message: 'Post created successfully',

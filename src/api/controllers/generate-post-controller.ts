@@ -12,12 +12,12 @@ const POST_CATEGORIES = [
 ]
 
 export const GeneratePostController = (
-  PostsCollection: PostsCollection,
+  postsCollection: PostsCollection,
   newsAiService: NewsAiService,
 ) => {
   return {
     async handle(http: Http) {
-      const lastPost = await PostsCollection.fetchLastPost()
+      const lastPost = await postsCollection.fetchLastPost()
       let postCategoryIndex = POST_CATEGORIES.findIndex(
         (category) => category === lastPost.category.name.toLowerCase(),
       )
