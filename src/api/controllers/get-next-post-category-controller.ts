@@ -1,5 +1,5 @@
 import { HTTP_STATUS_CODE } from '@/constants/http-status-code'
-import type { PostsService } from '@/core/interfaces'
+import type { PostsCollection } from '@/core/interfaces'
 import type { Http } from '@/core/interfaces/http'
 
 const POST_CATEGORIES = [
@@ -11,7 +11,7 @@ const POST_CATEGORIES = [
   'esportes',
 ]
 
-export const GetNextPostCategoryController = (service: PostsService) => {
+export const GetNextPostCategoryController = (service: PostsCollection) => {
   return {
     async handle(http: Http) {
       const lastPost = await service.fetchLastPost()
