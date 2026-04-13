@@ -1,0 +1,5 @@
+export { SanityPostsCollection } from './sanity-posts-collection'
+export { SanityCategoriesCollection } from './sanity-categories-collection'
+export { SanityCommentsCollection } from './sanity-comments-collection'
+export { SanityColumnsCollection } from './sanity-columns-collection'
+export { SanitySubscriptionsCollection } from './sanity-subscriptions-collection'

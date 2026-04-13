@@ -31,7 +31,7 @@ export const postSchema = {
       of: [
         {
           type: 'reference',
-          to: { type: 'category' },
+          to: [{ type: 'category' }],
         },
       ],
       validation: (rule: Rule) =>
@@ -86,6 +86,12 @@ export const postSchema = {
       type: 'number',
       validation: (rule: Rule) =>
         rule.required().positive().error('O tempo de leitura é obrigatório'),
+    },
+    {
+      name: 'is_reviewed',
+      title: 'Revisado',
+      type: 'boolean',
+      initialValue: false,
     },
   ],
 }

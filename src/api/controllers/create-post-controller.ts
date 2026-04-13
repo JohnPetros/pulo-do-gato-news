@@ -1,11 +1,11 @@
-import type { CategoriesService, PostsService } from '@/core/interfaces'
+import type { CategoriesService, PostsCollection } from '@/core/interfaces'
 import type { Http } from '@/core/interfaces/http'
-import type { Post, PostImage } from '@/core/types'
+import type { PostDraft } from '@/core/types/post-draft'
 
 const AUTHOR = 'Milena Oliveira'
 
 export const CreatePostController = (
-  postsService: PostsService,
+  postsCollection: PostsCollection,
   categoriesService: CategoriesService,
 ) => {
   return {
@@ -15,31 +15,21 @@ export const CreatePostController = (
       const categoryName = await http.getFormValue('category')
       const tags = await http.getFormArray('tags')
       const readingTime = await http.getFormValue('readingTime')
-      const imageAlt = await http.getFormValue('imageAlt')
-      const image = await http.getFormFile('image')
 
       const category = await categoriesService.fetchCategoryByName(categoryName)
 
-      const post: Omit<Post, 'id' | 'slug'> = {
+      const post: PostDraft = {
         name: title,
         content,
         tags,
-        image: {
-          url: image.name,
-          alt: imageAlt,
-        },
         author: AUTHOR,
         category: category,
         isAvailable: false,
         readingTime: Number(readingTime),
         date: new Date().toISOString(),
       }
-      const postImage: PostImage = {
-        file: image,
-        alt: imageAlt,
-      }
 
-      await postsService.createPost(post, postImage)
+      await postsCollection.createPost(post)
 
       return http.send({
         message: 'Post created successfully',

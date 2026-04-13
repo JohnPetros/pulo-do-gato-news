@@ -2,7 +2,7 @@ import type { ApiClient, SubscriptionsService } from '@/core/interfaces'
 import { ApiResponse } from '@/core/responses'
 import { ENV } from '@/constants/env'
 
-export const SanitySubscriptionsService = (
+export const SanitySubscriptionsCollection = (
   apiClient: ApiClient,
 ): SubscriptionsService => {
   return {

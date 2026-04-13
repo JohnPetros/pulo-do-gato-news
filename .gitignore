@@ -23,8 +23,13 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# cursor files
-.cursor/
-
 # vscode
 .vscode/
+
+# Agents
+CLAUDE.md
+.claude
+.agents
+.opencode
+.cursor
+opencode.json

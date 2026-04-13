@@ -5,7 +5,7 @@ import { v4 as generateUuid } from 'uuid'
 
 import { sanity } from '../sanity'
 
-import type { PostsService } from '@/core/interfaces'
+import type { PostsCollection } from '@/core/interfaces'
 import type { Post, PostImage } from '@/core/types'
 import { schema } from '../schemas'
 
@@ -14,7 +14,7 @@ const blockContentType = compiledSchema
   .get('post')
   .fields.find((field: any) => field.name === 'content').type
 
-export const SanityPostsService = (): PostsService => {
+export const SanityPostsCollection = (): PostsCollection => {
   return {
     async fetchPosts({ category, search, page, itemsPerPage }) {
       const categoryFilter =
@@ -159,17 +159,8 @@ export const SanityPostsService = (): PostsService => {
       return sanityPost as Post
     },
 
-    async createPost(post: Omit<Post, 'id' | 'slug'>, image: PostImage) {
+    async createPost(post: Omit<Post, 'id' | 'slug' | 'image'>) {
       const id = generateUuid()
-      const asset = await sanity.assets.upload(
-        'image',
-        Buffer.from(await image.file.arrayBuffer()),
-        {
-          filename: image.file.name,
-          contentType: image.file.type,
-        },
-      )
-
       const postContent = htmlToBlocks(post.content, blockContentType, {
         parseHtml: (html: string) => new JSDOM(html).window.document,
       })
@@ -190,14 +181,6 @@ export const SanityPostsService = (): PostsService => {
             _ref: post.category.id,
           },
         ],
-        image: {
-          _type: 'image',
-          asset: {
-            _type: 'reference',
-            _ref: asset._id,
-          },
-          alt: image.alt,
-        },
       })
     },
   }

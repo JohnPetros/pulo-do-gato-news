@@ -3,7 +3,7 @@ import { sanity } from '../sanity'
 import type { CategoriesService } from '@/core/interfaces'
 import type { Category } from '@/core/types'
 
-export const SanityCategoriesService = (): CategoriesService => {
+export const SanityCategoriesCollection = (): CategoriesService => {
   return {
     async fetchAllCategories() {
       return await sanity.fetch<Category[]>(

@@ -10,5 +10,7 @@ export default defineConfig({
   projectId: 'jlfn5obv',
   dataset: 'production',
   plugins: [structureTool(), visionTool()],
-  schema,
+  schema: {
+    types: schema.types,
+  },
 })

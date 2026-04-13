@@ -1,9 +1,9 @@
 ---
-import { postsService } from '../../cms';
+import { postsCollection } from '../../cms';
 
 import PostCard from '../post-card/index.astro';
 
-const posts = await postsService.fetchLastPosts();
+const posts = await postsCollection.fetchLastPosts();
 ---
 
 <section class='px-6 lg:px-0'>

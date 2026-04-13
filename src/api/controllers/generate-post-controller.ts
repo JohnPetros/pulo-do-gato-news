@@ -1,5 +1,5 @@
 import { HTTP_STATUS_CODE } from '@/constants/http-status-code'
-import type { NewsAiService, PostsService } from '@/core/interfaces'
+import type { NewsAiService, PostsCollection } from '@/core/interfaces'
 import type { Http } from '@/core/interfaces/http'
 
 const POST_CATEGORIES = [
@@ -12,12 +12,12 @@ const POST_CATEGORIES = [
 ]
 
 export const GeneratePostController = (
-  postsService: PostsService,
+  postsCollection: PostsCollection,
   newsAiService: NewsAiService,
 ) => {
   return {
     async handle(http: Http) {
-      const lastPost = await postsService.fetchLastPost()
+      const lastPost = await postsCollection.fetchLastPost()
       let postCategoryIndex = POST_CATEGORIES.findIndex(
         (category) => category === lastPost.category.name.toLowerCase(),
       )

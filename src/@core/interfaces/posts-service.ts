@@ -1,4 +1,5 @@
-import type { Post, PostImage } from '../types'
+import type { Post } from '../types'
+import type { PostDraft } from '../types/post-draft'
 
 type PostListParams = {
   category: string | null
@@ -7,11 +8,11 @@ type PostListParams = {
   itemsPerPage: number
 }
 
-export interface PostsService {
+export interface PostsCollection {
   fetchLastPost(): Promise<Post>
   fetchLastPosts(): Promise<Post[]>
   fetchPostSlugs(): Promise<string[]>
   fetchPostBySlug(slug: string): Promise<Post>
   fetchPosts(params: PostListParams): Promise<{ posts: Post[]; count: number }>
-  createPost(post: Omit<Post, 'id' | 'slug'>, image: PostImage): Promise<void>
+  createPost(postDraft: PostDraft): Promise<void>
 }
