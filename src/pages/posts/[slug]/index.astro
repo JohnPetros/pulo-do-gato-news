@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 
-import { PostsCollection } from '@/cms/index';
+import { postsCollection } from '@/cms/index';
 import RootLayout from '@/layouts/root/index.astro';
 import { CommentsSecion } from '@/components/comments-section';
 import PostContent from '@/components/post-content/index.astro';
@@ -12,7 +12,7 @@ import PageProgress from './page-progress/index.astro';
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const slugs = await PostsCollection.fetchPostSlugs();
+  const slugs = await postsCollection.fetchPostSlugs();
   return slugs.map(slug => ({
     params: { slug },
   }));
@@ -26,7 +26,7 @@ if (!slug) {
   return;
 }
 
-const post = await PostsCollection.fetchPostBySlug(slug);
+const post = await postsCollection.fetchPostBySlug(slug);
 ---
 
 <RootLayout title={post.name}>
