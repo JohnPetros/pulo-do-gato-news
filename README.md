@@ -216,12 +216,3 @@ Esta aplicação está sob a licença do MIT. Consulte o
 <p align="center">
   Feito com 💜 por John Petros 👋🏻
 </p>
-
-
-Bom dia.
-
-O maior problema do StarDust hoje é a permanência de usuários. 
-
-Muitos do que usam ou terminam o conteúdo não voltam mais para o site, visto que encaram o site como um curso
-
-Então, quando você está falando usuários ativos, isto é, usuários usando o site em um dia, eu diria que no máximo 15-20
