@@ -88,7 +88,7 @@ export const postSchema = {
         rule.required().positive().error('O tempo de leitura é obrigatório'),
     },
     {
-      name: 'is_reviewed',
+      name: 'isReviewed',
       title: 'Revisado',
       type: 'boolean',
       initialValue: false,

@@ -175,6 +175,7 @@ export const SanityPostsCollection = (): PostsCollection => {
         date: post.date,
         readingTime: post.readingTime,
         isAvailable: post.isAvailable,
+        isReviewed: false,
         category: [
           {
             _type: 'reference',
