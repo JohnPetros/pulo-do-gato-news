@@ -1,10 +1,62 @@
-@URL = {{BASE_URL}}/api/posts
+@url = {{BASE_URL}}/api/posts
+@postId = ce7ab589-ffff-42ec-978d-1a0b399f370f
 
 ### Get next post category
-GET {{URL}}/next
+GET {{url}}/next
 Content-Type: application/json
 
-### Make posts available
-POST {{URL}}/availability
+### Create post
+POST {{url}}/create
 Content-Type: application/json
+X-PNG-Api-Key: {{PGN_API_Key}}
 
+{
+  "title": "Novo post",
+  "content": "<p>Conteudo do post</p>",
+  "category": "tecnologia",
+  "readingTime": 5,
+  "tags": ["astro", "sanity"]
+}
+
+### Update post content
+PATCH {{url}}/{{postId}}/content
+Content-Type: application/json
+X-PNG-Api-Key: {{PGN_API_Key}}
+
+{
+  "content": "<p>Conteudo atualizado</p>"
+}
+
+### Update post title
+PATCH {{url}}/{{postId}}/title
+Content-Type: application/json
+X-PNG-Api-Key: {{PGN_API_Key}}
+
+{
+  "title": "Novo titulo do post"
+}
+
+### Update post review status
+PATCH {{url}}/{{postId}}/review-status
+Content-Type: application/json
+X-PNG-Api-Key: {{PGN_API_Key}}
+
+{
+  "isReviewed": false
+}
+
+### Update post image
+PATCH {{url}}/{{postId}}/image
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+X-PNG-Api-Key: {{PGN_API_Key}}
+
+--WebAppBoundary
+Content-Disposition: form-data; name="alt"
+
+Imagem atualizada do post
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="post-image.jpg"
+Content-Type: image/jpeg
+
+< ./rest-client/files/post-image.jpg
+--WebAppBoundary--
