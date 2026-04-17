@@ -184,5 +184,107 @@ export const SanityPostsCollection = (): PostsCollection => {
         ],
       })
     },
+
+    async updatePostContent(postId: string, content: string) {
+      const basePostId = postId.replace(/^drafts\./, '')
+      const draftPostId = `drafts.${basePostId}`
+
+      const existingPostId = await sanity.fetch<string | null>(
+        `*[_type == "post" && (_id == $postId || _id == $draftPostId)][0]._id`,
+        {
+          postId: basePostId,
+          draftPostId,
+        },
+      )
+
+      if (!existingPostId) {
+        return false
+      }
+
+      const postContent = htmlToBlocks(content, blockContentType, {
+        parseHtml: (html: string) => new JSDOM(html).window.document,
+      })
+
+      await sanity.patch(existingPostId).set({ content: postContent }).commit()
+
+      return true
+    },
+
+    async updatePostTitle(postId: string, title: string) {
+      const basePostId = postId.replace(/^drafts\./, '')
+      const draftPostId = `drafts.${basePostId}`
+
+      const existingPostId = await sanity.fetch<string | null>(
+        `*[_type == "post" && (_id == $postId || _id == $draftPostId)][0]._id`,
+        {
+          postId: basePostId,
+          draftPostId,
+        },
+      )
+
+      if (!existingPostId) {
+        return false
+      }
+
+      await sanity.patch(existingPostId).set({ name: title }).commit()
+
+      return true
+    },
+
+    async updatePostReviewStatus(postId: string, isReviewed: boolean) {
+      const basePostId = postId.replace(/^drafts\./, '')
+      const draftPostId = `drafts.${basePostId}`
+
+      const existingPostId = await sanity.fetch<string | null>(
+        `*[_type == "post" && (_id == $postId || _id == $draftPostId)][0]._id`,
+        {
+          postId: basePostId,
+          draftPostId,
+        },
+      )
+
+      if (!existingPostId) {
+        return false
+      }
+
+      await sanity.patch(existingPostId).set({ isReviewed }).commit()
+
+      return true
+    },
+
+    async updatePostImage(postId: string, postImage: PostImage) {
+      const basePostId = postId.replace(/^drafts\./, '')
+      const draftPostId = `drafts.${basePostId}`
+
+      const existingPostId = await sanity.fetch<string | null>(
+        `*[_type == "post" && (_id == $postId || _id == $draftPostId)][0]._id`,
+        {
+          postId: basePostId,
+          draftPostId,
+        },
+      )
+
+      if (!existingPostId) {
+        return false
+      }
+
+      const imageAsset = await sanity.assets.upload('image', postImage.file)
+
+      await sanity
+        .patch(existingPostId)
+        .set({
+          image: {
+            _type: 'image',
+            alt: postImage.alt,
+            asset: {
+              _type: 'reference',
+              _ref: imageAsset._id,
+            },
+          },
+        })
+        .commit()
+
+      return true
+    },
   }
 }
