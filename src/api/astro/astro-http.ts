@@ -1,5 +1,7 @@
 import type { APIContext, RewritePayload } from 'astro'
 
+import { ENV } from '@/constants/env'
+import { HTTP_HEADERS } from '@/constants/http-headers'
 import type { Http, HttpSchema } from '@/core/interfaces/http'
 import type { ZodSchema } from 'astro:schema'
 
@@ -57,6 +59,10 @@ export const AstroHttp = async <AstroSchema extends HttpSchema>({
     async getFormFile(key) {
       if (!formData) formData = await context.request.formData()
       return formData.get(key) as File
+    },
+
+    getHeader(key, fallback = '') {
+      return context.request.headers.get(key) ?? fallback
     },
 
     async getBody() {
