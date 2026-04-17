@@ -8,7 +8,7 @@ Content-Type: application/json
 ### Create post
 POST {{url}}/create
 Content-Type: application/json
-X-PNG-Api-Key: {{PGN_API_Key}}
+X-PDGN-Api-Key: {{PDGN_API_Key}}
 
 {
   "title": "Novo post",
@@ -21,7 +21,7 @@ X-PNG-Api-Key: {{PGN_API_Key}}
 ### Update post content
 PATCH {{url}}/{{postId}}/content
 Content-Type: application/json
-X-PNG-Api-Key: {{PGN_API_Key}}
+X-PDGN-Api-Key: {{PDGN_API_Key}}
 
 {
   "content": "<p>Conteudo atualizado</p>"
@@ -30,7 +30,7 @@ X-PNG-Api-Key: {{PGN_API_Key}}
 ### Update post title
 PATCH {{url}}/{{postId}}/title
 Content-Type: application/json
-X-PNG-Api-Key: {{PGN_API_Key}}
+X-PDGN-Api-Key: {{PDGN_API_Key}}
 
 {
   "title": "Novo titulo do post"
@@ -39,7 +39,7 @@ X-PNG-Api-Key: {{PGN_API_Key}}
 ### Update post review status
 PATCH {{url}}/{{postId}}/review-status
 Content-Type: application/json
-X-PNG-Api-Key: {{PGN_API_Key}}
+X-PDGN-Api-Key: {{PDGN_API_Key}}
 
 {
   "isReviewed": false
@@ -48,7 +48,7 @@ X-PNG-Api-Key: {{PGN_API_Key}}
 ### Update post image
 PATCH {{url}}/{{postId}}/image
 Content-Type: multipart/form-data; boundary=WebAppBoundary
-X-PNG-Api-Key: {{PGN_API_Key}}
+X-PDGN-Api-Key: {{PDGN_API_Key}}
 
 --WebAppBoundary
 Content-Disposition: form-data; name="alt"

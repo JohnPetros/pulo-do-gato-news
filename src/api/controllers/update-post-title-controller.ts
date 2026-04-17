@@ -16,6 +16,8 @@ type Schema = {
 export const UpdatePostTitleController = (postsCollection: PostsCollection) => {
   return {
     async handle(http: Http<Schema>) {
+      console.log(http.getHeader(HTTP_HEADERS.XPuloDoGatoNewsApiKey))
+      console.log(ENV.puloDoGatoNewsApiKey)
       if (
         http.getHeader(HTTP_HEADERS.XPuloDoGatoNewsApiKey) !== ENV.puloDoGatoNewsApiKey
       ) {
