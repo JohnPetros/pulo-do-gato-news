@@ -18,6 +18,7 @@ export interface PostsCollection {
   createPost(postDraft: PostDraft): Promise<void>
   updatePostContent(postId: string, content: string): Promise<boolean>
   updatePostTitle(postId: string, title: string): Promise<boolean>
+  updatePostSlug(postId: string, slug: string): Promise<boolean>
   updatePostReviewStatus(postId: string, isReviewed: boolean): Promise<boolean>
   updatePostImage(postId: string, postImage: PostImage): Promise<boolean>
 }

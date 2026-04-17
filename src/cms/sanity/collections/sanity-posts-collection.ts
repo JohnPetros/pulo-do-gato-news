@@ -231,6 +231,35 @@ export const SanityPostsCollection = (): PostsCollection => {
       return true
     },
 
+    async updatePostSlug(postId: string, slug: string) {
+      const basePostId = postId.replace(/^drafts\./, '')
+      const draftPostId = `drafts.${basePostId}`
+
+      const existingPostId = await sanity.fetch<string | null>(
+        `*[_type == "post" && (_id == $postId || _id == $draftPostId)][0]._id`,
+        {
+          postId: basePostId,
+          draftPostId,
+        },
+      )
+
+      if (!existingPostId) {
+        return false
+      }
+
+      await sanity
+        .patch(existingPostId)
+        .set({
+          slug: {
+            _type: 'slug',
+            current: slug,
+          },
+        })
+        .commit()
+
+      return true
+    },
+
     async updatePostReviewStatus(postId: string, isReviewed: boolean) {
       const basePostId = postId.replace(/^drafts\./, '')
       const draftPostId = `drafts.${basePostId}`
@@ -268,7 +297,15 @@ export const SanityPostsCollection = (): PostsCollection => {
         return false
       }
 
-      const imageAsset = await sanity.assets.upload('image', postImage.file)
+      console.log('postImage', postImage.file)
+
+      const file = postImage.file
+      const arrayBuffer = await file.arrayBuffer()
+      const buffer = Buffer.from(arrayBuffer)
+      const imageAsset = await sanity.assets.upload('image', buffer, {
+        filename: file.name || 'upload.jpg',
+        contentType: file.type || 'application/octet-stream',
+      })
 
       await sanity
         .patch(existingPostId)
