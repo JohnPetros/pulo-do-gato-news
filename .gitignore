@@ -33,6 +33,7 @@ CLAUDE.md
 .opencode
 .cursor
 opencode.json
+prompt.md
 
 # Terminal Paste Image folder
 .cp-images/
