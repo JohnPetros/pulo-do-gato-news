@@ -1,7 +1,6 @@
 import { AxiosApiClient } from '@/api/axios'
-import { ENV } from '../constants'
 
-const apiClient = AxiosApiClient(ENV.appUrl)
+const apiClient = AxiosApiClient('')
 
 export function useApi() {
   return apiClient
