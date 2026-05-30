@@ -22,6 +22,8 @@ export const CommentsSecion = ({ postId }: Props) => {
     handleLoadMoreButtonClick,
   } = useCommentsSection({ postId, apiClient })
 
+  console.log({ isFetchingComments })
+
   return (
     <section id='comments'>
       {isToastVisible && (
