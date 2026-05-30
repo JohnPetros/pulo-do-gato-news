@@ -32,6 +32,7 @@ CLAUDE.md
 .agents
 .opencode
 .cursor
+.codex
 opencode.json
 prompt.md
 
